@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,17 +6,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidBody;
 
     [SerializeField]
-    private float _speed;
-    
-    private Vector2 _facingDirection;
+    private PlayerSettingsSO _settings;
 
-    private Dictionary<KeyCode, Vector2> _directions = new Dictionary<KeyCode, Vector2>
-    {
-        { KeyCode.A, Vector2.left },
-        { KeyCode.W, Vector2.up },
-        { KeyCode.S, Vector2.down },
-        { KeyCode.D, Vector2.right }
-    };
+    private Vector2 _facingDirection;
 
     private void Update()
     {
@@ -28,7 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         _facingDirection = Vector2.zero;
 
-        foreach (var pair in _directions)
+        foreach (var pair in _settings.DirectionKeys)
         {
             if (Input.GetKey(pair.Key))
             {
@@ -40,14 +31,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // commit test
         MovePlayer();
     }
 
     private void MovePlayer()
     {
         Vector2 position = _rigidBody.position;
-        Vector2 translate = _facingDirection * _speed * Time.fixedDeltaTime;
+        Vector2 translate = _facingDirection * _settings.Speed * Time.fixedDeltaTime;
         _rigidBody.MovePosition(position + translate);
     }
 }
