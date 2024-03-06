@@ -13,5 +13,5 @@ public class PlayerSettingsSO : ScriptableObject
     };
 
     public KeyCode BombKey { get; private set; } = KeyCode.B;
-    public float Speed { get; private set; } = 3f;
+    public float Speed { get; private set; } = 5f;
 }

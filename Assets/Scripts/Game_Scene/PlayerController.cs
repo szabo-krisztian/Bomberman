@@ -8,14 +8,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private PlayerSettingsSO _settings;
 
+    [SerializeField]
+    private GameObject _bombPrefab;
+
     private Vector2 _facingDirection;
 
     private void Update()
     {
-        UpdateDirection();
+        UpdateFacingDirection();
+        CheckIfPlayerPlacedBomb();
     }
 
-    private void UpdateDirection()
+    private void UpdateFacingDirection()
     {
         _facingDirection = Vector2.zero;
 
@@ -29,6 +33,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void CheckIfPlayerPlacedBomb()
+    {
+        if (Input.GetKeyDown(_settings.BombKey))
+        {
+            Vector2 bombPosition = UtilityFunctions.GetCenterPosition(_rigidBody.position);
+            Instantiate(_bombPrefab, bombPosition, Quaternion.identity);
+        }
+    }
+
     private void FixedUpdate()
     {
         MovePlayer();
@@ -36,8 +49,6 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        Vector2 position = _rigidBody.position;
-        Vector2 translate = _facingDirection * _settings.Speed * Time.fixedDeltaTime;
-        _rigidBody.MovePosition(position + translate);
+        _rigidBody.velocity = _facingDirection * _settings.Speed;
     }
 }
