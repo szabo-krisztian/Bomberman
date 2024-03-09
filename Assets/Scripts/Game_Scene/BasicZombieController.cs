@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BasicZombieController : MonoBehaviour
@@ -21,10 +22,39 @@ public class BasicZombieController : MonoBehaviour
 
     void Update()
     {
-        
     }
 
     private void FixedUpdate()
+    {
+        MoveZombie();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Indestructibles"))
+        {
+            ChangeCurrentDirection();
+        }
+    }
+
+    /// <summary>
+    /// Gets a random direction for the zombies
+    /// </summary>
+    /// <returns>Return the random direction value</returns>
+    private Directions GetRandomDirection()
+    {
+        var directionValues = Enum.GetValues(typeof(Directions));
+        System.Random random = new System.Random();
+        Directions randomDirection = (Directions)directionValues.GetValue(random.Next(directionValues.Length));
+
+        return randomDirection;
+    }
+
+    /// <summary>
+    /// Calculates the translate value of the zombie based on its current directions
+    /// and performs to movement
+    /// </summary>
+    private void MoveZombie()
     {
         Vector2 position = _rigidBody.position;
         Vector2 translate = Vector2.zero;
@@ -50,15 +80,11 @@ public class BasicZombieController : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets a random direction for the zombies
+    /// Changes the current direction of the zombie whenever a collision happens
+    /// with a destructible object
     /// </summary>
-    /// <returns>Return the random direction value</returns>
-    private Directions GetRandomDirection()
+    private void ChangeCurrentDirection()
     {
-        var directionValues = Enum.GetValues(typeof(Directions));
-        System.Random random = new System.Random();
-        Directions randomDirection = (Directions)directionValues.GetValue(random.Next(directionValues.Length));
 
-        return randomDirection;
     }
 }

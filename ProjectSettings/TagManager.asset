@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Obstacle
   - Explosion
+  - Indestructibles
+  - Destructibles
   layers:
   - Default
   - TransparentFX
@@ -51,4 +53,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2886557907
+    locked: 0
+  - name: Zombie
+    uniqueID: 2391549731
     locked: 0
