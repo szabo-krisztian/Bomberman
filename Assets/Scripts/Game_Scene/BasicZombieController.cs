@@ -10,12 +10,11 @@ public class BasicZombieController : MonoBehaviour
     private Rigidbody2D _rigidBody;
 
     [SerializeField]
-    private float _speed;
+    private float _speed = 5.0f;
 
-    private Directions _currentDirection;
+    private Vector2 _currentDirection = Vector2.zero;
     void Start()
     {
-        _speed = 2.0f;
         _rigidBody = GetComponent<Rigidbody2D>();
         _currentDirection = GetRandomDirection();
     }
@@ -31,7 +30,7 @@ public class BasicZombieController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Indestructibles"))
+        if (collision.gameObject.CompareTag("Indestructibles") || collision.gameObject.CompareTag("Destructibles"))
         {
             ChangeCurrentDirection();
         }
@@ -41,13 +40,24 @@ public class BasicZombieController : MonoBehaviour
     /// Gets a random direction for the zombies
     /// </summary>
     /// <returns>Return the random direction value</returns>
-    private Directions GetRandomDirection()
+    private Vector2 GetRandomDirection()
     {
-        var directionValues = Enum.GetValues(typeof(Directions));
-        System.Random random = new System.Random();
-        Directions randomDirection = (Directions)directionValues.GetValue(random.Next(directionValues.Length));
+        var random = new System.Random();
+        int randomIndex = random.Next(0, 4);
 
-        return randomDirection;
+        switch (randomIndex)
+        {
+            case 0:
+                return Vector2.up;
+            case 1:
+                return Vector2.down;
+            case 2:
+                return Vector2.left;
+            case 3:
+                return Vector2.right;
+            default:
+                return Vector2.zero;
+        }
     }
 
     /// <summary>
@@ -56,25 +66,8 @@ public class BasicZombieController : MonoBehaviour
     /// </summary>
     private void MoveZombie()
     {
-        Vector2 position = _rigidBody.position;
-        Vector2 translate = Vector2.zero;
-
-        // calculate translate value based on the current direction
-        switch (_currentDirection)
-        {
-            case Directions.UP:
-                translate = Vector2.up * _speed * Time.fixedDeltaTime;
-                break;
-            case Directions.DOWN:
-                translate = Vector2.down * _speed * Time.fixedDeltaTime;
-                break;
-            case Directions.LEFT:
-                translate = Vector2.left * _speed * Time.fixedDeltaTime;
-                break;
-            case Directions.RIGHT:
-                translate = Vector2.right * _speed * Time.fixedDeltaTime;
-                break;
-        }
+        var position = _rigidBody.position;
+        var translate = _currentDirection * _speed * Time.fixedDeltaTime;
 
         _rigidBody.MovePosition(position + translate);
     }
