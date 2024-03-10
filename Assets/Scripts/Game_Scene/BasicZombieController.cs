@@ -12,10 +12,18 @@ public class BasicZombieController : MonoBehaviour
     [SerializeField]
     private float _speed = 5.0f;
 
+    private Vector3 _currentTilemapPosition;
+    private Vector3 _nextTilemapPosition;
     private Vector2 _currentDirection = Vector2.zero;
-    void Start()
+
+    void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        _currentTileMapPosition = GetCurrentTilemapPosition();
+        
+    }
+    void Start()
+    {
         _currentDirection = GetRandomDirection();
     }
 
