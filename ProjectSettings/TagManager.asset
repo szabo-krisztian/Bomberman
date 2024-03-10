@@ -51,9 +51,9 @@ TagManager:
   - name: Destructibles
     uniqueID: 1478909943
     locked: 0
-  - name: Player
-    uniqueID: 2886557907
-    locked: 0
   - name: Zombie
     uniqueID: 2391549731
+    locked: 0
+  - name: Player
+    uniqueID: 2886557907
     locked: 0
