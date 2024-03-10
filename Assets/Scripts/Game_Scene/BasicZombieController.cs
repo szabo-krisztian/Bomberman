@@ -81,10 +81,17 @@ public class BasicZombieController : MonoBehaviour
 
     /// <summary>
     /// Changes the current direction of the zombie whenever a collision happens
-    /// with a destructible object
+    /// with a destructible object. Generates different directions until the one is not 
+    /// the same as the current.
     /// </summary>
     private void ChangeCurrentDirection()
     {
+        var newDirection = GetRandomDirection();
+        while (newDirection == _currentDirection)
+        {
+            newDirection = GetRandomDirection();
+        }
 
+        _currentDirection = newDirection;
     }
 }
