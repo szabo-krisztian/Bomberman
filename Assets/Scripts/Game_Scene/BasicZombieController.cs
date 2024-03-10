@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class BasicZombieController : MonoBehaviour
 {
@@ -12,19 +13,31 @@ public class BasicZombieController : MonoBehaviour
     [SerializeField]
     private float _speed = 5.0f;
 
+    [SerializeField]
+    private TilemapSO _tilemapSO;
+
+    [SerializeField]
+    private Tilemap _destructibles;
+
+    [SerializeField]
+    private Tilemap _indestructibles;
+
     private Vector3 _currentTilemapPosition;
-    private Vector3 _nextTilemapPosition;
+    private Vector3Int _nextTilemapPosition;
     private Vector2 _currentDirection = Vector2.zero;
 
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
-        _currentTileMapPosition = GetCurrentTilemapPosition();
+        // _currentTileMapPosition = GetCurrentTilemapPosition();
         
     }
     void Start()
     {
         _currentDirection = GetRandomDirection();
+        _currentTilemapPosition = GetTilemapPosition();
+
+        _currentTilemapPosition += new Vector3(0.5f, 0.5f, 0); // to center the zombie on the current tile
     }
 
     void Update()
@@ -42,6 +55,14 @@ public class BasicZombieController : MonoBehaviour
         {
             ChangeCurrentDirection();
         }
+    }
+
+    private Vector3Int GetTilemapPosition()
+    {
+        Vector3 zombieWorldPosition = transform.position;
+        Vector3Int zombieGridPosition = _destructibles.WorldToCell(zombieWorldPosition);
+
+        return zombieGridPosition;
     }
 
     /// <summary>
