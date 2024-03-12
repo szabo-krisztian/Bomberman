@@ -54,9 +54,8 @@ public class BasicZombieController : MonoBehaviour
         if (collision.gameObject.CompareTag("Indestructibles") || collision.gameObject.CompareTag("Destructibles"))
         {
             ChangeCurrentDirection();
-        }
+        }        
     }
-
     private Vector3Int GetTilemapPosition()
     {
         Vector3 zombieWorldPosition = transform.position;
