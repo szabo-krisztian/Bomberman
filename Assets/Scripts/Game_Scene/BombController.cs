@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -42,26 +43,49 @@ public class BombController : MonoBehaviour
         Collider2D overlapColliderCircle = Physics2D.OverlapCircle(position, .25f);
         if (overlapColliderCircle != null)
         {
-            CheckIfBoxHit(overlapColliderCircle.gameObject);
-            return;
+            EntityHit(overlapColliderCircle.gameObject);
+
+            if (CheckIfBoxHit(overlapColliderCircle.gameObject) || CheckIfWallHit(overlapColliderCircle.gameObject))
+            { 
+                return;
+            }
         }
 
         Instantiate(_explosionPrefab, position, Quaternion.identity);
         ExplodeInStraightLine(position + direction, direction, length - 1);
     }
 
-    private void CheckIfBoxHit(GameObject overlappedObject)
+    private bool CheckIfWallHit(GameObject overlappedObject)
+    {
+        return overlappedObject.CompareTag("Wall");
+    }
+
+    private void EntityHit(GameObject overlappedObject)
+    {
+        if (overlappedObject.CompareTag("Player"))
+        {
+            overlappedObject.SendMessage("OnPlayerDeath");
+        }
+        if (overlappedObject.CompareTag("Zombie"))
+        {
+            overlappedObject.SendMessage("OnZombieDeath");
+        }
+    }
+
+    private bool CheckIfBoxHit(GameObject overlappedObject)
     {
         if (overlappedObject.CompareTag("Box"))
         {
             overlappedObject.SendMessage("OnExplosionHit");
+            return true;
         }
+        return false;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        bool isPlayerOutOfBomb = other.CompareTag("Player");
-        if (isPlayerOutOfBomb)
+        bool isPlayerExitedBomb = other.CompareTag("Player");
+        if (isPlayerExitedBomb)
         {
             _bombCollider.isTrigger = false;
         }
