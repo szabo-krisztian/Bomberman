@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,34 +6,39 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidBody;
 
     [SerializeField]
-    private float _speed;
-    
-    private Vector2 _facingDirection;
+    private PlayerSettingsSO _settings;
 
-    private Dictionary<KeyCode, Vector2> _directions = new Dictionary<KeyCode, Vector2>
-    {
-        { KeyCode.A, Vector2.left },
-        { KeyCode.W, Vector2.up },
-        { KeyCode.S, Vector2.down },
-        { KeyCode.D, Vector2.right }
-    };
+    [SerializeField]
+    private GameObject _bombPrefab;
+
+    private Vector2 _facingDirection;
 
     private void Update()
     {
-        UpdateDirection();
+        UpdateFacingDirection();
+        CheckIfPlayerPlacedBomb();
     }
 
-    private void UpdateDirection()
+    private void UpdateFacingDirection()
     {
         _facingDirection = Vector2.zero;
 
-        foreach (var pair in _directions)
+        foreach (var pair in _settings.DirectionKeys)
         {
             if (Input.GetKey(pair.Key))
             {
                 _facingDirection = pair.Value;
                 return;
             }
+        }
+    }
+
+    private void CheckIfPlayerPlacedBomb()
+    {
+        if (Input.GetKeyDown(_settings.BombKey))
+        {
+            Vector2 bombPosition = UtilityFunctions.GetCenterPosition(_rigidBody.position);
+            Instantiate(_bombPrefab, bombPosition, Quaternion.identity);
         }
     }
 
@@ -45,8 +49,6 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        Vector2 position = _rigidBody.position;
-        Vector2 translate = _facingDirection * _speed * Time.fixedDeltaTime;
-        _rigidBody.MovePosition(position + translate);
+        _rigidBody.velocity = _facingDirection * _settings.Speed;
     }
 }
