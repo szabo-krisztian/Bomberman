@@ -30,8 +30,6 @@ public class BasicZombieController : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _currentTilemapPosition = GetCurrentTilemapPosition();
-
-        Debug.Log(_currentTilemapPosition);
     }
     void Start()
     {
@@ -44,7 +42,7 @@ public class BasicZombieController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveZombie();
+        Move();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -52,6 +50,7 @@ public class BasicZombieController : MonoBehaviour
         if (collision.gameObject.CompareTag("Indestructibles") || collision.gameObject.CompareTag("Destructibles"))
         {
             ChangeCurrentDirection();
+            Debug.Log("COLLISION: " + collision.gameObject);
         }        
     }
     private Vector3Int GetCurrentTilemapPosition()
@@ -90,7 +89,7 @@ public class BasicZombieController : MonoBehaviour
     /// Calculates the translate value of the zombie based on its current directions
     /// and performs to movement
     /// </summary>
-    private void MoveZombie()
+    private void Move()
     {
         var position = _rigidBody.position;
         var translate = _currentDirection * _speed * Time.fixedDeltaTime;
