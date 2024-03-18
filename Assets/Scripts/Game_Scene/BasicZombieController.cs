@@ -34,12 +34,12 @@ public class BasicZombieController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Move();
+        Move();
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        transform.position = UtilityFunctions.GetCenterPosition(transform.position);
+        SetToTileCenter();
         ChangeCurrentDirection();
     }
 
@@ -71,7 +71,7 @@ public class BasicZombieController : MonoBehaviour
     {
         Vector3 position = transform.position;
         Vector3Int flooredPosition = new Vector3Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
-        transform.position = flooredPosition + new Vector3(0.5f, 0.5f, 0.0f);
+        transform.position = flooredPosition + new Vector3(0.5f, 0.85f, 0.0f);
     }
 
     /// <summary>
