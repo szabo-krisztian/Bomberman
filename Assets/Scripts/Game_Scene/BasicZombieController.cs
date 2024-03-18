@@ -10,11 +10,11 @@ public class BasicZombieController : MonoBehaviour
     private const float RAY_LENGTH = 0.05f;
     private const float COLLIDER_OFFSET = 0.35f;
 
-    [SerializeField]
-    private Rigidbody2D _rigidBody;
+    [SerializeField] private Rigidbody2D _rigidBody;
+    [SerializeField] private float _speed = 5.0f;
+    [SerializeField] private float _directionChangeInterval = 5.0f;
 
-    [SerializeField]
-    private float _speed = 5.0f;
+    private float _directionChangeTimer = 0.0f;
 
     private readonly Vector2[] _directions = { Vector2.up, Vector2.down, Vector2.right, Vector2.left };
     private Vector2 _currentDirection = Vector2.zero;
@@ -32,6 +32,7 @@ public class BasicZombieController : MonoBehaviour
 
     void Update()
     {
+        UpdateDirectionChangerTimer();
     }
 
     private void FixedUpdate()
@@ -46,9 +47,26 @@ public class BasicZombieController : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets a random direction for the zombie using ray casting to calculate the available directions 
+    /// Called by the Update method, simulates a timer functionality. When the elapsed time is greater than the interval,
+    /// the zombie changes its direction and a new interval is calculated "randomly".
     /// </summary>
-    /// <returns>Return the random direction value. If no available direction, returns a zero vector</returns>
+    private void UpdateDirectionChangerTimer()
+    {
+        _directionChangeTimer += Time.deltaTime;
+
+        if ( _directionChangeTimer > _directionChangeInterval + Mathf.Epsilon)
+        {
+            ChangeCurrentDirection();
+            _directionChangeTimer = 0.0f;
+
+            _directionChangeInterval = UnityEngine.Random.Range(5.0f, 10.0f); // randomly calculating an interval each time for more random changes
+        }
+    }
+
+    /// <summary>
+    /// Gets a random direction for the zombie using ray casting to calculate the available directions. 
+    /// </summary>
+    /// <returns>Return the random direction value. If no available direction, returns a zero vector.</returns>
     private Vector2 GetRandomDirection()
     {
         List<Vector2> availableDirections = new List<Vector2>();
