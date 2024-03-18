@@ -17,23 +17,16 @@ public class BasicZombieController : MonoBehaviour
     private Vector3 _nextTilemapPosition;
     private Vector2 _currentDirection = Vector2.zero;
 
-    [SerializeField]
-    private TilemapSO _tilemapSO;
-
-    [SerializeField]
-    private Tilemap _destructibles;
-
-    [SerializeField]
-    private Tilemap _indestructibles;
-
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
-        _currentTilemapPosition = GetCurrentTilemapPosition();
+        // _currentTilemapPosition = GetCurrentTilemapPosition();
     }
     void Start()
     {
         _currentDirection = GetRandomDirection();
+        SetToTileCenter();
+        Debug.Log(transform.position);
     }
 
     void Update()
@@ -49,17 +42,21 @@ public class BasicZombieController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Indestructibles") || collision.gameObject.CompareTag("Destructibles"))
         {
+            SetToTileCenter();
+            Debug.Log("COLLISIOS");
+            Debug.Log("PREV. DIR: " + _currentDirection);
             ChangeCurrentDirection();
-            Debug.Log("COLLISION: " + collision.gameObject);
-        }        
+            Debug.Log("NEW. DIR: " + _currentDirection);
+        }
     }
-    private Vector3Int GetCurrentTilemapPosition()
-    {
-        Vector3 zombieWorldPosition = transform.position;
-        Vector3Int zombieGridPosition = _destructibles.WorldToCell(zombieWorldPosition);
 
-        return zombieGridPosition;
-    }
+    //private Vector3Int GetCurrentTilemapPosition()
+    //{
+    //      Vector3 zombieWorldPosition = transform.position;
+    //    Vector3Int zombieGridPosition = _destructibles.WorldToCell(zombieWorldPosition);
+
+    //    return zombieGridPosition;
+    //}
 
     /// <summary>
     /// Gets a random direction for the zombies
@@ -85,6 +82,13 @@ public class BasicZombieController : MonoBehaviour
         }
     }
 
+    private void SetToTileCenter()
+    {
+        Vector3 position = transform.position;
+        Vector3Int flooredPosition = new Vector3Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
+        transform.position = flooredPosition + new Vector3(0.5f, 0.5f, 0.0f);
+    }
+
     /// <summary>
     /// Calculates the translate value of the zombie based on its current directions
     /// and performs to movement
@@ -104,6 +108,7 @@ public class BasicZombieController : MonoBehaviour
     /// </summary>
     private void ChangeCurrentDirection()
     {
+        Debug.Log("ITT VAGYOK");
         var newDirection = GetRandomDirection();
         while (newDirection == _currentDirection)
         {
