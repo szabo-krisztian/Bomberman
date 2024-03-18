@@ -8,6 +8,8 @@ TagManager:
   - Explosion
   - Indestructibles
   - Destructibles
+  - Box
+  - Wall
   layers:
   - Default
   - TransparentFX

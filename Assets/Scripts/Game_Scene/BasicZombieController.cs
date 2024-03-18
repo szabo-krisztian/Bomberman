@@ -7,15 +7,17 @@ using UnityEngine.Tilemaps;
 
 public class BasicZombieController : MonoBehaviour
 {
+    private const float RAY_LENGTH = 0.05f;
+    private const float COLLIDER_OFFSET = 0.35f;
+
     [SerializeField]
     private Rigidbody2D _rigidBody;
 
     [SerializeField]
     private float _speed = 5.0f;
 
+    private readonly Vector2[] _directions = { Vector2.up, Vector2.down, Vector2.right, Vector2.left };
     private Vector2 _currentDirection = Vector2.zero;
-
-    private const float RAY_LENGTH = 0.05f;
 
     void Awake()
     {
@@ -44,34 +46,44 @@ public class BasicZombieController : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets a random direction for the zombies
+    /// Gets a random direction for the zombie using ray casting to calculate the available directions 
     /// </summary>
-    /// <returns>Return the random direction value</returns>
+    /// <returns>Return the random direction value. If no available direction, returns a zero vector</returns>
     private Vector2 GetRandomDirection()
     {
-        var random = new System.Random();
-        int randomIndex = random.Next(0, 4);
+        List<Vector2> availableDirections = new List<Vector2>();
+        Vector2 position = transform.position;
 
-        switch (randomIndex)
+        foreach (var direction in _directions)
         {
-            case 0:
-                return Vector2.up;
-            case 1:
-                return Vector2.down;
-            case 2:
-                return Vector2.left;
-            case 3:
-                return Vector2.right;
-            default:
-                return Vector2.zero;
+            RaycastHit2D hit = Physics2D.Raycast(position + direction * 0.5f, direction, RAY_LENGTH);
+            bool isWallOrBoxHit = hit.collider == null || (!hit.collider.CompareTag("Box") && !hit.collider.CompareTag("Wall"));
+
+            if (isWallOrBoxHit)
+            {
+                availableDirections.Add(direction);
+            }
+        }
+
+        if (availableDirections.Count > 0)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, availableDirections.Count);
+            return availableDirections[randomIndex];
+        }
+        else
+        {
+            return Vector2.zero;
         }
     }
 
+    /// <summary>
+    /// Sets the player to the center of the tile taking into account the offset of the collider
+    /// </summary>
     private void SetToTileCenter()
     {
         Vector3 position = transform.position;
         Vector3Int flooredPosition = new Vector3Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
-        transform.position = flooredPosition + new Vector3(0.5f, 0.85f, 0.0f);
+        transform.position = flooredPosition + new Vector3(0.5f, 0.5f + COLLIDER_OFFSET, 0.0f);
     }
 
     /// <summary>

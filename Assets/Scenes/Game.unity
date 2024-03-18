@@ -653,7 +653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5832135079965783766, guid: a347782e3fe992849924e55f00b9f7b2, type: 3}
       propertyPath: m_TagString
-      value: Indestructibles
+      value: Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a347782e3fe992849924e55f00b9f7b2, type: 3}
