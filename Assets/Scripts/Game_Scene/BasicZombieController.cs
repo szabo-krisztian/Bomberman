@@ -13,20 +13,19 @@ public class BasicZombieController : MonoBehaviour
     [SerializeField]
     private float _speed = 5.0f;
 
-    private Vector3 _currentTilemapPosition;
-    private Vector3 _nextTilemapPosition;
     private Vector2 _currentDirection = Vector2.zero;
+
+    private const float RAY_LENGTH = 0.05f;
 
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
-        // _currentTilemapPosition = GetCurrentTilemapPosition();
+        
     }
     void Start()
     {
         _currentDirection = GetRandomDirection();
         SetToTileCenter();
-        Debug.Log(transform.position);
     }
 
     void Update()
@@ -35,28 +34,14 @@ public class BasicZombieController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        // Move();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Indestructibles") || collision.gameObject.CompareTag("Destructibles"))
-        {
-            SetToTileCenter();
-            Debug.Log("COLLISIOS");
-            Debug.Log("PREV. DIR: " + _currentDirection);
-            ChangeCurrentDirection();
-            Debug.Log("NEW. DIR: " + _currentDirection);
-        }
+        transform.position = UtilityFunctions.GetCenterPosition(transform.position);
+        ChangeCurrentDirection();
     }
-
-    //private Vector3Int GetCurrentTilemapPosition()
-    //{
-    //      Vector3 zombieWorldPosition = transform.position;
-    //    Vector3Int zombieGridPosition = _destructibles.WorldToCell(zombieWorldPosition);
-
-    //    return zombieGridPosition;
-    //}
 
     /// <summary>
     /// Gets a random direction for the zombies
@@ -108,7 +93,6 @@ public class BasicZombieController : MonoBehaviour
     /// </summary>
     private void ChangeCurrentDirection()
     {
-        Debug.Log("ITT VAGYOK");
         var newDirection = GetRandomDirection();
         while (newDirection == _currentDirection)
         {
