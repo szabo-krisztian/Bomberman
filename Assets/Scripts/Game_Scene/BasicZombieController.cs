@@ -8,7 +8,8 @@ using UnityEngine.Tilemaps;
 public class BasicZombieController : MonoBehaviour
 {
     private const float RAY_LENGTH = 0.05f;
-    private const float COLLIDER_OFFSET = 0.35f;
+    private const float COLLIDER_OFFSET_Y = 0.35f;
+    private const float COLLIDER_OFFSET_X = 0.0f;
 
     [SerializeField] private Rigidbody2D _rigidBody;
     [SerializeField] private float _speed = 5.0f;
@@ -75,9 +76,9 @@ public class BasicZombieController : MonoBehaviour
         foreach (var direction in _directions)
         {
             RaycastHit2D hit = Physics2D.Raycast(position + direction * 0.5f, direction, RAY_LENGTH);
-            bool isWallOrBoxHit = hit.collider == null || (!hit.collider.CompareTag("Box") && !hit.collider.CompareTag("Wall"));
+            bool isDirectionAvailable = hit.collider == null || (!hit.collider.CompareTag("Box") && !hit.collider.CompareTag("Wall"));
 
-            if (isWallOrBoxHit)
+            if (isDirectionAvailable)
             {
                 availableDirections.Add(direction);
             }
@@ -99,9 +100,8 @@ public class BasicZombieController : MonoBehaviour
     /// </summary>
     private void SetToTileCenter()
     {
-        Vector3 position = transform.position;
-        Vector3Int flooredPosition = new Vector3Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
-        transform.position = flooredPosition + new Vector3(0.5f, 0.5f + COLLIDER_OFFSET, 0.0f);
+        var colliderOffset = new Vector2(COLLIDER_OFFSET_X, COLLIDER_OFFSET_Y);
+        transform.position = UtilityFunctions.GetCenterPosition(transform.position) + colliderOffset;
     }
 
     /// <summary>
