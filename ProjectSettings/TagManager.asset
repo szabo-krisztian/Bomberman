@@ -4,12 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Obstacle
   - Explosion
-  - Indestructibles
-  - Destructibles
   - Box
   - Wall
+  - Bomb
+  - Zombie
   layers:
   - Default
   - TransparentFX
