@@ -43,6 +43,7 @@ public class BasicZombieController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        SetToTileCenter();
         ChangeCurrentDirection();
     }
 
@@ -56,6 +57,7 @@ public class BasicZombieController : MonoBehaviour
 
         if ( _directionChangeTimer > _directionChangeInterval + Mathf.Epsilon)
         {
+            SetToTileCenter();
             ChangeCurrentDirection();
             _directionChangeTimer = 0.0f;
 
@@ -122,8 +124,6 @@ public class BasicZombieController : MonoBehaviour
     /// </summary>
     private void ChangeCurrentDirection()
     {
-        SetToTileCenter();
-
         var newDirection = GetRandomDirection();
         while (newDirection == _currentDirection)
         {
