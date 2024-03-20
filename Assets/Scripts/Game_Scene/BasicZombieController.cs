@@ -57,6 +57,7 @@ public class BasicZombieController : MonoBehaviour
 
         if ( _directionChangeTimer > _directionChangeInterval + Mathf.Epsilon)
         {
+            SetToTileCenter();
             ChangeCurrentDirection();
             _directionChangeTimer = 0.0f;
 
