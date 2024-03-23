@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DraggableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class MyDraggableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private bool _isPressed;
     private Vector3 _defaultPosition;
