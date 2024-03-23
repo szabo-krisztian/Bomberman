@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public abstract class MyButtonBase<T> : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] private Sprite _releasedSprite;
+    [SerializeField] private Sprite _defaultSprite;
     [SerializeField] private Sprite _clickedSprite;
     private TextMeshProUGUI _buttonText;
     private Image _buttonImage;
@@ -29,7 +29,7 @@ public abstract class MyButtonBase<T> : MonoBehaviour, IPointerDownHandler, IPoi
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        _buttonImage.sprite = _releasedSprite;
+        _buttonImage.sprite = _defaultSprite;
         Vector2 defaultTextPosition = transform.position + new Vector3(0, (GetCurrentButtonHeight() / 15));
         MoveButtonText(defaultTextPosition);
 

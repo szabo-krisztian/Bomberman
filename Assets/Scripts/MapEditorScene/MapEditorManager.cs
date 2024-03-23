@@ -76,4 +76,9 @@ public class MapEditorManager : MonoBehaviour
         Vector3 cursorWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return _background.WorldToCell(cursorWorldPos);
     }
+
+    public void OnSaveButtonHit(Void voidParam)
+    {
+        Debug.Log("Save button hit");
+    }
 }
