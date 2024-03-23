@@ -15,6 +15,7 @@ public class ResponsivePanel : MonoBehaviour
     {
         _lastScreenSize.x = Screen.width;
         _lastScreenSize.y = Screen.height;
+        OnScreenSizeChanged();
         StartCoroutine(CheckScreenSizeChange());
     }
 

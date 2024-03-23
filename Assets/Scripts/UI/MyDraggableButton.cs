@@ -3,27 +3,21 @@ using UnityEngine.EventSystems;
 
 public class MyDraggableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    private Transform _viewImageTransform;
     private bool _isPressed;
-    private Vector3 _defaultPosition;
 
     private void Start()
     {
         _isPressed = false;
-        _defaultPosition = transform.position;
+        _viewImageTransform = transform.GetChild(0);
     }
 
     private void Update()
     {
         if (_isPressed)
         {
-            MoveImageAround();   
+            _viewImageTransform.transform.position = Input.mousePosition;
         }
-    }
-
-    private void MoveImageAround()
-    {
-        Vector3 cursorPosition = Input.mousePosition;
-        transform.position = cursorPosition;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -33,7 +27,7 @@ public class MyDraggableButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        transform.position = _defaultPosition;
         _isPressed = false;
+        _viewImageTransform.transform.position = transform.position;
     }
 }
