@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New MapSO", menuName = "SciptableObjects/MapSO")]
+[CreateAssetMenu(fileName = "New MapSO", menuName = "ScriptableObjects/MapSO")]
 public class TilemapSO : ScriptableObject
 {
     public string MapName;
