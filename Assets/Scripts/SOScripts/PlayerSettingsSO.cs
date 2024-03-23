@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New PlayerSettings", menuName = "SciptableObjects/PlayerSettingsSO")]
+[CreateAssetMenu(fileName = "New PlayerSettings", menuName = "ScriptableObjects/PlayerSettingsSO")]
 public class PlayerSettingsSO : ScriptableObject
 {
     public Dictionary<KeyCode, Vector2> DirectionKeys { get; private set; } = new Dictionary<KeyCode, Vector2>
