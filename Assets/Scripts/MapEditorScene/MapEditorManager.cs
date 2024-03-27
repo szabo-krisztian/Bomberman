@@ -16,18 +16,21 @@ public class MapEditorManager : MonoBehaviour
     
     private Tilemap _obstacleTilemap;
     private Tilemap _backgroundTilemap;
+
     private BoundsInt _tilemapBounds;
     private TileBase _activeTile;
-    private bool _isPlayerBeingPlayed;
+    private bool _isPlayerBeingPlaced;
 
     private void Start()
     {
         Tilemap[] tilemaps = GetComponentsInChildren<Tilemap>();
         _obstacleTilemap = tilemaps[0];
         _backgroundTilemap = tilemaps[1];
+
         _tilemapBounds = GetTilemapBounds();
         _activeTile = _boxTile;
-        _isPlayerBeingPlayed = false;
+        _isPlayerBeingPlaced = false;
+
         InitializeTilemap();
         _loadedMap.SetPlayerOutsideMap(1);
         _loadedMap.SetPlayerOutsideMap(2);
@@ -64,7 +67,7 @@ public class MapEditorManager : MonoBehaviour
     private void Update()
     {
         Vector3Int cursorInTilemapPosition = GetCursorInTilemapPosition();
-        if (Input.GetMouseButton(0) && IsUserAbleToSetTiles(cursorInTilemapPosition))
+        if (Input.GetMouseButton(0) && IsUserAbleToSetTiles(cursorInTilemapPosition) && !_isPlayerBeingPlaced)
         {
             _obstacleTilemap.SetTile(cursorInTilemapPosition, _activeTile);
         }
@@ -73,9 +76,9 @@ public class MapEditorManager : MonoBehaviour
     private bool IsUserAbleToSetTiles(Vector3Int position)
     {
         bool isPositionInsideTilemap = _tilemapBounds.Contains(position);
-        bool isPlayerOneNotOnPosition = position != _loadedMap.PlayerTwoPosition;
+        bool isPlayerOneNotOnPosition = position != _loadedMap.PlayerOnePosition;
         bool isPlayerTwoNotOnPosition = position != _loadedMap.PlayerTwoPosition;
-        return isPositionInsideTilemap && !_isPlayerBeingPlayed && isPlayerOneNotOnPosition && isPlayerTwoNotOnPosition;
+        return isPositionInsideTilemap && isPlayerOneNotOnPosition && isPlayerTwoNotOnPosition;
     }
 
     private Vector3Int GetCursorInTilemapPosition()
@@ -86,11 +89,12 @@ public class MapEditorManager : MonoBehaviour
 
     public void PlayerBeingPlacedHandler(Void data)
     {
-        _isPlayerBeingPlayed = true;
+        _isPlayerBeingPlaced = true;
     }
 
     public void PlayerHasBeenPlacedHandler(PlayerInfo playerInfo)
     {
+        _isPlayerBeingPlaced = false;
         Vector3Int playerInTilemapPosition = _backgroundTilemap.WorldToCell(playerInfo.WorldPosition);
 
         if (IsPlayerPositionBlocked(playerInfo.PlayerIndex, playerInTilemapPosition))
@@ -102,8 +106,6 @@ public class MapEditorManager : MonoBehaviour
         {
             UpdatePlayerPosition(playerInfo.PlayerIndex, playerInTilemapPosition);
         }
-
-        _isPlayerBeingPlayed = false;
     }
 
     private bool IsPlayerPositionBlocked(int playerIndex, Vector3Int position)
@@ -117,7 +119,7 @@ public class MapEditorManager : MonoBehaviour
     }
 
     private void UpdatePlayerPosition(int playerIndex, Vector3Int position)
-    {
+    {   
         if (playerIndex == 1)
         {
             _loadedMap.PlayerOnePosition = position;
