@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class MapEditorManager : MonoBehaviour
 {
@@ -13,14 +15,20 @@ public class MapEditorManager : MonoBehaviour
 
     [SerializeField]
     private TileBase _boxTile;
-    
+
+    [SerializeField]
+    private GameObject _saveMapPanel;
+
     private Tilemap _obstacleTilemap;
     private Tilemap _backgroundTilemap;
 
     private BoundsInt _tilemapBounds;
     private TileBase _activeTile;
     private bool _isPlayerBeingPlaced;
-
+    private bool _isMenuPanelOpen;
+    private Vector3Int _playerOnePosition;
+    private Vector3Int _playerTwoPosition;
+    
     private void Start()
     {
         Tilemap[] tilemaps = GetComponentsInChildren<Tilemap>();
@@ -30,10 +38,12 @@ public class MapEditorManager : MonoBehaviour
         _tilemapBounds = GetTilemapBounds();
         _activeTile = _boxTile;
         _isPlayerBeingPlaced = false;
+        _isMenuPanelOpen = false;
+
 
         InitializeTilemap();
-        _loadedMap.SetPlayerOutsideMap(1);
-        _loadedMap.SetPlayerOutsideMap(2);
+        SetPlayerOutsideMap(1);
+        SetPlayerOutsideMap(2);
     }
 
     private BoundsInt GetTilemapBounds()
@@ -64,21 +74,64 @@ public class MapEditorManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void SetPlayerOutsideMap(int playerIndex)
     {
-        Vector3Int cursorInTilemapPosition = GetCursorInTilemapPosition();
-        if (Input.GetMouseButton(0) && IsUserAbleToSetTiles(cursorInTilemapPosition) && !_isPlayerBeingPlaced)
+        if (playerIndex == 1)
         {
-            _obstacleTilemap.SetTile(cursorInTilemapPosition, _activeTile);
+            _playerOnePosition = new Vector3Int(-69, -69, -69);
+        }
+        else
+        {
+            _playerTwoPosition = new Vector3Int(-69, -69, -69);
         }
     }
 
-    private bool IsUserAbleToSetTiles(Vector3Int position)
+
+
+    private void Update()
     {
-        bool isPositionInsideTilemap = _tilemapBounds.Contains(position);
-        bool isPlayerOneNotOnPosition = position != _loadedMap.PlayerOnePosition;
-        bool isPlayerTwoNotOnPosition = position != _loadedMap.PlayerTwoPosition;
-        return isPositionInsideTilemap && isPlayerOneNotOnPosition && isPlayerTwoNotOnPosition;
+        if (Input.GetMouseButton(0) && IsUserAbleToPlaceTiles(GetCursorInTilemapPosition()))
+        {
+            _obstacleTilemap.SetTile(GetCursorInTilemapPosition(), _activeTile);
+        }
+        if (Input.GetMouseButton(1) && IsUserAbleToPlaceTiles(GetCursorInTilemapPosition()))
+        {
+            _obstacleTilemap.SetTile(GetCursorInTilemapPosition(), null);
+        }
+    }
+
+    private bool IsUserAbleToPlaceTiles(Vector3Int position)
+    {
+        return !_isPlayerBeingPlaced && !_isMenuPanelOpen && _tilemapBounds.Contains(position) && !ArePlayersOnPosition(position) && !IsInPlayersOffset(Input.mousePosition);
+    }
+
+    private bool ArePlayersOnPosition(Vector3Int position)
+    {
+        bool isPlayerOneOnPosition = position == _playerOnePosition;
+        bool isPlayerTwoOnPosition = position == _playerTwoPosition;
+        return isPlayerOneOnPosition || isPlayerTwoOnPosition;
+    }
+
+    private bool IsInPlayersOffset(Vector2 mousePosition)
+    {
+        Vector2 playerTwoDownLeftCorner = Camera.main.WorldToScreenPoint(_playerTwoPosition);
+        Vector2 playerOneDownLeftCorner = Camera.main.WorldToScreenPoint(_playerOnePosition);
+        Vector2 playerSize = GetPlayerSize();
+
+        return IsPositionInOffset(mousePosition, playerOneDownLeftCorner, playerSize) || IsPositionInOffset(mousePosition, playerTwoDownLeftCorner, playerSize);
+    }
+
+    private Vector2 GetPlayerSize()
+    {
+        float playerWidth = Screen.height / 15;
+        float playerHeightWithOffset = Screen.height / 8;
+        return new Vector2(playerWidth, playerHeightWithOffset);
+    }
+
+    private bool IsPositionInOffset(Vector2 position, Vector2 downLeft, Vector2 size)
+    {
+        Vector2 upRight = downLeft + size;
+        return position.x <= upRight.x && position.x >= downLeft.x && position.y >= downLeft.y && position.y <= upRight.y;
     }
 
     private Vector3Int GetCursorInTilemapPosition()
@@ -86,6 +139,9 @@ public class MapEditorManager : MonoBehaviour
         Vector3 cursorWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return _backgroundTilemap.WorldToCell(cursorWorldPosition);
     }
+
+    
+
 
     public void PlayerBeingPlacedHandler(Void data)
     {
@@ -100,7 +156,7 @@ public class MapEditorManager : MonoBehaviour
         if (IsPlayerPositionBlocked(playerInfo.PlayerIndex, playerInTilemapPosition))
         {
             OnInvalidPlayerPosition(playerInfo.PlayerIndex);
-            _loadedMap.SetPlayerOutsideMap(playerInfo.PlayerIndex);
+            SetPlayerOutsideMap(playerInfo.PlayerIndex);
         }
         else
         {
@@ -110,7 +166,7 @@ public class MapEditorManager : MonoBehaviour
 
     private bool IsPlayerPositionBlocked(int playerIndex, Vector3Int position)
     {
-        bool arePlayerPositionsMatch = (playerIndex == 1 && position == _loadedMap.PlayerTwoPosition) || (playerIndex == 2 && position == _loadedMap.PlayerOnePosition);
+        bool arePlayerPositionsMatch = (playerIndex == 1 && position == _playerTwoPosition) || (playerIndex == 2 && position == _playerOnePosition);
         if (arePlayerPositionsMatch)
         {
             return true;
@@ -118,35 +174,83 @@ public class MapEditorManager : MonoBehaviour
         return !_tilemapBounds.Contains(position) || _obstacleTilemap.HasTile(position);
     }
 
-    private void UpdatePlayerPosition(int playerIndex, Vector3Int position)
-    {   
-        if (playerIndex == 1)
-        {
-            _loadedMap.PlayerOnePosition = position;
-        }
-        else
-        {
-            _loadedMap.PlayerTwoPosition = position;
-        }
-    }
-
     private void OnInvalidPlayerPosition(int playerIndex)
     {
         InvalidPlayerPosition.Raise(playerIndex);
     }
 
+    private void UpdatePlayerPosition(int playerIndex, Vector3Int position)
+    {   
+        if (playerIndex == 1)
+        {
+            _playerOnePosition = position;
+        }
+        else
+        {
+            _playerTwoPosition = position;
+        }
+    }
+
+
+
+
     public void SaveButtonHitHandler(Void data)
     {
-        Debug.Log("Save button hit");
+        _isMenuPanelOpen = true;
+        _saveMapPanel.SetActive(true);
+    }
+
+    public void ForceSaveButtonHandlder(Void data)
+    {
+        TilemapData tilemapData = ConvertTilemapToData();
+        SerializationModel.SaveMap(tilemapData);
+    }
+
+    private TilemapData ConvertTilemapToData()
+    {
+        TilemapData tilemapData = new TilemapData();
+
+        tilemapData.MapName = _loadedMap.TilemapData.MapName;
+        tilemapData.PlayerOnePosition = _playerOnePosition;
+        tilemapData.PlayerTwoPosition = _playerTwoPosition;
+
+        foreach (Vector3Int pos in _obstacleTilemap.cellBounds.allPositionsWithin)
+        {
+            TileBase tile = _obstacleTilemap.GetTile(pos);
+            if (tile != null)
+            {
+                string tileType = tile.name;
+                TileData tileData = new TileData(pos, tileType);
+                tilemapData.Tiles.Add(tileData);
+            }
+        }
+
+        return tilemapData;
+    }
+
+    public void RefuseToSaveHandler(Void data)
+    {
+        _isMenuPanelOpen = false;
+        _saveMapPanel.SetActive(false);
     }
 
     public void DeleteButtonHitHandler(Void data)
     {
-        Debug.Log("Delete button hit");
+        //SerializationModel.DeleteMap(_loadedMap.TilemapData.MapName); It works, but I do not want to click on it accidentally
     }
 
     public void ExitButtonHitHandler(Void data)
     {
-        Debug.Log("Exit button hit");
+        
+    }
+
+    public void WallButtonHit()
+    {
+        _activeTile = _wallTile;
+    }
+
+    public void BrickButtonHit()
+    {
+        _activeTile = _boxTile;
     }
 }

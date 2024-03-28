@@ -4,14 +4,13 @@ using UnityEngine;
 
 public static class SerializationModel
 {
-    public static void InitTilemapDirectory(TilemapSO defaultMap)
+    public static void InitTilemapDirectory()
     {
         string directoryPath = Path.Combine(Application.persistentDataPath, "Tilemaps");
         if (!Directory.Exists(directoryPath))
         {
             Directory.CreateDirectory(directoryPath);
         }
-        SaveMap(defaultMap);
     }
 
     private static string GetFilePath(string fileName)
@@ -19,16 +18,16 @@ public static class SerializationModel
         return Path.Combine(Application.persistentDataPath, "Tilemaps", fileName);
     }
 
-    public static void SaveMap(TilemapSO tilemapSO)
+    public static void SaveMap(TilemapData tilemapData)
     {
-        string filePath = GetFilePath(tilemapSO.MapName);
-        string json = JsonUtility.ToJson(tilemapSO.TilemapData);
+        string filePath = GetFilePath(tilemapData.MapName + ".json");
+        string json = JsonUtility.ToJson(tilemapData);
         File.WriteAllText(filePath, json);
     }
 
     public static TilemapData LoadMap(string fileName)
     {
-        string filePath = GetFilePath(fileName);
+        string filePath = GetFilePath(fileName + ".json");
 
         if (!File.Exists(filePath))
         {
@@ -42,7 +41,7 @@ public static class SerializationModel
 
     public static void DeleteMap(string fileName)
     {
-        string filePath = GetFilePath(fileName);
+        string filePath = GetFilePath(fileName + ".json");
         File.Delete(filePath);
     }
 

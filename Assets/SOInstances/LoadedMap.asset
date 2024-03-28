@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a26d9f701879ec42a666a4d473468d4, type: 3}
   m_Name: LoadedMap
   m_EditorClassIdentifier: 
-  MapName: MASTER
   TilemapData:
     Tiles:
     - Position: {x: -6, y: 5, z: 0}
@@ -41,7 +40,6 @@ MonoBehaviour:
       TileType: Block
     - Position: {x: 3, y: 3, z: 0}
       TileType: Brick
-    PlayerPositions:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
+    PlayerOnePosition: {x: -69, y: -69, z: -69}
+    PlayerTwoPosition: {x: -69, y: -69, z: -69}
+    MapName: MASTER

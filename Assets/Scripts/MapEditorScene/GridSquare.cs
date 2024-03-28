@@ -7,7 +7,7 @@ public class GridSquare : MonoBehaviour, IDropHandler
     {
         GameObject dropped = eventData.pointerDrag;
         SetPosition(dropped);
-        SetSize(dropped);        
+        SetSize(dropped);
     }
 
     private void SetSize(GameObject dropped)
