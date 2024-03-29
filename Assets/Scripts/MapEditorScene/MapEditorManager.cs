@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
@@ -241,7 +242,7 @@ public class MapEditorManager : MonoBehaviour
 
     public void ExitButtonHitHandler(Void data)
     {
-        
+        SceneManager.LoadScene("MapSelector");
     }
 
     public void WallButtonHit()

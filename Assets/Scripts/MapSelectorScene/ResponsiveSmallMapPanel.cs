@@ -1,9 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ResponsiveSmallMapPanel : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _squarePrefab;
+
     [SerializeField]
     private Sprite _grassSprite;
 
@@ -19,11 +23,8 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
     private RectTransform _rectTransform;
     private GridLayoutGroup _gridLayoutGroup;
     private float _lastRectSize;
-
     private Vector3Int _tilemapOrigin = new Vector3Int(-8, -7, 0);
-
-    [SerializeField]
-    private GameObject _squarePrefab;
+    private Coroutine showcaseCoroutine;
 
     private const int MAP_SIZE = 15;
 
@@ -35,6 +36,7 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
 
         SetCellSize(_lastRectSize / MAP_SIZE);
         PopulateGridSquares();
+
         StartCoroutine(ResizeAutomaticallyIfScreenSizeChanged());
     }
 
@@ -126,14 +128,28 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
 
     public void MapToInsightHandler(string mapName)
     {
+        if (showcaseCoroutine != null)
+        {
+            StopCoroutine(showcaseCoroutine);
+        }
+
+        showcaseCoroutine = StartCoroutine(ShowcaseMap(mapName));
+    }
+
+    public IEnumerator ShowcaseMap(string mapName)
+    {
         CleanMap();
 
-        TilemapData tilemapData = SerializationModel.LoadMap(mapName);
-        foreach (TileData tile in tilemapData.Tiles)
+        List<TileData> tiles = SerializationModel.LoadMap(mapName).Tiles;
+        tiles.Shuffle();
+
+        foreach (TileData tile in tiles)
         {
             Vector3Int converted = tile.Position - _tilemapOrigin;
             Vector2Int rowColValues = new Vector2Int((MAP_SIZE - 1) - converted.y, converted.x);
             RePrintCell(rowColValues.x, rowColValues.y, tile.TileType);
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
