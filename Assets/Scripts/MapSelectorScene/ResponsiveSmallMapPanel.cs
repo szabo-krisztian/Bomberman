@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class ResponsiveSmallMapPanel : MonoBehaviour
@@ -16,7 +15,6 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
 
     [SerializeField]
     private Sprite _boxSprite;
-
 
     private RectTransform _rectTransform;
     private GridLayoutGroup _gridLayoutGroup;
@@ -66,14 +64,23 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
                 }
             }
         }
+    }
 
-
-        TilemapData tilemapData = SerializationModel.LoadMap("MASTER");
-        foreach (TileData tile in tilemapData.Tiles)
+    private void CleanMap()
+    {
+        for (int i = 0; i < MAP_SIZE; i++)
         {
-            Vector3Int converted = tile.Position - _tilemapOrigin;
-            Vector2Int rowColValues = new Vector2Int((MAP_SIZE - 1) - converted.y, converted.x);
-            RePrintCell(rowColValues.x, rowColValues.y, tile.TileType);
+            for (int j = 0; j < MAP_SIZE; j++)
+            {
+                if (i == 1 && j != 0 && j != MAP_SIZE - 1)
+                {
+                    RePrintCell(i, j, "Shadow");
+                }
+                else if (i != 0 && i != MAP_SIZE - 1 && j != 0 && j != MAP_SIZE - 1)
+                {
+                    RePrintCell(i, j, "Grass");
+                }
+            }
         }
     }
 
@@ -98,14 +105,35 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
     public void RePrintCell(int row, int column, string tileType)
     {
         int index = row * MAP_SIZE + column;
-
+        
         if (tileType == "Block")
         {
             _gridLayoutGroup.transform.GetChild(index).gameObject.GetComponent<Image>().sprite = _wallSprite;
         }
-        else
+        else if (tileType == "Brick")
         {
             _gridLayoutGroup.transform.GetChild(index).gameObject.GetComponent<Image>().sprite = _boxSprite;
+        }
+        else if (tileType == "Grass")
+        {
+            _gridLayoutGroup.transform.GetChild(index).gameObject.GetComponent<Image>().sprite = _grassSprite;
+        }
+        else
+        {
+            _gridLayoutGroup.transform.GetChild(index).gameObject.GetComponent<Image>().sprite = _shadowGrassSprite;
+        }
+    }
+
+    public void MapToInsightHandler(string mapName)
+    {
+        CleanMap();
+
+        TilemapData tilemapData = SerializationModel.LoadMap(mapName);
+        foreach (TileData tile in tilemapData.Tiles)
+        {
+            Vector3Int converted = tile.Position - _tilemapOrigin;
+            Vector2Int rowColValues = new Vector2Int((MAP_SIZE - 1) - converted.y, converted.x);
+            RePrintCell(rowColValues.x, rowColValues.y, tile.TileType);
         }
     }
 }
