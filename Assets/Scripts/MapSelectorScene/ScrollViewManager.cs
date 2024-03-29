@@ -15,25 +15,31 @@ public class ScrollViewManager : MonoBehaviour
     {
         _rectTransform = GetComponent<RectTransform>();
         previousScreenHeight = Screen.height;
-        InitializeMapPanels(Screen.height / 5);
+        InitializeMapPanels();
 
         StartCoroutine(ResizeAutomaticallyIfScreenSizeChanged());
     }
 
-    private void InitializeMapPanels(float defaultRectSize)
+    private void InitializeMapPanels()
     {
         List<string> savedMapNames = SerializationModel.GetMapNames();
         foreach (string mapName in savedMapNames)
         {
-            GameObject mapPanel = Instantiate(_mapPanelPrefab, transform);
-            mapPanel.name = mapName;
-
-            Vector2 biggerContentSize = new Vector2(0, _rectTransform.sizeDelta.y + defaultRectSize);
-            _rectTransform.sizeDelta = biggerContentSize;
+            CreateMapPanel(mapName);
         }
     }
-
     
+    private void CreateMapPanel(string mapName)
+    {
+        GameObject mapPanel = Instantiate(_mapPanelPrefab, transform);
+        mapPanel.name = mapName;
+        mapPanel.GetComponentInChildren<TMPro.TMP_Text>().text = mapName;
+
+        float rectSize = Screen.height / 4;
+        Vector2 biggerContentSize = new Vector2(0, _rectTransform.sizeDelta.y + rectSize);
+        _rectTransform.sizeDelta = biggerContentSize;
+    }
+
     private IEnumerator ResizeAutomaticallyIfScreenSizeChanged()
     {
         while (true)
@@ -50,5 +56,16 @@ public class ScrollViewManager : MonoBehaviour
             previousScreenHeight = currentScreenHeight;
             yield return null;
         }
+    }
+
+    public void NewMapCreatedHandler(string mapName)
+    {
+        TilemapData tilemapData = new TilemapData();
+        tilemapData.PlayerOnePosition = new Vector3Int(1, 1, 0);
+        tilemapData.PlayerTwoPosition = new Vector3Int(-1, -1, 0);
+        tilemapData.MapName = mapName;
+        SerializationModel.SaveMap(tilemapData);
+
+        CreateMapPanel(mapName);
     }
 }
