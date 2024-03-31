@@ -225,6 +225,8 @@ public class MapEditorManager : MonoBehaviour
     public void SaveButtonHitHandler(Void data)
     {   
         TilemapData tilemapData = ConvertTilemapToData();
+        
+
         SerializationModel.SaveMap(tilemapData);
     }
 
@@ -235,7 +237,11 @@ public class MapEditorManager : MonoBehaviour
         tilemapData.MapName = _loadedMap.TilemapData.MapName;
         tilemapData.PlayerOnePosition = _playerOnePosition;
         tilemapData.PlayerTwoPosition = _playerTwoPosition;
-        tilemapData.Zombies = _zombies;
+        
+        foreach (KeyValuePair<string, int> zombie in _zombies)
+        {
+            tilemapData.Zombies.Add(new ZombieType(zombie.Key, zombie.Value));
+        }
 
         foreach (Vector3Int pos in _obstacleTilemap.cellBounds.allPositionsWithin)
         {
