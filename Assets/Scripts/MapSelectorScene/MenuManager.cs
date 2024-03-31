@@ -1,22 +1,20 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class MenuManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _newMapPanel;
-
-    [SerializeField]
     private TilemapSO _mapToLoad;
 
-    public void NewMapButtonHitHandler()
+    public void OpenUIPanelHandler(GameObject uiPanel)
     {
-        _newMapPanel.SetActive(true);
+        uiPanel.SetActive(true);
     }
 
-    public void NewMapBackButtonHitHandler()
+    public void ExitUIPanelHandler(GameObject uiPanel)
     {
-        _newMapPanel.SetActive(false);
+        uiPanel.SetActive(false);
     }
 
     public void EditMapButtonHitHandler(string mapName)

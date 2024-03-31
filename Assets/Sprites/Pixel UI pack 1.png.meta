@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -108,10 +108,10 @@ TextureImporter:
       name: Pixel UI pack 1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 400
-        width: 96
-        height: 80
+        x: 48
+        y: 432
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5963,6 +5963,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Pixel UI pack 1_279
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 432
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faaeca496427f19459ec90f5ade6b410
+      internalID: 788151998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel UI pack 1_280
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 416
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4c406451c46a6a49aafa668e975dc0e
+      internalID: -408795420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel UI pack 1_281
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 400
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f6f8d22ed5044c47896b123575fda26
+      internalID: -1583541632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -6174,7 +6237,10 @@ TextureImporter:
       Pixel UI pack 1_276: 1860559807
       Pixel UI pack 1_277: 361712580
       Pixel UI pack 1_278: -855334487
+      Pixel UI pack 1_279: 788151998
       Pixel UI pack 1_28: 1755512549
+      Pixel UI pack 1_280: -408795420
+      Pixel UI pack 1_281: -1583541632
       Pixel UI pack 1_29: -1950446757
       Pixel UI pack 1_3: 134212675
       Pixel UI pack 1_30: -924846649
