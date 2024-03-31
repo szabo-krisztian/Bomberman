@@ -8,13 +8,14 @@ public class TilemapData
     public Vector3Int PlayerOnePosition;
     public Vector3Int PlayerTwoPosition;
     public string MapName;
-    //public Dictionary<string, int> Zombies;
+    public Dictionary<string, int> Zombies;
 
-    public TilemapData(List<TileData> tiles, Vector3Int playerOne, Vector3Int playerTwo)
+    public TilemapData(List<TileData> tiles, Vector3Int playerOne, Vector3Int playerTwo, Dictionary<string, int> zombies)
     {
         Tiles = tiles;
         PlayerOnePosition = playerOne;
         PlayerTwoPosition = playerTwo;
+        Zombies = zombies;
     }
 
     public TilemapData()
@@ -22,5 +23,6 @@ public class TilemapData
         Tiles = new List<TileData>();
         PlayerOnePosition = new Vector3Int(-69, -69, -69);
         PlayerTwoPosition = new Vector3Int(-69, -69, -69);
+        Zombies = new Dictionary<string, int>();
     }
 }
