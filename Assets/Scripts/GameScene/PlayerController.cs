@@ -11,7 +11,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject _bombPrefab;
 
+    [SerializeField]
+    private TilemapSO _loadedMap;
+
     private Vector2 _facingDirection;
+
+    private void Start()
+    {
+        transform.position = UtilityFunctions.GetCenterPosition(_loadedMap.TilemapData.PlayerOnePosition);
+    }
 
     private void Update()
     {

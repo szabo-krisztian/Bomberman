@@ -22,4 +22,10 @@ public class MenuManager : MonoBehaviour
         _mapToLoad.TilemapData = SerializationModel.LoadMap(mapName);
         SceneManager.LoadScene("MapEditor");
     }
+
+    public void PlayMapButtonHitHandler(string mapName)
+    {
+        _mapToLoad.TilemapData = SerializationModel.LoadMap(mapName);
+        SceneManager.LoadScene("Game");
+    }
 }
