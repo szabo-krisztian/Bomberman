@@ -15,8 +15,6 @@ public class ResponsiveSlider : MonoBehaviour
         StartCoroutine(ResizeAutomaticallyIfScreenSizeChanged());
     }
 
-
-
     private IEnumerator ResizeAutomaticallyIfScreenSizeChanged()
     {
         while (true)

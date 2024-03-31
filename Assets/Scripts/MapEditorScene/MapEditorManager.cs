@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
-using UnityEngine.UI;
 
 public class MapEditorManager : MonoBehaviour
 {
@@ -28,7 +27,7 @@ public class MapEditorManager : MonoBehaviour
     private Vector3Int _playerOnePosition;
     private Vector3Int _playerTwoPosition;
 
-    private Dictionary<string, int> Zombies;
+    private Dictionary<string, int> _zombies;
 
     private void Start()
     {
@@ -74,11 +73,11 @@ public class MapEditorManager : MonoBehaviour
 
     private void InitZombies()
     {
-        Zombies = new Dictionary<string, int>();
-        Zombies["Normal"] = 0;
-        Zombies["Ghost"] = 0;
-        Zombies["Intelligent"] = 0;
-        Zombies["VeryIntelligent"] = 0;
+        _zombies = new Dictionary<string, int>();
+        _zombies["Normal"] = 0;
+        _zombies["Ghost"] = 0;
+        _zombies["Intelligent"] = 0;
+        _zombies["VeryIntelligent"] = 0;
     }
 
     private void InitializeTilemap()
@@ -206,7 +205,7 @@ public class MapEditorManager : MonoBehaviour
 
     public void ZombieTypeSetHandler(ZombieType zombieType)
     {
-        Zombies[zombieType.Type] = zombieType.Count;
+        _zombies[zombieType.Type] = zombieType.Count;
     }
 
 
@@ -236,6 +235,7 @@ public class MapEditorManager : MonoBehaviour
         tilemapData.MapName = _loadedMap.TilemapData.MapName;
         tilemapData.PlayerOnePosition = _playerOnePosition;
         tilemapData.PlayerTwoPosition = _playerTwoPosition;
+        tilemapData.Zombies = _zombies;
 
         foreach (Vector3Int pos in _obstacleTilemap.cellBounds.allPositionsWithin)
         {
