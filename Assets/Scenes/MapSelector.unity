@@ -201,6 +201,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapPanelPrefab: {fileID: 7324034399033827611, guid: c72ff054b84f63645bc96caf0970b8b8, type: 3}
   _defaultMapPanelPrefab: {fileID: 7324034399033827611, guid: 23c470e03a50f88418feecf4e341ca92, type: 3}
+  _def1: {fileID: 11400000, guid: 13b4405275b32464b8f9762e856c4ffa, type: 2}
+  _def2: {fileID: 11400000, guid: ffeb8c111febf75488111a8e07dad32c, type: 2}
+  _def3: {fileID: 11400000, guid: a6318d66ac6552841ab3eb62c17f06ae, type: 2}
 --- !u!1 &110615208
 GameObject:
   m_ObjectHideFlags: 0

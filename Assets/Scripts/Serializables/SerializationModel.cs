@@ -4,12 +4,15 @@ using UnityEngine;
 
 public static class SerializationModel
 {
-    public static void InitTilemapDirectory()
+    public static void InitTilemapDirectory(TilemapData defaultMap1, TilemapData defaultMap2, TilemapData defaultMap3)
     {
         string directoryPath = Path.Combine(Application.persistentDataPath, "Tilemaps");
         if (!Directory.Exists(directoryPath))
         {
             Directory.CreateDirectory(directoryPath);
+            SaveMap(defaultMap1);
+            SaveMap(defaultMap2);
+            SaveMap(defaultMap3);
         }
     }
 
