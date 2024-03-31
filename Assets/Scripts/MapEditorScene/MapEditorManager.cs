@@ -8,6 +8,15 @@ public class MapEditorManager : MonoBehaviour
     public GameEvent<int> InvalidPlayerPosition;
 
     [SerializeField]
+    private GameObject _wallPrefab;
+
+    [SerializeField]
+    private GameObject _boxPrefab;
+
+    [SerializeField]
+    private GameObject _dirtPrefab;
+
+    [SerializeField]
     private TilemapSO _loadedMap;
 
     [SerializeField]
@@ -21,6 +30,8 @@ public class MapEditorManager : MonoBehaviour
 
     private BoundsInt _tilemapBounds;
     private TileBase _activeTile;
+    private GameObject _activePrefab;
+    private GameObject _currentPrefab;
     private bool _isPlayerBeingPlaced;
     private bool _isMenuPanelOpen;
 
@@ -36,7 +47,8 @@ public class MapEditorManager : MonoBehaviour
         _backgroundTilemap = tilemaps[1];
 
         _tilemapBounds = GetTilemapBounds();
-        _activeTile = _boxTile;
+        _activeTile = _wallTile;
+        _activePrefab = _wallPrefab;
         _isPlayerBeingPlaced = false;
         _isMenuPanelOpen = false;
 
@@ -102,13 +114,27 @@ public class MapEditorManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && IsUserAbleToPlaceTiles(GetCursorInTilemapPosition()))
+        ClearPreviousPrefab();
+
+        Vector3Int cursorTilemapPosition = GetCursorInTilemapPosition();
+        if (!IsUserAbleToPlaceTiles(cursorTilemapPosition))
         {
-            _obstacleTilemap.SetTile(GetCursorInTilemapPosition(), _activeTile);
+            return;
         }
-        if (Input.GetMouseButton(1) && IsUserAbleToPlaceTiles(GetCursorInTilemapPosition()))
+
+        if (Input.GetMouseButton(0) && _activeTile != _obstacleTilemap.GetTile(cursorTilemapPosition))
         {
-            _obstacleTilemap.SetTile(GetCursorInTilemapPosition(), null);
+            _obstacleTilemap.SetTile(cursorTilemapPosition, _activeTile);
+            Instantiate(_dirtPrefab, UtilityFunctions.GetCenterPosition(cursorTilemapPosition), Quaternion.identity);
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            _obstacleTilemap.SetTile(cursorTilemapPosition, null);
+        }
+        else
+        {
+            _currentPrefab = Instantiate(_activePrefab, UtilityFunctions.GetCenterPosition(cursorTilemapPosition), Quaternion.identity);
         }
     }
 
@@ -131,6 +157,14 @@ public class MapEditorManager : MonoBehaviour
         Vector2 playerSize = GetPlayerSize();
 
         return IsPositionInOffset(mousePosition, playerOneDownLeftCorner, playerSize) || IsPositionInOffset(mousePosition, playerTwoDownLeftCorner, playerSize);
+    }
+
+    private void ClearPreviousPrefab()
+    {
+        if (_currentPrefab != null)
+        {
+            Destroy(_currentPrefab);
+        }
     }
 
     private Vector2 GetPlayerSize()
@@ -178,8 +212,8 @@ public class MapEditorManager : MonoBehaviour
 
     private bool IsPlayerPositionBlocked(int playerIndex, Vector3Int position)
     {
-        bool arePlayerPositionsMatch = (playerIndex == 1 && position == _playerTwoPosition) || (playerIndex == 2 && position == _playerOnePosition);
-        if (arePlayerPositionsMatch)
+        bool doPlayerPositionsMatch = (playerIndex == 1 && position == _playerTwoPosition) || (playerIndex == 2 && position == _playerOnePosition);
+        if (doPlayerPositionsMatch)
         {
             return true;
         }
@@ -277,10 +311,12 @@ public class MapEditorManager : MonoBehaviour
     public void WallButtonHit()
     {
         _activeTile = _wallTile;
+        _activePrefab = _wallPrefab;
     }
 
     public void BrickButtonHit()
     {
         _activeTile = _boxTile;
+        _activePrefab = _boxPrefab;
     }
 }
