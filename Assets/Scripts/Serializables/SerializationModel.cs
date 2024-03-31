@@ -7,7 +7,7 @@ public static class SerializationModel
     public static void InitTilemapDirectory(string map1Name, string map2Name, string map3Name)
     {
         string directoryPath = Path.Combine(Application.persistentDataPath, "Tilemaps");
-        if (Directory.Exists(directoryPath))
+        if (!Directory.Exists(directoryPath))
         {
             Directory.CreateDirectory(directoryPath);
 
