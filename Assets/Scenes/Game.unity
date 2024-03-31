@@ -157,6 +157,7 @@ MonoBehaviour:
   _rigidBody: {fileID: 384581444}
   _settings: {fileID: 11400000, guid: 1bfcf30c95d8bd841a94a0fb1b0e350e, type: 2}
   _bombPrefab: {fileID: 4112955161293066096, guid: aff40ec1815c01c4a93999f3d5223df9, type: 3}
+  _loadedMap: {fileID: 11400000, guid: 2aa898d4ccaa2344f99a0f3f7988c40a, type: 2}
 --- !u!4 &384581442
 Transform:
   m_ObjectHideFlags: 0
@@ -165,7 +166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384581440}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.37, y: -1.03, z: 0}
+  m_LocalPosition: {x: -7.89, y: 6.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
