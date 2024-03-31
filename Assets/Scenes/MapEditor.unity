@@ -4269,6 +4269,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InvalidPlayerPosition: {fileID: 11400000, guid: ec337bb3c625fa04ea04ffd474443271, type: 2}
+  _wallPrefab: {fileID: 2241572967758488475, guid: 67de30e1fb332af4da448b8c8611dff0, type: 3}
+  _boxPrefab: {fileID: 7290849832296322726, guid: ccaa12d9f4be5b04ab0e69deec44b3b9, type: 3}
+  _dirtPrefab: {fileID: 2096748876328715684, guid: a8c6e0dd0292fbe49a1361d29d0d59f9, type: 3}
   _loadedMap: {fileID: 11400000, guid: 2aa898d4ccaa2344f99a0f3f7988c40a, type: 2}
   _wallTile: {fileID: 11400000, guid: 945ffa96a68837449b025a24b0630ec0, type: 2}
   _boxTile: {fileID: 11400000, guid: db30c9c2c2b287a49b6c738ba4b7db40, type: 2}
@@ -4476,7 +4479,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1898564867636066101, guid: 13a19a56d2837a24cad1795da80fe0da, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1898564867636066101, guid: 13a19a56d2837a24cad1795da80fe0da, type: 3}
       propertyPath: m_LocalPosition.x
