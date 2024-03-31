@@ -225,8 +225,6 @@ public class MapEditorManager : MonoBehaviour
     public void SaveButtonHitHandler(Void data)
     {   
         TilemapData tilemapData = ConvertTilemapToData();
-        
-
         SerializationModel.SaveMap(tilemapData);
     }
 
@@ -259,7 +257,8 @@ public class MapEditorManager : MonoBehaviour
 
     public void DeleteButtonHitHandler(Void data)
     {
-        //SerializationModel.DeleteMap(_loadedMap.TilemapData.MapName); It works, but I do not want to click on it accidentally
+        SerializationModel.DeleteMap(_loadedMap.TilemapData.MapName);
+        SceneManager.LoadScene("MapSelector");
     }
 
     public void ExitButtonHitHandler(Void data)
