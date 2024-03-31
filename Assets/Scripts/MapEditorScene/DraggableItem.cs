@@ -60,7 +60,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
 
-        _rectTransform.sizeDelta = new Vector2(Screen.height / 15 - Screen.width, Screen.height / 10 - Screen.height);
+        _rectTransform.sizeDelta = new Vector2(Screen.height / 15 - Screen.width, Screen.height / 12.5f - Screen.height);
     }
 
     public void OnDrag(PointerEventData eventData)

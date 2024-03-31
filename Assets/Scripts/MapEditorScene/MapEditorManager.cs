@@ -63,11 +63,11 @@ public class MapEditorManager : MonoBehaviour
     {
         if (playerIndex == 1)
         {
-            _playerOnePosition = new Vector3Int(-69, -69, -69);
+            _playerOnePosition = _loadedMap.TilemapData.NULL_POSITION;
         }
         else
         {
-            _playerTwoPosition = new Vector3Int(-69, -69, -69);
+            _playerTwoPosition = _loadedMap.TilemapData.NULL_POSITION;
         }
     }
 
@@ -224,8 +224,16 @@ public class MapEditorManager : MonoBehaviour
 
     public void SaveButtonHitHandler(Void data)
     {   
-        TilemapData tilemapData = ConvertTilemapToData();
-        SerializationModel.SaveMap(tilemapData);
+        if (ArePlayersPlaced())
+        {
+            TilemapData tilemapData = ConvertTilemapToData();
+            SerializationModel.SaveMap(tilemapData);
+        }
+    }
+
+    private bool ArePlayersPlaced()
+    {
+        return _playerOnePosition != _loadedMap.TilemapData.NULL_POSITION && _playerTwoPosition != _loadedMap.TilemapData.NULL_POSITION;
     }
 
     private TilemapData ConvertTilemapToData()

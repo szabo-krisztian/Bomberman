@@ -98,8 +98,8 @@ public class ScrollViewManager : MonoBehaviour
     public void NewMapCreatedHandler(string mapName)
     {
         TilemapData tilemapData = new TilemapData();
-        tilemapData.PlayerOnePosition = new Vector3Int(1, 1, 0);
-        tilemapData.PlayerTwoPosition = new Vector3Int(-1, -1, 0);
+        tilemapData.PlayerOnePosition = new Vector3Int(-7, 6, 0);
+        tilemapData.PlayerTwoPosition = new Vector3Int(5, -6, 0);
         tilemapData.MapName = mapName;
         SerializationModel.SaveMap(tilemapData);
 
