@@ -4,16 +4,24 @@ using UnityEngine;
 
 public static class SerializationModel
 {
-    public static void InitTilemapDirectory(TilemapData defaultMap1, TilemapData defaultMap2, TilemapData defaultMap3)
+    public static void InitTilemapDirectory(string map1Name, string map2Name, string map3Name)
     {
         string directoryPath = Path.Combine(Application.persistentDataPath, "Tilemaps");
-        if (!Directory.Exists(directoryPath))
+        if (Directory.Exists(directoryPath))
         {
             Directory.CreateDirectory(directoryPath);
-            SaveMap(defaultMap1);
-            SaveMap(defaultMap2);
-            SaveMap(defaultMap3);
+
+            CopyDefaultMap(map1Name);
+            CopyDefaultMap(map2Name);
+            CopyDefaultMap(map3Name);
         }
+    }
+
+    private static void CopyDefaultMap(string mapName)
+    {
+        string filePath = Path.Combine(Application.streamingAssetsPath, mapName + ".json");
+        string json = File.ReadAllText(filePath);
+        SaveMap(JsonUtility.FromJson<TilemapData>(json));
     }
 
     private static string GetFilePath(string fileName)

@@ -17,18 +17,9 @@ public class ScrollViewManager : MonoBehaviour
     private const string DEF2_MAP_NAME = "__def2__";
     private const string DEF3_MAP_NAME = "__def3__";
 
-    [SerializeField]
-    private TilemapSO _def1;
-
-    [SerializeField]
-    private TilemapSO _def2;
-
-    [SerializeField]
-    private TilemapSO _def3;
-
     private void Start()
     {
-        SerializationModel.InitTilemapDirectory(_def1.TilemapData, _def2.TilemapData, _def3.TilemapData);
+        SerializationModel.InitTilemapDirectory(DEF1_MAP_NAME, DEF2_MAP_NAME, DEF3_MAP_NAME);
 
         _rectTransform = GetComponent<RectTransform>();
         previousScreenHeight = Screen.height;
