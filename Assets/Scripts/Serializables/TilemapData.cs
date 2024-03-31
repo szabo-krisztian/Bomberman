@@ -4,6 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public class TilemapData
 {
+    public Vector3Int NULL_POSITION = new Vector3Int(-69, -69, -69);
+    
     public List<TileData> Tiles;
     public Vector3Int PlayerOnePosition;
     public Vector3Int PlayerTwoPosition;
@@ -21,8 +23,8 @@ public class TilemapData
     public TilemapData()
     {
         Tiles = new List<TileData>();
-        PlayerOnePosition = new Vector3Int(-69, -69, -69);
-        PlayerTwoPosition = new Vector3Int(-69, -69, -69);
+        PlayerOnePosition = NULL_POSITION;
+        PlayerTwoPosition = NULL_POSITION;
         Zombies = new List<ZombieType>();
     }
 }
