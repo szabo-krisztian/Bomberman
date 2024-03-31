@@ -107,7 +107,7 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
     public void RePrintCell(int row, int column, string tileType)
     {
         int index = row * MAP_SIZE + column;
-        
+
         if (tileType == "Block")
         {
             _gridLayoutGroup.transform.GetChild(index).gameObject.GetComponent<Image>().sprite = _wallSprite;
@@ -149,7 +149,7 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
             Vector2Int rowColValues = new Vector2Int((MAP_SIZE - 1) - converted.y, converted.x);
             RePrintCell(rowColValues.x, rowColValues.y, tile.TileType);
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.01f);
         }
     }
 }

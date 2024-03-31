@@ -17,9 +17,6 @@ public class MapEditorManager : MonoBehaviour
     [SerializeField]
     private TileBase _boxTile;
 
-    [SerializeField]
-    private GameObject _saveMapPanel;
-
     private Tilemap _obstacleTilemap;
     private Tilemap _backgroundTilemap;
 
@@ -27,9 +24,12 @@ public class MapEditorManager : MonoBehaviour
     private TileBase _activeTile;
     private bool _isPlayerBeingPlaced;
     private bool _isMenuPanelOpen;
+
     private Vector3Int _playerOnePosition;
     private Vector3Int _playerTwoPosition;
-    
+
+    private Dictionary<string, int> Zombies;
+
     private void Start()
     {
         Tilemap[] tilemaps = GetComponentsInChildren<Tilemap>();
@@ -41,10 +41,11 @@ public class MapEditorManager : MonoBehaviour
         _isPlayerBeingPlaced = false;
         _isMenuPanelOpen = false;
 
-
-        InitializeTilemap();
         SetPlayerOutsideMap(1);
         SetPlayerOutsideMap(2);
+        InitZombies();
+
+        InitializeTilemap();
     }
 
     private BoundsInt GetTilemapBounds()
@@ -57,6 +58,27 @@ public class MapEditorManager : MonoBehaviour
         tilemapBounds.yMax -= 1;
 
         return tilemapBounds;
+    }
+
+    private void SetPlayerOutsideMap(int playerIndex)
+    {
+        if (playerIndex == 1)
+        {
+            _playerOnePosition = new Vector3Int(-69, -69, -69);
+        }
+        else
+        {
+            _playerTwoPosition = new Vector3Int(-69, -69, -69);
+        }
+    }
+
+    private void InitZombies()
+    {
+        Zombies = new Dictionary<string, int>();
+        Zombies["Normal"] = 0;
+        Zombies["Ghost"] = 0;
+        Zombies["Intelligent"] = 0;
+        Zombies["VeryIntelligent"] = 0;
     }
 
     private void InitializeTilemap()
@@ -75,17 +97,7 @@ public class MapEditorManager : MonoBehaviour
         }
     }
 
-    private void SetPlayerOutsideMap(int playerIndex)
-    {
-        if (playerIndex == 1)
-        {
-            _playerOnePosition = new Vector3Int(-69, -69, -69);
-        }
-        else
-        {
-            _playerTwoPosition = new Vector3Int(-69, -69, -69);
-        }
-    }
+
 
 
 
@@ -192,17 +204,27 @@ public class MapEditorManager : MonoBehaviour
         }
     }
 
-
-
-
-    public void SaveButtonHitHandler(Void data)
+    public void ZombieTypeSetHandler(ZombieType zombieType)
     {
-        _isMenuPanelOpen = true;
-        _saveMapPanel.SetActive(true);
+        Zombies[zombieType.Type] = zombieType.Count;
     }
 
-    public void ForceSaveButtonHandlder(Void data)
+
+
+    public void OpenUIPanel(GameObject uiPanel)
     {
+        _isMenuPanelOpen = true;
+        uiPanel.SetActive(true);
+    }
+
+    public void ExitUIPanel(GameObject uiPanel)
+    {
+        _isMenuPanelOpen = false;
+        uiPanel.SetActive(false);
+    }
+
+    public void SaveButtonHitHandler(Void data)
+    {   
         TilemapData tilemapData = ConvertTilemapToData();
         SerializationModel.SaveMap(tilemapData);
     }
@@ -227,12 +249,6 @@ public class MapEditorManager : MonoBehaviour
         }
 
         return tilemapData;
-    }
-
-    public void RefuseToSaveHandler(Void data)
-    {
-        _isMenuPanelOpen = false;
-        _saveMapPanel.SetActive(false);
     }
 
     public void DeleteButtonHitHandler(Void data)
