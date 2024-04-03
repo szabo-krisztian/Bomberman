@@ -4,21 +4,27 @@ using UnityEngine;
 [System.Serializable]
 public class TilemapData
 {
+    public Vector3Int NULL_POSITION = new Vector3Int(-69, -69, -69);
+    
     public List<TileData> Tiles;
-    public Vector3Int[] PlayerPositions;
-    public Dictionary<string, int> Zombies;
+    public Vector3Int PlayerOnePosition;
+    public Vector3Int PlayerTwoPosition;
+    public string MapName;
+    public List<ZombieType> Zombies;
 
-    public TilemapData(List<TileData> tiles, Vector3Int[] playerPositions, Dictionary<string, int> zombies)
+    public TilemapData(List<TileData> tiles, Vector3Int playerOne, Vector3Int playerTwo, List<ZombieType> zombies)
     {
         Tiles = tiles;
-        PlayerPositions = playerPositions;
+        PlayerOnePosition = playerOne;
+        PlayerTwoPosition = playerTwo;
         Zombies = zombies;
     }
 
     public TilemapData()
     {
         Tiles = new List<TileData>();
-        PlayerPositions = new Vector3Int[3];
-        Zombies = new Dictionary<string, int>();
+        PlayerOnePosition = NULL_POSITION;
+        PlayerTwoPosition = NULL_POSITION;
+        Zombies = new List<ZombieType>();
     }
 }
