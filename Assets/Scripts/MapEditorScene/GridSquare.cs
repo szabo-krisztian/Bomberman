@@ -5,11 +5,11 @@ public class GridSquare : MonoBehaviour, IDropHandler
 {
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject dropped = eventData.pointerDrag;
-        if (dropped.name == "Player1" || dropped.name == "Player2")
+        GameObject draggedUIElement = eventData.pointerDrag;
+        if (draggedUIElement.name == "Player1" || draggedUIElement.name == "Player2")
         {
-            SetPosition(dropped);
-            SetSize(dropped);
+            SetPosition(draggedUIElement);
+            SetSize(draggedUIElement);
         }
     }
 

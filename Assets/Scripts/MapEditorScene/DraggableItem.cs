@@ -60,6 +60,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
 
+        // 15 represents the map size, 12.5 is also the map size with an offset, so the button's height it bigger than it's width
         _rectTransform.sizeDelta = new Vector2(Screen.height / 15 - Screen.width, Screen.height / 12.5f - Screen.height);
     }
 

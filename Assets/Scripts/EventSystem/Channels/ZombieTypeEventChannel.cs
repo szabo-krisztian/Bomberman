@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New ZombieType Channel", menuName = "ScriptableObjects/Events/ZombieType Event Channel")]
+[CreateAssetMenu(fileName = "New_ZombieType_Channel", menuName = "ScriptableObjects/Events/ZombieType Event Channel")]
 public class ZombieTypeEventChannel : GameEvent<ZombieType> { }
 
 [System.Serializable]
