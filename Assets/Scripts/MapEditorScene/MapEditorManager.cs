@@ -108,10 +108,6 @@ public class MapEditorManager : MonoBehaviour
         }
     }
 
-
-
-
-
     private void Update()
     {
         ClearPreviousPrefab();
@@ -186,9 +182,6 @@ public class MapEditorManager : MonoBehaviour
         return _backgroundTilemap.WorldToCell(cursorWorldPosition);
     }
 
-    
-
-
     public void PlayerBeingPlacedHandler(Void data)
     {
         _isPlayerBeingPlaced = true;
@@ -241,8 +234,6 @@ public class MapEditorManager : MonoBehaviour
     {
         _zombies[zombieType.Type] = zombieType.Count;
     }
-
-
 
     public void OpenUIPanel(GameObject uiPanel)
     {
@@ -303,7 +294,7 @@ public class MapEditorManager : MonoBehaviour
         SceneManager.LoadScene("MapSelector");
     }
 
-    public void ExitButtonHitHandler(Void data)
+    public void SceneExitButtonHitHandler(Void data)
     {
         SceneManager.LoadScene("MapSelector");
     }

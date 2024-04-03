@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New PlayerInfo Channel", menuName = "ScriptableObjects/Events/PlayerInfo Event Channel")]
+[CreateAssetMenu(fileName = "New_PlayerInfo_Channel", menuName = "ScriptableObjects/Events/PlayerInfo Event Channel")]
 public class PlayerInfoEventChannel : GameEvent<PlayerInfo> { }
 
 public class PlayerInfo
