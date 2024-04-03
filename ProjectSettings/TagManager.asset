@@ -4,8 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Obstacle
   - Explosion
+  - Box
+  - Wall
+  - Bomb
+  - Zombie
   layers:
   - Default
   - TransparentFX
@@ -48,6 +51,9 @@ TagManager:
     locked: 0
   - name: Destructibles
     uniqueID: 1478909943
+    locked: 0
+  - name: Zombie
+    uniqueID: 2391549731
     locked: 0
   - name: Player
     uniqueID: 2886557907
