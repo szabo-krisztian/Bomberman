@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoxController : MonoBehaviour
 {
-    private float _breakTime = 2f;
+    private float _breakTime = 1.1f;
     private const int _powerUpSpawnChance = 69;
     private const int numOfPowerUps = 4; // TODO: Check this
     [SerializeField]
@@ -17,8 +17,10 @@ public class BoxController : MonoBehaviour
 
     private IEnumerator Break()
     {
+        GetComponent<Animator>().enabled = true;
         yield return new WaitForSeconds(_breakTime);
-        SpawnPowerUp();
+        //SpawnPowerUp();
+        
         Destroy(gameObject);
     }
 

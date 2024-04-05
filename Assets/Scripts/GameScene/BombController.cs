@@ -25,8 +25,12 @@ public class BombController : MonoBehaviour
     private IEnumerator IgniteBomb(float detonationTime)
     {
         yield return new WaitForSeconds(detonationTime);
-        StartExplosions();
-        Destroy(gameObject);
+        if (!started)
+        {
+            StartExplosions();
+            Destroy(gameObject);
+        }
+        
     }
 
     private void StartExplosions()
@@ -78,6 +82,7 @@ public class BombController : MonoBehaviour
         }
         if (overlappedObject.CompareTag("Bomb"))
         {
+            Debug.Log(overlappedObject.gameObject.transform.position);
             overlappedObject.SendMessage("OnBombExplodedNearby");
         }
     }
@@ -101,16 +106,12 @@ public class BombController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Explosion"))
-        {
-            StartExplosions();
-        }
-    }
+    private bool started = false;
 
     public void OnBombExplodedNearby()
     {
-        StartCoroutine(IgniteBomb(0));
+        started = true;
+        StartExplosions();
+        Destroy(gameObject);
     }
 }
