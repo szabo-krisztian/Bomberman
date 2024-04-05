@@ -116,4 +116,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bombCollider: {fileID: 6099774669970167125}
   _explosionPrefab: {fileID: 6086548315986943314, guid: 97cdba884f69db24493aa4dbff1769e3, type: 3}
+  _bombParticlePrefab: {fileID: 5625686571584982418, guid: 0ee4c48e47010994e8a1608135a4d9ad, type: 3}
   radius: 2
