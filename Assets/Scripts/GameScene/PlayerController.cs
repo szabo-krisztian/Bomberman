@@ -51,11 +51,6 @@ public class PlayerController : MonoBehaviour
 
     private void CheckIfPlayerPlacedBomb()
     {
-        if (Input.GetKeyDown(_settings.BombKey))
-        {
-            Debug.Log("bombsCount: " + _bombsCount + ", bigbombsCount: " + _bigBombsCount);
-        }
-
         if (!Input.GetKeyDown(_settings.BombKey) || !IsPlayerAbleToPlaceBomb())
         {
             return;
