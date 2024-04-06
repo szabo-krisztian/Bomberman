@@ -154,10 +154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a68d8ffef9bc7f45b6d14248b37f132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidBody: {fileID: 384581444}
   _settings: {fileID: 11400000, guid: 1bfcf30c95d8bd841a94a0fb1b0e350e, type: 2}
-  _bombPrefab: {fileID: 4112955161293066096, guid: aff40ec1815c01c4a93999f3d5223df9, type: 3}
   _loadedMap: {fileID: 11400000, guid: 2aa898d4ccaa2344f99a0f3f7988c40a, type: 2}
+  _bombPrefab: {fileID: 4112955161293066096, guid: 74feee18b25266e40bc0392125fc5e68, type: 3}
+  _bigBombPrefab: {fileID: 4112955161293066096, guid: aff40ec1815c01c4a93999f3d5223df9, type: 3}
 --- !u!4 &384581442
 Transform:
   m_ObjectHideFlags: 0
@@ -366,7 +366,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1408409389
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 280184176, guid: 745169a0c28f0d44681cd061792fd98d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

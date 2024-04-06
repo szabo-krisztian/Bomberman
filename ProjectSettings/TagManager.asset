@@ -9,6 +9,8 @@ TagManager:
   - Wall
   - Bomb
   - Zombie
+  - BigBombPowerup
+  - PlusBombPowerup
   layers:
   - Default
   - TransparentFX
@@ -51,6 +53,9 @@ TagManager:
     locked: 0
   - name: Destructibles
     uniqueID: 1478909943
+    locked: 0
+  - name: Powerup
+    uniqueID: 2024323861
     locked: 0
   - name: Zombie
     uniqueID: 2391549731
