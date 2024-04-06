@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -67,4 +68,23 @@ public class PlayerController : MonoBehaviour
     {
         _rigidBody.velocity = _facingDirection * _settings.Speed;
     }
+
+    /// <summary>
+    /// Better death detection than before, but let it be inactive for testing the game
+    /// </summary>
+    /*
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Explosion"))
+        {
+            StartCoroutine(Die());
+        }
+    }
+
+    private IEnumerator Die()
+    {
+        yield return new WaitForSeconds(.05f);
+        Destroy(gameObject);
+    }
+    */
 }

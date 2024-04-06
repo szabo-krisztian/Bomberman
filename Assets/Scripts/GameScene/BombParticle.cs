@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BombParticle : MonoBehaviour
 {
-    private const float _particleLastingTime = 1f;
+    private const float _particleLastingTime = 1.1f;
 
     private void Start()
     {

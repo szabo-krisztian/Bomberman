@@ -68,14 +68,6 @@ public class BombController : MonoBehaviour
 
     private void CheckEntityHit(GameObject overlappedObject)
     {
-        if (overlappedObject.CompareTag("Player"))
-        {
-            overlappedObject.SendMessage("OnPlayerDeath");
-        }
-        if (overlappedObject.CompareTag("Zombie"))
-        {
-            overlappedObject.SendMessage("OnZombieDeath");
-        }
         if (overlappedObject.CompareTag("Bomb"))
         {
             overlappedObject.SendMessage("OnBombExplodedNearby");
@@ -86,6 +78,11 @@ public class BombController : MonoBehaviour
         }
     }
 
+    public void OnBombExplodedNearby()
+    {
+        StartCoroutine(IgniteBomb(.05f));
+    }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         bool isPlayerExitedBomb = other.CompareTag("Player");
@@ -93,10 +90,5 @@ public class BombController : MonoBehaviour
         {
             _bombCollider.isTrigger = false;
         }
-    }
-
-    public void OnBombExplodedNearby()
-    {
-        StartCoroutine(IgniteBomb(.05f));
     }
 }
