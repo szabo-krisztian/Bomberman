@@ -15,10 +15,12 @@ public class PlayerController : MonoBehaviour
     private TilemapSO _loadedMap;
 
     private Vector2 _facingDirection;
-
+    private CollisionDetectionModel _collisionDetector;
+    
     private void Start()
     {
         transform.position = UtilityFunctions.GetCenterPosition(_loadedMap.TilemapData.PlayerOnePosition);
+        _collisionDetector = new CollisionDetectionModel();
     }
 
     private void Update()
@@ -43,11 +45,17 @@ public class PlayerController : MonoBehaviour
 
     private void CheckIfPlayerPlacedBomb()
     {
-        if (Input.GetKeyDown(_settings.BombKey))
+        if (Input.GetKeyDown(_settings.BombKey) && IsPlayerAbleToPlaceBomb())
         {
             Vector2 bombPosition = UtilityFunctions.GetCenterPosition(_rigidBody.position);
             Instantiate(_bombPrefab, bombPosition, Quaternion.identity);
         }
+    }
+
+    private bool IsPlayerAbleToPlaceBomb()
+    {
+        Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(UtilityFunctions.GetCenterPosition(_rigidBody.position));
+        return !_collisionDetector.IsTagInColliders(colliders, "Bomb");
     }
 
     private void FixedUpdate()

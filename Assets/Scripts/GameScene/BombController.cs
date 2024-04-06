@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BombController : MonoBehaviour
 {
@@ -13,24 +11,22 @@ public class BombController : MonoBehaviour
 
     [SerializeField]
     private GameObject _bombParticlePrefab;
-
+    
     public int radius = 2;
     private float _detonationTime = 3f;
+    private CollisionDetectionModel _collisionDetector;
 
     private void Start()
     {
+        _collisionDetector = new CollisionDetectionModel();
         StartCoroutine(IgniteBomb(_detonationTime));
     }
 
     private IEnumerator IgniteBomb(float detonationTime)
     {
         yield return new WaitForSeconds(detonationTime);
-        if (!started)
-        {
-            StartExplosions();
-            Destroy(gameObject);
-        }
-        
+        StartExplosions();
+        Destroy(gameObject);
     }
 
     private void StartExplosions()
@@ -50,27 +46,27 @@ public class BombController : MonoBehaviour
             return;
         }
 
-        Collider2D overlapColliderCircle = Physics2D.OverlapCircle(position, .25f);
-        if (overlapColliderCircle != null)
+        Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
+        if (CheckColliders(colliders))
         {
-            EntityHit(overlapColliderCircle.gameObject);
-
-            if (CheckIfBoxHit(overlapColliderCircle.gameObject) || CheckIfWallHit(overlapColliderCircle.gameObject))
-            { 
-                return;
-            }
+            return;
         }
 
         Instantiate(_explosionPrefab, position, Quaternion.identity);
         ExplodeInStraightLine(position + direction, direction, length - 1);
     }
 
-    private bool CheckIfWallHit(GameObject overlappedObject)
+    private bool CheckColliders(Collider2D[] colliders)
     {
-        return overlappedObject.CompareTag("Wall");
+        foreach (Collider2D collider in colliders)
+        {
+            CheckEntityHit(collider.gameObject);
+        }
+
+        return _collisionDetector.IsTagInColliders(colliders, "Box") || _collisionDetector.IsTagInColliders(colliders, "Wall");
     }
 
-    private void EntityHit(GameObject overlappedObject)
+    private void CheckEntityHit(GameObject overlappedObject)
     {
         if (overlappedObject.CompareTag("Player"))
         {
@@ -82,19 +78,12 @@ public class BombController : MonoBehaviour
         }
         if (overlappedObject.CompareTag("Bomb"))
         {
-            Debug.Log(overlappedObject.gameObject.transform.position);
             overlappedObject.SendMessage("OnBombExplodedNearby");
         }
-    }
-
-    private bool CheckIfBoxHit(GameObject overlappedObject)
-    {
         if (overlappedObject.CompareTag("Box"))
         {
             overlappedObject.SendMessage("OnExplosionHit");
-            return true;
         }
-        return false;
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -106,12 +95,8 @@ public class BombController : MonoBehaviour
         }
     }
 
-    private bool started = false;
-
     public void OnBombExplodedNearby()
     {
-        started = true;
-        StartExplosions();
-        Destroy(gameObject);
+        StartCoroutine(IgniteBomb(.05f));
     }
 }
