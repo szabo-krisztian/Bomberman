@@ -115,10 +115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 515eac781eeac94428e78c7c45d91fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BombExploded: {fileID: 11400000, guid: 205b8614c0ac6a04ba3ebd9ed8bc7bae, type: 2}
   _bombCollider: {fileID: 6099774669970167125}
   _explosionPrefab: {fileID: 6086548315986943314, guid: 97cdba884f69db24493aa4dbff1769e3, type: 3}
   _bombParticlePrefab: {fileID: 5625686571584982418, guid: ed0c559f339eda34a86310b824371d76, type: 3}
-  radius: 2
 --- !u!95 &8391533425477466381
 Animator:
   serializedVersion: 5

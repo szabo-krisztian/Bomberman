@@ -11,22 +11,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject _bombPrefab;
 
-    [SerializeField]
-    private GameObject _bigBombPrefab;
-
     private Rigidbody2D _rigidBody;
     private CollisionDetectionModel _collisionDetector;
     private Vector2 _facingDirection;
     private int _bombsCount;
-    private int _bigBombsCount;
+    private int _bombRadius;
+    private int _playerIndex;
 
     private void Start()
     {
         transform.position = UtilityFunctions.GetCenterPosition(_loadedMap.TilemapData.PlayerOnePosition);
         _rigidBody = GetComponent<Rigidbody2D>();
         _collisionDetector = new CollisionDetectionModel();
-        _bombsCount = 5;
-        _bigBombsCount = 0;
+        _bombsCount = 1;
+        _bombRadius = 2;
+        _playerIndex = GetPlayerIndex();
+    }
+
+    private int GetPlayerIndex()
+    {
+        return gameObject.name == "Player1" ? 1 : 2;
     }
 
     private void Update()
@@ -57,15 +61,15 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector2 bombPosition = UtilityFunctions.GetCenterPosition(_rigidBody.position);
-        if (_bigBombsCount > 0)
-        {
-            Instantiate(_bigBombPrefab, bombPosition, Quaternion.identity);
-            --_bigBombsCount;
-        }
-        else
-        {
-            Instantiate(_bombPrefab, bombPosition, Quaternion.identity);
-        }
+        PlaceBomb(bombPosition);
+    }
+
+    private void PlaceBomb(Vector2 position)
+    {
+        GameObject bomb = Instantiate(_bombPrefab, position, Quaternion.identity);
+        BombController bombController = bomb.GetComponent<BombController>();
+        bombController.SetRadius(_bombRadius);
+        bombController.SetPlayerIndex(_playerIndex);
         --_bombsCount;
     }
 
@@ -83,6 +87,14 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         _rigidBody.velocity = _facingDirection * _settings.Speed;
+    }
+
+    public void BombExplodedHandler(int playerIndex)
+    {
+        if (playerIndex == _playerIndex)
+        {
+            _bombsCount++;
+        }
     }
 
     /// <summary>
@@ -114,7 +126,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("BigBombPowerup"))
         {
             collision.gameObject.SendMessage("OnPickedUp");
-            ++_bigBombsCount;
+            ++_bombRadius;
         }
     }
 }

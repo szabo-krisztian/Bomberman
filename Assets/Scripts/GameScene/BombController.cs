@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BombController : MonoBehaviour
 {
+    public GameEvent<int> BombExploded;
+
     [SerializeField]
     private CircleCollider2D _bombCollider;
 
@@ -12,7 +14,8 @@ public class BombController : MonoBehaviour
     [SerializeField]
     private GameObject _bombParticlePrefab;
     
-    public int radius = 2;
+    private int _radius;
+    private int _playerIndex;
     private float _detonationTime = 3f;
     private CollisionDetectionModel _collisionDetector;
 
@@ -26,17 +29,29 @@ public class BombController : MonoBehaviour
     {
         yield return new WaitForSeconds(detonationTime);
         StartExplosions();
+        BombExploded.Raise(_playerIndex);
         Destroy(gameObject);
     }
 
     private void StartExplosions()
     {
         Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-        ExplodeInStraightLine(transform.position + Vector3.up,    Vector3.up,    radius);
-        ExplodeInStraightLine(transform.position + Vector3.down,  Vector3.down,  radius);
-        ExplodeInStraightLine(transform.position + Vector3.left,  Vector3.left,  radius);
-        ExplodeInStraightLine(transform.position + Vector3.right, Vector3.right, radius);
-        Instantiate(_bombParticlePrefab, transform.position, Quaternion.identity);
+        ExplodeInStraightLine(transform.position + Vector3.up,    Vector3.up,    _radius);
+        ExplodeInStraightLine(transform.position + Vector3.down,  Vector3.down,  _radius);
+        ExplodeInStraightLine(transform.position + Vector3.left,  Vector3.left,  _radius);
+        ExplodeInStraightLine(transform.position + Vector3.right, Vector3.right, _radius);
+        SummonParticles();
+    }
+
+    private void SummonParticles()
+    {
+        GameObject particles = Instantiate(_bombParticlePrefab, transform.position, Quaternion.identity);
+        ParticleSystem[] particleSystems = particles.GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem particleSystem in particleSystems)
+        {
+            var mainModule = particleSystem.main;
+            mainModule.startLifetime = 0.025f + 0.05f * _radius;
+        }
     }
 
     private void ExplodeInStraightLine(Vector2 position, Vector2 direction, int length)
@@ -90,5 +105,15 @@ public class BombController : MonoBehaviour
         {
             _bombCollider.isTrigger = false;
         }
+    }
+
+    public void SetRadius(int radius)
+    {
+        _radius = radius;
+    }
+
+    public void SetPlayerIndex(int playerIndex)
+    {
+        _playerIndex = playerIndex;
     }
 }
