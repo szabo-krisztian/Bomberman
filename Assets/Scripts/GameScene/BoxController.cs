@@ -1,14 +1,15 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 public class BoxController : MonoBehaviour
 {
-    private float _breakTime = 2f;
-    private const int _powerUpSpawnChance = 69;
-    private const int numOfPowerUps = 4; // TODO: Check this
     [SerializeField]
-    private GameObject[] powerUps; // TODO: Fill this in editor
+    private GameObject[] powerUps;
+
+    private float _breakTime = 1.1f;
+    private const int _powerUpSpawnChance = 20;
+    private readonly System.Random random = new System.Random();
+    private const int _numberOfPowerUps = 2;
 
     public void OnExplosionHit()
     {
@@ -17,6 +18,7 @@ public class BoxController : MonoBehaviour
 
     private IEnumerator Break()
     {
+        GetComponent<Animator>().enabled = true;
         yield return new WaitForSeconds(_breakTime);
         SpawnPowerUp();
         Destroy(gameObject);
@@ -24,11 +26,9 @@ public class BoxController : MonoBehaviour
 
     private void SpawnPowerUp()
     {
-        throw new NotImplementedException();
-        System.Random rand = new();
-        if (rand.Next(0, 100) < _powerUpSpawnChance)
+        if (random.Next(0, 100) < _powerUpSpawnChance)
         {
-            Instantiate(powerUps[rand.Next(0, numOfPowerUps)], transform.position, Quaternion.identity);
+            Instantiate(powerUps[random.Next(0, _numberOfPowerUps)], transform.position, Quaternion.identity);
         }
     }
 }

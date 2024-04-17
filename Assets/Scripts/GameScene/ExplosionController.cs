@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ExplosionController : MonoBehaviour
 {
-    private float _lastingTime = 2f;
+    private float _lastingTime = 1f;
 
     private void Start()
     {
