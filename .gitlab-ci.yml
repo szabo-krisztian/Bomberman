@@ -7,9 +7,9 @@ stages:
 variables:
   BUILD_NAME: oriaspalacsinta
   UNITY_ACTIVATION_FILE: ./unity3d.alf
-  UNITY_VERSION: "2021.3.24f1" # Unity version
+  UNITY_VERSION: "2021.3.19f1"
   IMAGE: unityci/editor # https://hub.docker.com/r/unityci/editor
-  IMAGE_VERSION: "1.1.2" # https://github.com/game-ci/docker/releases
+  IMAGE_VERSION: 1 # https://github.com/game-ci/docker/releases
   UNITY_DIR: $CI_PROJECT_DIR # this needs to be an absolute path. Defaults to the root of your tree.
 
 image: $IMAGE:$UNITY_VERSION-base-$IMAGE_VERSION
@@ -43,27 +43,43 @@ get-activation-file:
       - $UNITY_ACTIVATION_FILE
     expire_in: 10 min # Expiring this as artifacts may contain sensitive data and should not be kept public
 
-.test: &test
+.test-with-junit-reports: &test-with-junit-reports
   stage: build_and_test
   <<: *unity_before_script
   <<: *cache
   <<: *license
   script:
+    # This could be made faster by adding these packages to base image or running in a separate job (and step)
+    # We could use an image with these two depencencies only and only do the saxonb-xslt command on
+    # previous job's artifacts
+    - apt-get update && apt-get install -y default-jre libsaxonb-java
     - chmod +x ./ci/test.sh && ./ci/test.sh
+    - saxonb-xslt -s $UNITY_DIR/$TEST_PLATFORM-results.xml -xsl $CI_PROJECT_DIR/ci/nunit-transforms/nunit3-junit.xslt >$UNITY_DIR/$TEST_PLATFORM-junit-results.xml
   artifacts:
     when: always
+    paths:
+      # This is exported to allow viewing the Coverage Report in detail if needed
+      - $UNITY_DIR/$TEST_PLATFORM-coverage/
+    reports:
+      junit:
+        - $UNITY_DIR/$TEST_PLATFORM-junit-results.xml
+        - $UNITY_DIR/$TEST_PLATFORM-coverage/coverage.xml
     expire_in: 2 weeks
   coverage: /<Linecoverage>(.*?)</Linecoverage>/
 
-test-playmode:
-  <<: *test
+test-playmode-with-junit-reports:
+  <<: *test-with-junit-reports
   variables:
     TEST_PLATFORM: playmode
+    TESTING_TYPE: JUNIT
+  retry: 2
 
-test-editmode:
-  <<: *test
+test-editmode-with-junit-reports:
+  <<: *test-with-junit-reports
   variables:
     TEST_PLATFORM: editmode
+    TESTING_TYPE: JUNIT
+  retry: 2
 
 .build: &build
   stage: build_and_test
@@ -73,6 +89,7 @@ test-editmode:
   script:
     - chmod +x ./ci/build.sh && ./ci/build.sh
   artifacts:
+    expire_in: 3 day
     paths:
       - $UNITY_DIR/Builds/
 
@@ -80,35 +97,21 @@ build-StandaloneLinux64:
   <<: *build
   variables:
     BUILD_TARGET: StandaloneLinux64
+  retry: 2
 
 build-StandaloneOSX:
   <<: *build
   image: $IMAGE:$UNITY_VERSION-mac-mono-$IMAGE_VERSION
   variables:
     BUILD_TARGET: StandaloneOSX
+  retry: 2
 
 build-StandaloneWindows64:
   <<: *build
   image: $IMAGE:$UNITY_VERSION-windows-mono-$IMAGE_VERSION
   variables:
     BUILD_TARGET: StandaloneWindows64
-
-build-WebGL:
-  <<: *build
-  image: $IMAGE:$UNITY_VERSION-webgl-$IMAGE_VERSION
-  variables:
-    BUILD_TARGET: WebGL
-
-pages:
-  image: alpine:latest
-  stage: deploy
-  script:
-    - mv "$UNITY_DIR/Builds/WebGL/${BUILD_NAME}" public
-  artifacts:
-    paths:
-      - public
-  only:
-    - master
+  retry: 2
 
 workflow:
   rules:
