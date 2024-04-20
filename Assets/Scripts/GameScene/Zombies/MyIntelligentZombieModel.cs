@@ -4,21 +4,13 @@ using UnityEngine;
 
 public class MyIntelligentZombieModel : MyZombieModel
 {
-    private readonly Vector2Int MAP_UPPER_LEFT_CORNER;
-    private readonly Vector2Int MAP_DOWN_RIGHT_CORNER;
-    private readonly Vector2Int NULL_VECTOR;
-
     private Dictionary<Vector2Int, Vector2Int> _parent;
     private Dictionary<Vector2Int, int> _distance;
 
-    public MyIntelligentZombieModel(Vector2Int upperLeftCorner, Vector2Int downRightCorner)
+    public MyIntelligentZombieModel()
     {
         _parent = new Dictionary<Vector2Int, Vector2Int>();
         _distance = new Dictionary<Vector2Int, int>();
-        
-        MAP_UPPER_LEFT_CORNER = upperLeftCorner;
-        MAP_DOWN_RIGHT_CORNER = downRightCorner;
-        NULL_VECTOR = new Vector2Int(MAP_DOWN_RIGHT_CORNER.x + 1, MAP_DOWN_RIGHT_CORNER.y - 1);
     }
 
     public List<Vector2Int> GetRouteToPlayer(Vector2Int StartingPosition)
@@ -92,11 +84,11 @@ public class MyIntelligentZombieModel : MyZombieModel
 
     private void InitStartingValues(Vector2Int StartingPosition, Queue<Vector2Int> queue)
     {
-        for (int i = MAP_UPPER_LEFT_CORNER.x; i <= MAP_DOWN_RIGHT_CORNER.x; ++i)
+        for (int i = UtilityFunctions.MAP_UPPER_LEFT_CORNER.x; i <= UtilityFunctions.MAP_DOWN_RIGHT_CORNER.x; ++i)
         {
-            for (int j = MAP_UPPER_LEFT_CORNER.y; j >= MAP_DOWN_RIGHT_CORNER.y; --j)
+            for (int j = UtilityFunctions.MAP_UPPER_LEFT_CORNER.y; j >= UtilityFunctions.MAP_DOWN_RIGHT_CORNER.y; --j)
             {
-                _parent[new Vector2Int(i, j)] = NULL_VECTOR;
+                _parent[new Vector2Int(i, j)] = UtilityFunctions.NULL_VECTOR;
                 _distance[new Vector2Int(i, j)] = -1;
             }
         }

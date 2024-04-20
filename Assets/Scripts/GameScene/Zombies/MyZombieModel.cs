@@ -62,4 +62,11 @@ public class MyZombieModel
 
         return randomDirection;
     }
+
+    public bool IsIsolatedPosition(Vector3 position)
+    {
+        Vector3Int tilemapPosition = UtilityFunctions.GetTilemapPosition(position);
+        List<Vector2Int> freeDirections = GetFreeNeighbourDirections(new Vector2Int(tilemapPosition.x, tilemapPosition.y));
+        return freeDirections.Count == 0;
+    }
 }

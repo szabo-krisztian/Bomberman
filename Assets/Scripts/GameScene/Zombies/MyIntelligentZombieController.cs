@@ -10,9 +10,7 @@ public class MyIntelligentZombieController : MyZombieController
     protected override void Start()
     {
         base.Start();
-        Vector2Int upLeftCorner = new Vector2Int(-7, 7);
-        Vector2Int downRightCorner = new Vector2Int(7, -6);
-        _graphSearch = new MyIntelligentZombieModel(upLeftCorner, downRightCorner);
+        _graphSearch = new MyIntelligentZombieModel();
     }
 
     protected override void OnCollisionStay2D(Collision2D collision)
