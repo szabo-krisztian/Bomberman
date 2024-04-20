@@ -15,7 +15,6 @@ public class GhostModel
 
         while (UtilityFunctions.IsPositionInMap(newPosition) && !IsFreeSpaceFound(newPosition))
         {
-            Debug.Log(newPosition);
             newPosition = GetNewPosition(newPosition, direction);
         }
 

@@ -13,13 +13,10 @@ public class WalkState : IState
 
     public override void EnterState()
     {
-        controller.SetImageOpacity(1f);
-    }
-
-    public override void Update()
-    {
         
     }
+
+    public override void Update() { }
 
     public override void RandomTickChangeDirection()
     {
@@ -29,6 +26,7 @@ public class WalkState : IState
     public override void OnCollisionStay2D(Collision2D collision)
     {
         Vector3 pivotPoint = _model.GetPivotPoint(controller._facingDirection, UtilityFunctions.GetCenterPosition(controller.transform.position));
+
         if (IsTimeToEnterGhostState(pivotPoint, collision.collider))
         {
             controller.SetPivotPoint(pivotPoint);

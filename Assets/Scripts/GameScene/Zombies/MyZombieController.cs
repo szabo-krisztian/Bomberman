@@ -6,7 +6,7 @@ public class MyZombieController : MonoBehaviour
     public MyZombieModel model { get; private set; }
     public Vector2 _facingDirection { get; protected set; }
 
-    private const float SPEED = 2.5f;
+    private const float SPEED = 2f;
     private const float TICK_INTERVAL_MIN = 2f;
     private const float TICK_INTERVAL_MAX = 5f;
 
@@ -23,7 +23,7 @@ public class MyZombieController : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (_isTimeToChangeDirection && Vector2.Distance(transform.position, UtilityFunctions.GetCenterPosition(transform.position)) < .1f)
+        if (_isTimeToChangeDirection && Vector2.Distance(transform.position, UtilityFunctions.GetCenterPosition(transform.position)) < .05f)
         {
             _isTimeToChangeDirection = false;
             RandomTickChangeDirection();

@@ -12,7 +12,6 @@ public class GhostState : IState
     public override void EnterState()
     {
         _colliderBox.isTrigger = true;
-        controller.SetImageOpacity(.5f);
     }
 
     public override void Update()
@@ -20,17 +19,13 @@ public class GhostState : IState
         if (Vector3.Distance(controller.PivotPoint, controller.transform.position) < 0.05f)
         {
             _colliderBox.isTrigger = false;
+            controller.transform.position = UtilityFunctions.GetCenterPosition(controller.transform.position);
+            Debug.Log("switch");
             controller.SwitchState(controller.WalkState);
         }
     }
 
-    public override void RandomTickChangeDirection()
-    {
-        
-    }
+    public override void RandomTickChangeDirection() { }
 
-    public override void OnCollisionStay2D(Collision2D collision)
-    {   
-
-    }
+    public override void OnCollisionStay2D(Collision2D collision) { }
 }
