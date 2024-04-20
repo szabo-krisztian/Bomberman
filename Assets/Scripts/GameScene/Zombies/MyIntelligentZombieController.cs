@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,22 +14,21 @@ public class MyIntelligentZombieController : MyZombieController
 
     protected override void OnCollisionStay2D(Collision2D collision)
     {
-        _facingDirection = GetDirectionToNearestPath();   
+        ChangeDirection(GetDirectionToNearestPath());
     }
 
-    protected override void RandomTickChangeDirection()
-    {
-        _facingDirection = GetDirectionToNearestPath();
-    }
-
-    private Vector2Int GetDirectionToNearestPath()
+    protected Vector2Int GetDirectionToNearestPath()
     {
         Vector3Int zombieTilemapPosition = UtilityFunctions.GetTilemapPosition(transform.position);
-        Vector2Int firstPos = _graphSearch.GetRouteToPlayer(new Vector2Int(zombieTilemapPosition.x, zombieTilemapPosition.y)).Last();
-        Vector3Int direction = new Vector3Int(firstPos.x, firstPos.y, 0) - UtilityFunctions.GetTilemapPosition(transform.position);
-        transform.position = UtilityFunctions.GetCenterPosition(transform.position);
-        var a = new Vector2Int(direction.x, direction.y);
-        Debug.Log(a);
-        return a;
+        List<Vector2Int> routeToPlayer = _graphSearch.GetRouteToPlayer(new Vector2Int(zombieTilemapPosition.x, zombieTilemapPosition.y));
+        
+        if (routeToPlayer.Count == 0)
+        {
+            return model.GetRandomDirection(transform.position, _facingDirection);
+        }
+
+        Vector2Int firstPosition = routeToPlayer.Last();
+        Vector3Int direction = new Vector3Int(firstPosition.x, firstPosition.y, 0) - UtilityFunctions.GetTilemapPosition(transform.position);
+        return new Vector2Int(direction.x, direction.y);
     }
 }

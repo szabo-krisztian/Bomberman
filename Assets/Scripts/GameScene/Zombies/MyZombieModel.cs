@@ -55,11 +55,6 @@ public class MyZombieModel
         }
 
         Vector2Int randomDirection = availableDirections[random.Next(0, availableDirections.Count)];
-        while (randomDirection == facingDirection)
-        {
-            randomDirection = availableDirections[random.Next(0, availableDirections.Count)];
-        }
-
         return randomDirection;
     }
 

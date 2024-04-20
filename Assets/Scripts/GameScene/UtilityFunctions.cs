@@ -30,9 +30,9 @@ public static class UtilityFunctions
         return new Vector2Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
     }
 
-    public static bool IsPositionInMap(Vector3 position)
+    public static bool IsPositionInMap(Vector3Int position)
     {
-        return position.x >= MAP_UPPER_LEFT_CORNER.x && position.x <= MAP_DOWN_RIGHT_CORNER.x &&
-            position.y <= MAP_UPPER_LEFT_CORNER.y && position.y >= MAP_DOWN_RIGHT_CORNER.y;
+        return position.x > MAP_UPPER_LEFT_CORNER.x && position.x < MAP_DOWN_RIGHT_CORNER.x &&
+            position.y < MAP_UPPER_LEFT_CORNER.y && position.y > MAP_DOWN_RIGHT_CORNER.y;
     }
 }

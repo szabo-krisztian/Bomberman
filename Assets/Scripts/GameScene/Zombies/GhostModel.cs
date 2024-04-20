@@ -13,7 +13,7 @@ public class GhostModel
     {
         Vector3 newPosition = GetNewPosition(position, direction);
 
-        while (UtilityFunctions.IsPositionInMap(newPosition) && !IsFreeSpaceFound(newPosition))
+        while (UtilityFunctions.IsPositionInMap(UtilityFunctions.GetTilemapPosition(newPosition)) && !IsFreeSpaceFound(newPosition))
         {
             newPosition = GetNewPosition(newPosition, direction);
         }
@@ -29,6 +29,6 @@ public class GhostModel
     private bool IsFreeSpaceFound(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
-        return !(_collisionDetector.IsTagInColliders(colliders, "Box") || _collisionDetector.IsTagInColliders(colliders, "Wall"));
+        return !_collisionDetector.IsTagInColliders(colliders, "Box") && !_collisionDetector.IsTagInColliders(colliders, "Wall");
     }
 }
