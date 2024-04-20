@@ -97,15 +97,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
     /// <summary>
     /// Better death detection than before, but let it be inactive for testing the game
     /// </summary>
     /*
+    
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Explosion"))
+        if (collision.gameObject.CompareTag("Zombie"))
         {
-            StartCoroutine(Die());
+            Debug.Log("asdf");
         }
     }
 

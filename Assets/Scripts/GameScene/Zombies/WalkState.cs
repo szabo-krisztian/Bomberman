@@ -3,6 +3,8 @@ using UnityEngine;
 public class WalkState : IState
 {
     private GhostModel _model;
+    private const int ENTER_GHOST_STATE_CHANCE = 80;
+    private readonly System.Random random = new System.Random();
 
     public WalkState(MyGhostZombieController controller) : base(controller)
     {
@@ -11,7 +13,7 @@ public class WalkState : IState
 
     public override void EnterState()
     {
-                
+        controller.SetImageOpacity(1f);
     }
 
     public override void Update()
@@ -21,23 +23,26 @@ public class WalkState : IState
 
     public override void RandomTickChangeDirection()
     {
-        Debug.Log("tick");
+        controller.ChangeDirection(controller.model.GetRandomDirection(controller.transform.position, controller._facingDirection));
     }
 
     public override void OnCollisionStay2D(Collision2D collision)
     {
         Vector3 pivotPoint = _model.GetPivotPoint(controller._facingDirection, UtilityFunctions.GetCenterPosition(controller.transform.position));
-        if (UtilityFunctions.IsPositionInMap(pivotPoint))
+        if (IsTimeToEnterGhostState(pivotPoint, collision.collider))
         {
-            if (!controller.model.IsIsolatedPosition(pivotPoint))
-            {
-                controller.SetPivotPoint(pivotPoint);
-                controller.SwitchState(controller.GhostState);
-            }
+            controller.SetPivotPoint(pivotPoint);
+            controller.SwitchState(controller.GhostState);
         }
         else
         {
             controller.ChangeDirection(controller.model.GetRandomDirection(controller.transform.position, controller._facingDirection));
         }
+    }
+
+    private bool IsTimeToEnterGhostState(Vector3 pivotPoint, Collider2D collider)
+    {
+        bool zombieCanParseThroughWall = UtilityFunctions.IsPositionInMap(pivotPoint) && !controller.model.IsIsolatedPosition(pivotPoint) && !collider.CompareTag("Bomb");
+        return zombieCanParseThroughWall && random.Next(0, 100) < ENTER_GHOST_STATE_CHANCE;
     }
 }

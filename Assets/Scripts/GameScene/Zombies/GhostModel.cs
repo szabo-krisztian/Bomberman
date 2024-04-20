@@ -12,6 +12,7 @@ public class GhostModel
     public Vector3 GetPivotPoint(Vector2 direction, Vector3 position)
     {
         Vector3 newPosition = GetNewPosition(position, direction);
+
         while (UtilityFunctions.IsPositionInMap(newPosition) && !IsFreeSpaceFound(newPosition))
         {
             Debug.Log(newPosition);
