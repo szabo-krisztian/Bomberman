@@ -353,6 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251a89cf9d9f8e04da8a5cb69ce869c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pivotPoint: {fileID: 4319319157507636753, guid: 94a40da95d87926468fae8d6dd2c913b, type: 3}
 --- !u!1001 &1273093868
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GhostState : IState
 {
-    private Vector3 _pivotPoint;
     private BoxCollider2D _colliderBox;
 
     public GhostState(MyGhostZombieController controller) : base(controller)
@@ -15,11 +14,12 @@ public class GhostState : IState
         _colliderBox.isTrigger = true;
     }
 
-    public override void OnCollisionStay2D(Collision2D collision, Collider2D collider)
+    public override void Update()
     {
-        if (collider != null && collider.CompareTag("PivotPoint") && Vector3.Distance(collider.transform.position, controller.transform.position) < 0.1f)
+        if (Vector3.Distance(controller.PivotPoint, controller.transform.position) < 0.1f)
         {
             _colliderBox.isTrigger = false;
+            controller.SwitchState(controller.WalkState);
         }
     }
 
@@ -28,8 +28,8 @@ public class GhostState : IState
         
     }
 
-    public void ChangePivotPoint(Vector3 position)
+    public override void OnCollisionStay2D(Collision2D collision)
     {
-        _pivotPoint = position;
+        
     }
 }

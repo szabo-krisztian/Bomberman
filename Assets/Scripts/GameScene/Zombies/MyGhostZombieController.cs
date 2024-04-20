@@ -1,12 +1,12 @@
+using System;
 using UnityEngine;
 
 public class MyGhostZombieController : MyZombieController
 {
-    [SerializeField]
-    public GameObject _pivotPoint;
-
+    public Vector3 PivotPoint { get; private set; }
     public WalkState WalkState { get; private set; }
     public GhostState GhostState { get; private set; }
+    
     private IState _currentState;
 
     protected override void Start()
@@ -25,17 +25,18 @@ public class MyGhostZombieController : MyZombieController
 
     public void SetPivotPoint(Vector3 position)
     {
-        Instantiate(_pivotPoint, position, Quaternion.identity);
+        PivotPoint = position;
     }
 
     protected override void OnCollisionStay2D(Collision2D collision)
     {
-        _currentState.OnCollisionStay2D(collision, null);
+        _currentState.OnCollisionStay2D(collision);
     }
 
-    private void OnTriggerStay2D(Collider2D collider)
+    protected override void Update()
     {
-        _currentState.OnCollisionStay2D(null, collider);
+        base.Update();
+        _currentState.Update();
     }
 
     protected override void RandomTickChangeDirection()
