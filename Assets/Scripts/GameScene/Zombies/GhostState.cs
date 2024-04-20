@@ -1,23 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GhostState : IState
 {
-    public GhostState(MyGhostZombieController controller) : base(controller) { }
+    private Vector3 _pivotPoint;
+    private BoxCollider2D _colliderBox;
+
+    public GhostState(MyGhostZombieController controller) : base(controller)
+    {
+        _colliderBox = controller.GetComponent<BoxCollider2D>();
+    }
 
     public override void EnterState()
     {
-        throw new System.NotImplementedException();
+        _colliderBox.isTrigger = true;
     }
 
-    public override void OnCollisionStay2D(Collision2D collision)
+    public override void OnCollisionStay2D(Collision2D collision, Collider2D collider)
     {
-        throw new System.NotImplementedException();
+        if (collider != null && collider.CompareTag("PivotPoint") && Vector3.Distance(collider.transform.position, controller.transform.position) < 0.1f)
+        {
+            _colliderBox.isTrigger = false;
+        }
     }
 
     public override void RandomTickChangeDirection()
     {
-        throw new System.NotImplementedException();
+        
+    }
+
+    public void ChangePivotPoint(Vector3 position)
+    {
+        _pivotPoint = position;
     }
 }

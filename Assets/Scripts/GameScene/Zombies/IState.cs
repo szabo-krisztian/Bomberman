@@ -11,7 +11,7 @@ public abstract class IState
 
     public abstract void EnterState();
 
-    public abstract void OnCollisionStay2D(Collision2D collision);
+    public abstract void OnCollisionStay2D(Collision2D collision, Collider2D collider);
 
     public abstract void RandomTickChangeDirection();
 }
