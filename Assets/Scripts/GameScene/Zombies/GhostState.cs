@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GhostState : IState
 {
-    public GhostState(MyGhostZombieController controller) : base(controller { }
+    public GhostState(MyGhostZombieController controller) : base(controller) { }
 
     public override void EnterState()
     {
