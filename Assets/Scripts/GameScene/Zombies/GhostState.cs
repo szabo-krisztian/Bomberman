@@ -4,7 +4,7 @@ public class GhostState : IState
 {
     private BoxCollider2D _colliderBox;
 
-    public GhostState(MyGhostZombieController controller) : base(controller)
+    public GhostState(MyGhostZombieController controller, string animName) : base(controller, animName)
     {
         _colliderBox = controller.GetComponent<BoxCollider2D>();
     }

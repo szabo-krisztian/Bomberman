@@ -6,7 +6,7 @@ public class WalkState : IState
     private const int ENTER_GHOST_STATE_CHANCE = 80;
     private readonly System.Random random = new System.Random();
 
-    public WalkState(MyGhostZombieController controller) : base(controller)
+    public WalkState(MyGhostZombieController controller, string animName) : base(controller, animName)
     {
         _model = new GhostModel();
     }

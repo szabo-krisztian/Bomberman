@@ -7,18 +7,21 @@ public class MyGhostZombieController : MyZombieController
     public Vector3 PivotPoint { get; private set; }
 
     private IState _currentState;
+    private Animator _animator;
 
     protected override void Start()
     {
         base.Start();
-        WalkState = new WalkState(this);
-        GhostState = new GhostState(this);
+        WalkState = new WalkState(this, "GhostZombieRun_Normal");
+        GhostState = new GhostState(this, "GhostZombieRun_Ghost");
+        _animator = GetComponentInChildren<Animator>();
         SwitchState(WalkState);
     }
 
     public void SwitchState(IState newState)
     {
         _currentState = newState;
+        _animator.Play(_currentState.ANIM_NAME);
         _currentState.EnterState();
     }
 
