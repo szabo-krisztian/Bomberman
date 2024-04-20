@@ -30,6 +30,6 @@ public class GhostModel
     private bool IsFreeSpaceFound(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
-        return colliders.Length == 0 || _collisionDetector.IsTagInColliders(colliders, "Bomb");
+        return !(_collisionDetector.IsTagInColliders(colliders, "Box") || _collisionDetector.IsTagInColliders(colliders, "Wall"));
     }
 }
