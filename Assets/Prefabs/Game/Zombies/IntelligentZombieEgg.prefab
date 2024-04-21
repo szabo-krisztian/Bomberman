@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7938452838400326339}
   - component: {fileID: 5931943846669959909}
-  - component: {fileID: 5091536467509441412}
   - component: {fileID: 3112198619556117326}
+  - component: {fileID: 7134629708597119214}
   m_Layer: 7
   m_Name: IntelligentZombieEgg
   m_TagString: Untagged
@@ -86,32 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5091536467509441412
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7757550646353536084}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8125, y: 1}
-    newSize: {x: 0.8125, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.8125, y: 1}
-  m_EdgeRadius: 0
 --- !u!95 &3112198619556117326
 Animator:
   serializedVersion: 5
@@ -120,7 +94,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7757550646353536084}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2f00fa5f0d2ec1d42a236b99865edade, type: 2}
   m_CullingMode: 0
@@ -133,3 +107,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7134629708597119214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757550646353536084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09964a10a0908054288e7fa20fd3e8d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EggCracked: {fileID: 11400000, guid: 8c9113a0893a7ca429eeba01510ce58b, type: 2}
+  _dino: {fileID: 4162679677198149153, guid: 0758d378957ef63438d02a14c594e36c, type: 3}

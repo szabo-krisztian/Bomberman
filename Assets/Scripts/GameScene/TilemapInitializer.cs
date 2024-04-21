@@ -1,7 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class TilemapInitializer : MonoBehaviour
 {
@@ -16,6 +15,9 @@ public class TilemapInitializer : MonoBehaviour
 
     [SerializeField]
     private GameObject[] _zombies;
+
+    [SerializeField]
+    private GameObject[] _zombieEggs;
 
     private CollisionDetectionModel _collisionDetector;
 
@@ -59,34 +61,38 @@ public class TilemapInitializer : MonoBehaviour
         foreach (Vector3Int position in allTilePositions)
         {
             Vector3 worldPosition = UtilityFunctions.GetCenterPosition(position);
-            
+
             if (IsFreeSpace(worldPosition))
             {
-                
                 freePositions.Enqueue(worldPosition);
             }
         }
 
-        
         foreach (ZombieType zombieType in _tilemapSO.TilemapData.Zombies)
         {
+            var pos = freePositions.Dequeue();
+
             switch (zombieType.Type)
             {
                 case "Normal":
-                    Instantiate(_zombies[0], freePositions.Dequeue(), Quaternion.identity);
+                    Instantiate(_zombieEggs[0], pos, Quaternion.identity);
                     break;
                 case "Ghost":
-                    Instantiate(_zombies[1], freePositions.Dequeue(), Quaternion.identity);
+                    Instantiate(_zombieEggs[1], pos, Quaternion.identity);
                     break;
                 case "Intelligent":
-                    Instantiate(_zombies[2], freePositions.Dequeue(), Quaternion.identity);
+                    Instantiate(_zombieEggs[2], pos, Quaternion.identity);
                     break;
                 case "VeryIntelligent":
-                    Instantiate(_zombies[3], freePositions.Dequeue(), Quaternion.identity);
+                    Instantiate(_zombieEggs[3], pos, Quaternion.identity);
                     break;
             }
         }
-        
+    }
+
+    public void EggCrackedHandler(EggCrackedInfo info)
+    {
+        Instantiate(info.Dino, info.Position, Quaternion.identity);
     }
 
     private bool IsFreeSpace(Vector3 position)

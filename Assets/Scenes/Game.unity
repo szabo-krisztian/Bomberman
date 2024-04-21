@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 1801036466}
   - component: {fileID: 1801036465}
   - component: {fileID: 1801036467}
+  - component: {fileID: 1801036468}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -282,6 +283,39 @@ MonoBehaviour:
   - {fileID: 1677594359866495885, guid: 6b5cc61aab3a7b84c91a8adfaa613daf, type: 3}
   - {fileID: 4162679677198149153, guid: 0758d378957ef63438d02a14c594e36c, type: 3}
   - {fileID: 2184431709102626410, guid: 81a931928dd7c954b83d7e39f14c3cc3, type: 3}
+  _zombieEggs:
+  - {fileID: 6702843045749051, guid: cfeee7abbb9e9834d8eb716a9be0ddc3, type: 3}
+  - {fileID: 7757550646353536084, guid: d37ee257c31b49a4dbcdcbc2b3f8783d, type: 3}
+  - {fileID: 4554629340004523187, guid: d16a1c7e33d176d45958ffe58ba438d3, type: 3}
+  - {fileID: 871673947552775940, guid: 5862321898dbac64aa2f5ca75bad1454, type: 3}
+--- !u!114 &1801036468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801036464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d819f5e0ea578048abb663e97d6ab8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 8c9113a0893a7ca429eeba01510ce58b, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1801036467}
+        m_TargetAssemblyTypeName: TilemapInitializer, Assembly-CSharp
+        m_MethodName: EggCrackedHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &8229959188964993065
 PrefabInstance:
   m_ObjectHideFlags: 0
