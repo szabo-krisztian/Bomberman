@@ -32,4 +32,19 @@ public static class UtilityFunctions
                position.y <= MAP_UPPER_LEFT_CORNER.y &&
                position.y >= MAP_DOWN_RIGHT_CORNER.y;
     }
+
+    public static List<Vector3Int> GetAllTilePositionsInTilemap()
+    {
+        List<Vector3Int> positions = new List<Vector3Int>();
+
+        for (int i = MAP_UPPER_LEFT_CORNER.x; i <= MAP_DOWN_RIGHT_CORNER.x; ++i)
+        {
+            for (int j = MAP_UPPER_LEFT_CORNER.y; j >= MAP_DOWN_RIGHT_CORNER.y; --j)
+            {
+                positions.Add(new Vector3Int(i, j));
+            }
+        }
+
+        return positions;
+    }
 }

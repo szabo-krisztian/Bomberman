@@ -1,13 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class TilemapInitializer : MonoBehaviour
 {
     [SerializeField]
-    private Tilemap _indestructibles;
+    private TilemapSO _tilemapSO;
 
     [SerializeField]
-    private TilemapSO _tilemapSO;
+    private Tilemap _indestructibles;   
 
     [SerializeField]
     private TileBase _wallTile;
@@ -21,11 +22,17 @@ public class TilemapInitializer : MonoBehaviour
     [SerializeField]
     private GameObject _playerTwo;
 
+    [SerializeField]
+    private GameObject[] _zombies;
+
+    private CollisionDetectionModel _collisionDetector;
+
     private void Start()
     {
-        Debug.Log(_tilemapSO.TilemapData.Tiles.Count);
+        _collisionDetector = new CollisionDetectionModel();
         InitializeTilemap();
         PlacePlayers();
+        PlaceZombies();
     }
 
     private void InitializeTilemap()
@@ -47,7 +54,48 @@ public class TilemapInitializer : MonoBehaviour
 
     private void PlacePlayers()
     {
-        _playerOne.transform.position = UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerOnePosition);
-        _playerTwo.transform.position = UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerTwoPosition);
+        Instantiate(_playerOne, UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerOnePosition), Quaternion.identity);
+        Instantiate(_playerTwo, UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerTwoPosition), Quaternion.identity);
+    }
+
+    private void PlaceZombies()
+    {
+        List<Vector3Int> allTilePositions = UtilityFunctions.GetAllTilePositionsInTilemap();
+        allTilePositions.Shuffle();
+        Queue<Vector3> freePositions = new Queue<Vector3>();
+
+        foreach (Vector3Int position in allTilePositions)
+        {
+            Vector3 worldPosition = UtilityFunctions.GetCenterPosition(position);
+            if (IsFreeSpace(worldPosition))
+            {
+                freePositions.Enqueue(worldPosition);
+            }
+        }
+
+        foreach (ZombieType zombieType in _tilemapSO.TilemapData.Zombies)
+        {
+            switch (zombieType.Type)
+            {
+                case "Normal":
+                    Instantiate(_zombies[0], freePositions.Dequeue(), Quaternion.identity);
+                    break;
+                case "Ghost":
+                    Instantiate(_zombies[1], freePositions.Dequeue(), Quaternion.identity);
+                    break;
+                case "Intelligent":
+                    Instantiate(_zombies[2], freePositions.Dequeue(), Quaternion.identity);
+                    break;
+                case "VeryIntelligent":
+                    Instantiate(_zombies[3], freePositions.Dequeue(), Quaternion.identity);
+                    break;
+            }
+        }
+    }
+
+    private bool IsFreeSpace(Vector3 position)
+    {
+        Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
+        return !_collisionDetector.IsTagInColliders(colliders, "Box") && !_collisionDetector.IsTagInColliders(colliders, "Wall");
     }
 }
