@@ -1,40 +1,22 @@
 stages:
-  - prepare
-  - test
-  - build
+  - build_and_test
   - deploy
 
 # If you are looking for a place where to add 'UNITY_LICENSE_FILE' and other secrets, please visit your project's gitlab page:
 # settings > CI/CD > Variables instead
 variables:
-  BUILD_NAME: Tree-o
+  BUILD_NAME: oriaspalacsinta
   UNITY_ACTIVATION_FILE: ./unity3d.alf
+  UNITY_VERSION: "2021.3.19f1"
   IMAGE: unityci/editor # https://hub.docker.com/r/unityci/editor
   IMAGE_VERSION: "1.0.1" # https://github.com/game-ci/docker/releases
   UNITY_DIR: $CI_PROJECT_DIR # this needs to be an absolute path. Defaults to the root of your tree.
-  # You can expose this in Unity via Application.version
-  VERSION_NUMBER_VAR: $CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID-$CI_JOB_ID
-  VERSION_BUILD_VAR: $CI_PIPELINE_IID
 
 image: $IMAGE:$UNITY_VERSION-base-$IMAGE_VERSION
-
-get-unity-version:
-  image: alpine
-  stage: prepare
-  variables:
-    GIT_DEPTH: 1
-  script:
-    - echo UNITY_VERSION=$(cat $UNITY_DIR/ProjectSettings/ProjectVersion.txt | grep "m_EditorVersion:.*" | awk '{ print $2}') | tee prepare.env
-  artifacts:
-    reports:
-      dotenv: prepare.env
 
 .unity_before_script: &unity_before_script
   before_script:
     - chmod +x ./ci/before_script.sh && ./ci/before_script.sh
-  needs:
-    - job: get-unity-version
-      artifacts: true
 
 .cache: &cache
   cache:
@@ -47,20 +29,13 @@ get-unity-version:
     - if: "$UNITY_LICENSE != null"
       when: always
 
-.unity_defaults: &unity_defaults
-  <<:
-    - *unity_before_script
-    - *cache
-    - *license
-
 # run this job when you need to request a license
 # you may need to follow activation steps from documentation
 get-activation-file:
-  <<: *unity_before_script
   rules:
     - if: "$UNITY_LICENSE == null"
       when: manual
-  stage: prepare
+  stage: build_and_test
   script:
     - chmod +x ./ci/get_activation_file.sh && ./ci/get_activation_file.sh
   artifacts:
@@ -69,8 +44,10 @@ get-activation-file:
     expire_in: 10 min # Expiring this as artifacts may contain sensitive data and should not be kept public
 
 .test-with-junit-reports: &test-with-junit-reports
-  stage: test
-  <<: *unity_defaults
+  stage: build_and_test
+  <<: *unity_before_script
+  <<: *cache
+  <<: *license
   script:
     # This could be made faster by adding these packages to base image or running in a separate job (and step)
     # We could use an image with these two depencencies only and only do the saxonb-xslt command on
@@ -86,7 +63,7 @@ get-activation-file:
     reports:
       junit:
         - $UNITY_DIR/$TEST_PLATFORM-junit-results.xml
-        - "$UNITY_DIR/$TEST_PLATFORM-coverage/coverage.xml"
+        - $UNITY_DIR/$TEST_PLATFORM-coverage/coverage.xml
     expire_in: 2 weeks
   coverage: /<Linecoverage>(.*?)</Linecoverage>/
 
@@ -95,91 +72,51 @@ test-playmode-with-junit-reports:
   variables:
     TEST_PLATFORM: playmode
     TESTING_TYPE: JUNIT
+  retry: 2
 
 test-editmode-with-junit-reports:
   <<: *test-with-junit-reports
   variables:
     TEST_PLATFORM: editmode
     TESTING_TYPE: JUNIT
+  retry: 2
 
 .build: &build
-  stage: build
-  <<: *unity_defaults
+  stage: build_and_test
+  <<: *unity_before_script
+  <<: *cache
+  <<: *license
   script:
     - chmod +x ./ci/build.sh && ./ci/build.sh
   artifacts:
+    expire_in: 3 day
     paths:
       - $UNITY_DIR/Builds/
-  needs:
-    - job: test-playmode-with-junit-reports
-    - job: test-editmode-with-junit-reports
-    - job: get-unity-version
-      artifacts: true
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_TAG'
 
 build-StandaloneLinux64:
   <<: *build
   variables:
     BUILD_TARGET: StandaloneLinux64
+  retry: 2
+
+build-StandaloneOSX:
+  <<: *build
+  image: $IMAGE:$UNITY_VERSION-mac-mono-$IMAGE_VERSION
+  variables:
+    BUILD_TARGET: StandaloneOSX
+  retry: 2
 
 build-StandaloneWindows64:
   <<: *build
   image: $IMAGE:$UNITY_VERSION-windows-mono-$IMAGE_VERSION
   variables:
     BUILD_TARGET: StandaloneWindows64
-
-# For webgl support, you need to set Compression Format to Disabled for v0.9. See https://github.com/game-ci/docker/issues/75
-build-WebGL:
-  <<: *build
-  image: $IMAGE:$UNITY_VERSION-webgl-$IMAGE_VERSION
-  # Temporary workaround for https://github.com/game-ci/docker/releases/tag/v0.9 and webgl support in current project to prevent errors with missing ffmpeg
-  before_script:
-    - chmod +x ./ci/before_script.sh && ./ci/before_script.sh
-    - apt-get update && apt-get install ffmpeg -y
-  variables:
-    BUILD_TARGET: WebGL
-
-pages:
-  image: alpine:latest
-  stage: deploy
-  script:
-    - mv "$UNITY_DIR/Builds/WebGL/${BUILD_NAME}" public
-  artifacts:
-    paths:
-      - public
-  only:
-    - main
-
-package_registry:
-  stage: deploy
-  image: ubuntu:20.04
-  needs:
-    - job: build-StandaloneLinux64
-    - job: build-StandaloneWindows64
-    - job: build-WebGL
-    - job: get-unity-version
-      artifacts: true
-  rules:
-    - if: "$CI_COMMIT_TAG && $CI_COMMIT_TAG =~ /^v.*$/"
-  variables:
-    PACKAGE_REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/builds/$CI_COMMIT_TAG"
-  before_script:
-    - apt-get update -y
-    - apt-get install -y zip curl
-  script:
-    - zip -r build-StandaloneLinux64.zip ./Builds/StandaloneLinux64/
-    - zip -r build-StandaloneWindows64.zip ./Builds/StandaloneWindows64/
-    - zip -r build-WebGL.zip ./Builds/WebGL/${BUILD_NAME}/
-    - |
-      curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build-StandaloneLinux64.zip "${PACKAGE_REGISTRY_URL}/StandaloneLinux64-$CI_COMMIT_TAG.zip"
-    - |
-      curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build-StandaloneWindows64.zip "${PACKAGE_REGISTRY_URL}/StandaloneWindows64-$CI_COMMIT_TAG.zip"
-    - |
-      curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build-WebGL.zip "${PACKAGE_REGISTRY_URL}/WebGL-$CI_COMMIT_TAG.zip"
+  retry: 2
 
 workflow:
   rules:
     - if: $CI_MERGE_REQUEST_ID
+      when: never
+    - if: $CI_COMMIT_TAG
       when: never
     - when: always
