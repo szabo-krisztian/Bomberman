@@ -61,13 +61,14 @@ public class BombController : MonoBehaviour
             return;
         }
 
+        Instantiate(_explosionPrefab, position, Quaternion.identity);
+
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
         if (CheckColliders(colliders))
         {
             return;
         }
 
-        Instantiate(_explosionPrefab, position, Quaternion.identity);
         ExplodeInStraightLine(position + direction, direction, length - 1);
     }
 
@@ -86,10 +87,6 @@ public class BombController : MonoBehaviour
         if (overlappedObject.CompareTag("Bomb"))
         {
             overlappedObject.SendMessage("OnBombExplodedNearby");
-        }
-        if (overlappedObject.CompareTag("Box"))
-        {
-            overlappedObject.SendMessage("OnExplosionHit");
         }
     }
 

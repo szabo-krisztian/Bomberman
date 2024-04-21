@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7487365368642671872}
   - component: {fileID: -3673679045098867900}
   - component: {fileID: 6593519591879101455}
+  - component: {fileID: 882434821079715993}
   m_Layer: 0
   m_Name: Box
   m_TagString: Box
@@ -149,3 +150,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &882434821079715993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359629554778958739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942fbcafb19f5b248baae5f2824746b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

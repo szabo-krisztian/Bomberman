@@ -84,13 +84,12 @@ public class MyIntelligentZombieModel : MyZombieModel
 
     private void InitStartingValues(Vector3Int StartingPosition, Queue<Vector3Int> queue)
     {
-        for (int i = UtilityFunctions.MAP_UPPER_LEFT_CORNER.x; i <= UtilityFunctions.MAP_DOWN_RIGHT_CORNER.x; ++i)
+        List<Vector3Int> allTilePositions = UtilityFunctions.GetAllTilePositionsInTilemap();
+
+        foreach (Vector3Int position in allTilePositions)
         {
-            for (int j = UtilityFunctions.MAP_UPPER_LEFT_CORNER.y; j >= UtilityFunctions.MAP_DOWN_RIGHT_CORNER.y; --j)
-            {
-                _parent[new Vector3Int(i, j)] = UtilityFunctions.NULL_VECTOR;
-                _distance[new Vector3Int(i, j)] = -1;
-            }
+            _parent[new Vector3Int(position.x, position.y)] = UtilityFunctions.NULL_VECTOR;
+            _distance[new Vector3Int(position.x, position.y)] = -1;
         }
 
         _distance[StartingPosition] = 0;

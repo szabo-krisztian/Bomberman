@@ -3,6 +3,12 @@ using UnityEngine;
 public class ExplosionDetector : MonoBehaviour
 {
     private bool _isInExplosionPrefab;
+    private CollisionDetectionModel _collisionDetector;
+
+    public void Start()
+    {
+        _collisionDetector = new CollisionDetectionModel();
+    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -11,19 +17,17 @@ public class ExplosionDetector : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        Debug.Log("sfdf");
         _isInExplosionPrefab = true;
     }
 
     private void OnParticleCollision(GameObject other)
     {
-        if (_isInExplosionPrefab)
+        Debug.Log("sdf");
+        var colliders = _collisionDetector.GetCollidersInPosition(transform.position);
+        if (_collisionDetector.IsTagInColliders(colliders, "Explosion"))
         {
-            Debug.Log("die");
+            gameObject.SendMessage("OnExplosionHit");
         }
-    }
-
-    private void Update()
-    {
-        //Debug.Log(UtilityFunctions.GetTilemapPosition(transform.position));
     }
 }
