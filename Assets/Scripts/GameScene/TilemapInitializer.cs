@@ -23,6 +23,7 @@ public class TilemapInitializer : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(_tilemapSO.TilemapData.Tiles.Count);
         InitializeTilemap();
         PlacePlayers();
     }
@@ -34,7 +35,7 @@ public class TilemapInitializer : MonoBehaviour
             Vector3Int tilePosition = tileData.Position;
             if (tileData.TileType == "Brick")
             {
-                Vector2 boxPosition = UtilityFunctions.GetCenterPosition(tileData.Position);
+                Vector3 boxPosition = UtilityFunctions.GetCenterPosition(tileData.Position);
                 Instantiate(_boxPrefab, boxPosition, Quaternion.identity, transform);
             }
             else if (tileData.TileType == "Block")

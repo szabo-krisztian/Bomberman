@@ -11,8 +11,8 @@ public static class UtilityFunctions
         Vector3Int.right
     };
 
-    public static readonly Vector3Int MAP_UPPER_LEFT_CORNER = new Vector3Int(-7, 7);
-    public static readonly Vector3Int MAP_DOWN_RIGHT_CORNER = new Vector3Int(7, -6);
+    public static readonly Vector3Int MAP_UPPER_LEFT_CORNER = new Vector3Int(-7, 6);
+    public static readonly Vector3Int MAP_DOWN_RIGHT_CORNER = new Vector3Int(5, -6);
     public static readonly Vector3Int NULL_VECTOR = new Vector3Int(MAP_DOWN_RIGHT_CORNER.x + 1, MAP_DOWN_RIGHT_CORNER.y - 1);
 
     public static Vector3 GetCenterPosition(Vector3 position)
@@ -27,9 +27,9 @@ public static class UtilityFunctions
 
     public static bool IsPositionInMap(Vector3Int position)
     {
-        return position.x > MAP_UPPER_LEFT_CORNER.x &&
-               position.x < MAP_DOWN_RIGHT_CORNER.x &&
-               position.y < MAP_UPPER_LEFT_CORNER.y &&
-               position.y > MAP_DOWN_RIGHT_CORNER.y;
+        return position.x >= MAP_UPPER_LEFT_CORNER.x &&
+               position.x <= MAP_DOWN_RIGHT_CORNER.x &&
+               position.y <= MAP_UPPER_LEFT_CORNER.y &&
+               position.y >= MAP_DOWN_RIGHT_CORNER.y;
     }
 }
