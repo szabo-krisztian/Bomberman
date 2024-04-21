@@ -14,7 +14,7 @@ public class ExplosionDetector : MonoBehaviour
         var colliders = _collisionDetector.GetCollidersInPosition(transform.position);
         if (_collisionDetector.IsTagInColliders(colliders, "Explosion"))
         {
-            gameObject.SendMessage("OnExplosionHit");
+            gameObject.SendMessage("Die");
         }
     }
 }

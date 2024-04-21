@@ -78,7 +78,7 @@ public class BombController : MonoBehaviour
         return _collisionDetector.IsTagInColliders(colliders, "Box") || _collisionDetector.IsTagInColliders(colliders, "Wall");
     }
 
-    public void OnExplosionHit()
+    public void Die()
     {
         StartCoroutine(IgniteBomb(.05f));
     }

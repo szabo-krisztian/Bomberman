@@ -11,7 +11,7 @@ public class BoxController : MonoBehaviour
     private readonly System.Random random = new System.Random();
     private const int _numberOfPowerUps = 2;
 
-    public void OnExplosionHit()
+    public void Die()
     {
         StartCoroutine(Break());
     }

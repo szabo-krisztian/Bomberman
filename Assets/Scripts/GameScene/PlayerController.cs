@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnExplosionHit()
+    public void Die()
     {
         PlayerDied.Raise(_playerIndex);
         Destroy(gameObject);
