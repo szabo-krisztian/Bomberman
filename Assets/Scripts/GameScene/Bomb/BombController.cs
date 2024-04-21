@@ -62,7 +62,6 @@ public class BombController : MonoBehaviour
         }
 
         Instantiate(_explosionPrefab, position, Quaternion.identity);
-
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
         if (CheckColliders(colliders))
         {
@@ -74,23 +73,10 @@ public class BombController : MonoBehaviour
 
     private bool CheckColliders(Collider2D[] colliders)
     {
-        foreach (Collider2D collider in colliders)
-        {
-            CheckEntityHit(collider.gameObject);
-        }
-
         return _collisionDetector.IsTagInColliders(colliders, "Box") || _collisionDetector.IsTagInColliders(colliders, "Wall");
     }
 
-    private void CheckEntityHit(GameObject overlappedObject)
-    {
-        if (overlappedObject.CompareTag("Bomb"))
-        {
-            overlappedObject.SendMessage("OnBombExplodedNearby");
-        }
-    }
-
-    public void OnBombExplodedNearby()
+    public void OnExplosionHit()
     {
         StartCoroutine(IgniteBomb(.05f));
     }
