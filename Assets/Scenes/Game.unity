@@ -284,9 +284,9 @@ MonoBehaviour:
   - {fileID: 4162679677198149153, guid: 0758d378957ef63438d02a14c594e36c, type: 3}
   - {fileID: 2184431709102626410, guid: 81a931928dd7c954b83d7e39f14c3cc3, type: 3}
   _zombieEggs:
+  - {fileID: 4554629340004523187, guid: d16a1c7e33d176d45958ffe58ba438d3, type: 3}
   - {fileID: 6702843045749051, guid: cfeee7abbb9e9834d8eb716a9be0ddc3, type: 3}
   - {fileID: 7757550646353536084, guid: d37ee257c31b49a4dbcdcbc2b3f8783d, type: 3}
-  - {fileID: 4554629340004523187, guid: d16a1c7e33d176d45958ffe58ba438d3, type: 3}
   - {fileID: 871673947552775940, guid: 5862321898dbac64aa2f5ca75bad1454, type: 3}
 --- !u!114 &1801036468
 MonoBehaviour:

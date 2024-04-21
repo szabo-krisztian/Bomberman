@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,22 +69,25 @@ public class TilemapInitializer : MonoBehaviour
 
         foreach (ZombieType zombieType in _tilemapSO.TilemapData.Zombies)
         {
-            var pos = freePositions.Dequeue();
-
-            switch (zombieType.Type)
+            for (int i = 0; i < zombieType.Count; i++)
             {
-                case "Normal":
-                    Instantiate(_zombieEggs[0], pos, Quaternion.identity);
-                    break;
-                case "Ghost":
-                    Instantiate(_zombieEggs[1], pos, Quaternion.identity);
-                    break;
-                case "Intelligent":
-                    Instantiate(_zombieEggs[2], pos, Quaternion.identity);
-                    break;
-                case "VeryIntelligent":
-                    Instantiate(_zombieEggs[3], pos, Quaternion.identity);
-                    break;
+                var pos = freePositions.Dequeue();
+
+                switch (zombieType.Type)
+                {
+                    case "Normal":
+                        Instantiate(_zombieEggs[0], pos, Quaternion.identity);
+                        break;
+                    case "Ghost":
+                        Instantiate(_zombieEggs[1], pos, Quaternion.identity);
+                        break;
+                    case "Intelligent":
+                        Instantiate(_zombieEggs[2], pos, Quaternion.identity);
+                        break;
+                    case "VeryIntelligent":
+                        Instantiate(_zombieEggs[3], pos, Quaternion.identity);
+                        break;
+                }
             }
         }
     }

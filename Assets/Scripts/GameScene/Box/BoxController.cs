@@ -7,7 +7,7 @@ public class BoxController : MonoBehaviour
     private GameObject[] powerUps;
 
     private float _breakTime = 1.1f;
-    private const int _powerUpSpawnChance = 20;
+    private const int _powerUpSpawnChance = 100;
     private readonly System.Random random = new System.Random();
     private const int _numberOfPowerUps = 2;
 
