@@ -46,7 +46,7 @@ public class MyZombieModel
         return freeDirections;
     }
 
-    public Vector2Int GetRandomDirection(Vector2 position, Vector2 facingDirection)
+    public Vector2Int GetRandomDirection(Vector2 position)
     {
         List<Vector2Int> availableDirections = GetFreeNeighbourDirections(UtilityFunctions.GetTilemapPosition(position));
         if (availableDirections.Count == 0)

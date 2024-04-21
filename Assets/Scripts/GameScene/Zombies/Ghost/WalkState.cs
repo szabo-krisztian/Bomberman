@@ -20,12 +20,12 @@ public class WalkState : IState
 
     public override void RandomTickChangeDirection()
     {
-        controller.ChangeDirection(controller.model.GetRandomDirection(controller.transform.position, controller._facingDirection));
+        controller.ChangeDirection(controller.Model.GetRandomDirection(controller.transform.position));
     }
 
     public override void OnCollisionStay2D(Collision2D collision)
     {
-        Vector3 pivotPoint = _model.GetPivotPoint(controller._facingDirection, UtilityFunctions.GetCenterPosition(controller.transform.position));
+        Vector3 pivotPoint = _model.GetPivotPoint(controller.FacingDirection, UtilityFunctions.GetCenterPosition(controller.transform.position));
 
         if (IsTimeToEnterGhostState(pivotPoint, collision.collider))
         {
@@ -34,14 +34,14 @@ public class WalkState : IState
         }
         else
         {
-            controller.ChangeDirection(controller.model.GetRandomDirection(controller.transform.position, controller._facingDirection));
+            controller.ChangeDirection(controller.Model.GetRandomDirection(controller.transform.position));
         }
     }
 
     private bool IsTimeToEnterGhostState(Vector3 pivotPoint, Collider2D collider)
     {
 
-        bool zombieCanParseThroughWall = UtilityFunctions.IsPositionInMap(UtilityFunctions.GetTilemapPosition(pivotPoint)) && !controller.model.IsIsolatedPosition(pivotPoint) && !collider.CompareTag("Bomb");
+        bool zombieCanParseThroughWall = UtilityFunctions.IsPositionInMap(UtilityFunctions.GetTilemapPosition(pivotPoint)) && !controller.Model.IsIsolatedPosition(pivotPoint) && !collider.CompareTag("Bomb");
         return zombieCanParseThroughWall;
     }
 }

@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class MyZombieController : MonoBehaviour
 {
-    public MyZombieModel model { get; private set; }
-    public Vector2 _facingDirection { get; protected set; }
+    public MyZombieModel Model { get; private set; }
+    public Vector2 FacingDirection { get; protected set; }
 
     private const float SPEED = 2f;
     private const float TICK_INTERVAL_MIN = 2f;
     private const float TICK_INTERVAL_MAX = 5f;
+    private const float TURNING_PRECISION = .05f;
 
     private Rigidbody2D _rigidBody;
     private bool _isTimeToChangeDirection;
@@ -16,14 +17,15 @@ public class MyZombieController : MonoBehaviour
     protected virtual void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
-        model = new MyZombieModel();
+        Model = new MyZombieModel();
         ChangeDirection(Vector2.up);
         StartTicker();
     }
 
     protected virtual void Update()
     {
-        if (_isTimeToChangeDirection && Vector2.Distance(transform.position, UtilityFunctions.GetCenterPosition(transform.position)) < .05f)
+        bool zombieReachedCenterOfCell = Vector2.Distance(transform.position, UtilityFunctions.GetCenterPosition(transform.position)) < TURNING_PRECISION;
+        if (_isTimeToChangeDirection && zombieReachedCenterOfCell)
         {
             _isTimeToChangeDirection = false;
             RandomTickChangeDirection();
@@ -33,18 +35,18 @@ public class MyZombieController : MonoBehaviour
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
-        ChangeDirection(model.GetRandomDirection(transform.position, _facingDirection));
+        ChangeDirection(Model.GetRandomDirection(transform.position));
     }
 
     public void ChangeDirection(Vector2 facingDirection)
     {
         transform.position = UtilityFunctions.GetCenterPosition(transform.position);
-        _facingDirection = facingDirection;
+        FacingDirection = facingDirection;
     }
 
     protected virtual void RandomTickChangeDirection()
     {
-        ChangeDirection(model.GetRandomDirection(transform.position, _facingDirection));
+        ChangeDirection(Model.GetRandomDirection(transform.position));
     }
 
     private IEnumerator Ticker(float timeToWait)
@@ -60,6 +62,6 @@ public class MyZombieController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidBody.MovePosition(transform.position + new Vector3(_facingDirection.x, _facingDirection.y, 0) * Time.fixedDeltaTime * SPEED);
+        _rigidBody.MovePosition(transform.position + new Vector3(FacingDirection.x, FacingDirection.y, 0) * Time.fixedDeltaTime * SPEED);
     }
 }

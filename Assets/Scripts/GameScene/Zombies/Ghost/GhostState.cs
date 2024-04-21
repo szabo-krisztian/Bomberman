@@ -20,7 +20,6 @@ public class GhostState : IState
         {
             _colliderBox.isTrigger = false;
             controller.transform.position = UtilityFunctions.GetCenterPosition(controller.transform.position);
-            Debug.Log("switch");
             controller.SwitchState(controller.WalkState);
         }
     }

@@ -24,7 +24,7 @@ public class MyIntelligentZombieController : MyZombieController
         
         if (routeToPlayer.Count == 0)
         {
-            return model.GetRandomDirection(transform.position, _facingDirection);
+            return Model.GetRandomDirection(transform.position);
         }
 
         Vector2Int firstPosition = routeToPlayer.Last();

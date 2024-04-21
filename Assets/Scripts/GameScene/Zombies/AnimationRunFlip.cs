@@ -10,12 +10,12 @@ public class AnimationRunFlip : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _zombieController = GetComponentInParent<MyZombieController>();
-        _previousDirection = _zombieController._facingDirection;
+        _previousDirection = _zombieController.FacingDirection;
     }
 
     private void Update()
     {
-        Vector2 currentDirection = _zombieController._facingDirection;
+        Vector2 currentDirection = _zombieController.FacingDirection;
         if (currentDirection != _previousDirection)
         {
             FlipSprite(currentDirection);
