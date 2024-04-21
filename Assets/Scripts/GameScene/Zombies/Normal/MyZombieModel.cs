@@ -12,19 +12,19 @@ public class MyZombieModel
         _collisionDetector = new CollisionDetectionModel();
     }
 
-    protected bool IsPositionFree(Vector2 position)
+    protected bool IsPositionFree(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
         return (!_collisionDetector.IsTagInColliders(colliders, "Wall") && !_collisionDetector.IsTagInColliders(colliders, "Box"));
     }
 
-    public List<Vector2Int> GetFreeNeighbourPositions(Vector2Int position)
+    public List<Vector3Int> GetFreeNeighbourPositions(Vector3Int position)
     {
-        List<Vector2Int> freeNeighbours = new List<Vector2Int>();
+        List<Vector3Int> freeNeighbours = new List<Vector3Int>();
 
-        foreach (Vector2 direction in UtilityFunctions.Directions)
+        foreach (Vector3 direction in UtilityFunctions.Directions)
         {
-            Vector2 neighbourWorldPosition = UtilityFunctions.GetCenterPosition(position) + direction;
+            Vector3 neighbourWorldPosition = UtilityFunctions.GetCenterPosition(position) + direction;
             if (IsPositionFree(neighbourWorldPosition))
             {
                 freeNeighbours.Add(UtilityFunctions.GetTilemapPosition(neighbourWorldPosition));
@@ -34,11 +34,11 @@ public class MyZombieModel
         return freeNeighbours;
     }
 
-    public List<Vector2Int> GetFreeNeighbourDirections(Vector2Int position)
+    public List<Vector3Int> GetFreeNeighbourDirections(Vector3Int position)
     {
-        List<Vector2Int> freeDirections = new List<Vector2Int>();
+        List<Vector3Int> freeDirections = new List<Vector3Int>();
 
-        foreach (Vector2Int freeNeighbourPosition in GetFreeNeighbourPositions(position))
+        foreach (Vector3Int freeNeighbourPosition in GetFreeNeighbourPositions(position))
         {
             freeDirections.Add(freeNeighbourPosition - position);
         }
@@ -46,22 +46,22 @@ public class MyZombieModel
         return freeDirections;
     }
 
-    public Vector2Int GetRandomDirection(Vector2 position)
+    public Vector3Int GetRandomDirection(Vector3 position)
     {
-        List<Vector2Int> availableDirections = GetFreeNeighbourDirections(UtilityFunctions.GetTilemapPosition(position));
+        List<Vector3Int> availableDirections = GetFreeNeighbourDirections(UtilityFunctions.GetTilemapPosition(position));
         if (availableDirections.Count == 0)
         {
-            return Vector2Int.zero;
+            return Vector3Int.zero;
         }
 
-        Vector2Int randomDirection = availableDirections[random.Next(0, availableDirections.Count)];
+        Vector3Int randomDirection = availableDirections[random.Next(0, availableDirections.Count)];
         return randomDirection;
     }
 
     public bool IsIsolatedPosition(Vector3 position)
     {
         Vector3Int tilemapPosition = UtilityFunctions.GetTilemapPosition(position);
-        List<Vector2Int> freeDirections = GetFreeNeighbourDirections(new Vector2Int(tilemapPosition.x, tilemapPosition.y));
+        List<Vector3Int> freeDirections = GetFreeNeighbourDirections(new Vector3Int(tilemapPosition.x, tilemapPosition.y));
         return freeDirections.Count == 0;
     }
 }

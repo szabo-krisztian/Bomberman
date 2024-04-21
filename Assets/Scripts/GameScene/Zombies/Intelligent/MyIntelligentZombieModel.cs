@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class MyIntelligentZombieModel : MyZombieModel
 {
-    private Dictionary<Vector2Int, Vector2Int> _parent;
-    private Dictionary<Vector2Int, int> _distance;
+    private Dictionary<Vector3Int, Vector3Int> _parent;
+    private Dictionary<Vector3Int, int> _distance;
 
     public MyIntelligentZombieModel()
     {
-        _parent = new Dictionary<Vector2Int, Vector2Int>();
-        _distance = new Dictionary<Vector2Int, int>();
+        _parent = new Dictionary<Vector3Int, Vector3Int>();
+        _distance = new Dictionary<Vector3Int, int>();
     }
 
-    public List<Vector2Int> GetRouteToPlayer(Vector2Int StartingPosition)
+    public List<Vector3Int> GetRouteToPlayer(Vector3Int StartingPosition)
     {
-        List<Vector2Int> route = new List<Vector2Int>();
+        List<Vector3Int> route = new List<Vector3Int>();
 
-        Vector2Int playerPosition = StartPathFinding(StartingPosition);
+        Vector3Int playerPosition = StartPathFinding(StartingPosition);
 
-        bool isPlayerFound = playerPosition != Vector2Int.zero;
+        bool isPlayerFound = playerPosition != Vector3Int.zero;
         if (isPlayerFound)
         {
             while (playerPosition != StartingPosition)
@@ -34,14 +34,14 @@ public class MyIntelligentZombieModel : MyZombieModel
 
     
 
-    private Vector2Int StartPathFinding(Vector2Int StartingPosition)
+    private Vector3Int StartPathFinding(Vector3Int StartingPosition)
     {
-        Queue<Vector2Int> queue = new Queue<Vector2Int>();
+        Queue<Vector3Int> queue = new Queue<Vector3Int>();
         InitStartingValues(StartingPosition, queue);
 
-        Vector2Int playerFound = Vector2Int.zero;
+        Vector3Int playerFound = Vector3Int.zero;
 
-        while (queue.Any() && playerFound == Vector2Int.zero)
+        while (queue.Any() && playerFound == Vector3Int.zero)
         {
             ExtendNeighbours(queue, ref playerFound);
         }
@@ -49,12 +49,12 @@ public class MyIntelligentZombieModel : MyZombieModel
         return playerFound;
     }
 
-    private void ExtendNeighbours(Queue<Vector2Int> queue, ref Vector2Int playerFound)
+    private void ExtendNeighbours(Queue<Vector3Int> queue, ref Vector3Int playerFound)
     {
-        Vector2Int current = queue.Dequeue();
-        List<Vector2Int> neighbours = GetFreeNeighbourPositions(current);
+        Vector3Int current = queue.Dequeue();
+        List<Vector3Int> neighbours = GetFreeNeighbourPositions(current);
 
-        foreach (Vector2Int neighbour in neighbours)
+        foreach (Vector3Int neighbour in neighbours)
         {
             bool isNeighbourNotExtended = _distance[neighbour] == -1;
             if (isNeighbourNotExtended)
@@ -69,27 +69,27 @@ public class MyIntelligentZombieModel : MyZombieModel
         }
     }
 
-    private void ExtendNeighbour(Vector2Int neighbour, Vector2Int current, Queue<Vector2Int> queue)
+    private void ExtendNeighbour(Vector3Int neighbour, Vector3Int current, Queue<Vector3Int> queue)
     {
         _distance[neighbour] = _distance[current] + 1;
         _parent[neighbour] = current;
         queue.Enqueue(neighbour);
     }
 
-    private bool IsPlayerStandingOnPosition(Vector2 position)
+    private bool IsPlayerStandingOnPosition(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
         return _collisionDetector.IsTagInColliders(colliders, "Player");
     }
 
-    private void InitStartingValues(Vector2Int StartingPosition, Queue<Vector2Int> queue)
+    private void InitStartingValues(Vector3Int StartingPosition, Queue<Vector3Int> queue)
     {
         for (int i = UtilityFunctions.MAP_UPPER_LEFT_CORNER.x; i <= UtilityFunctions.MAP_DOWN_RIGHT_CORNER.x; ++i)
         {
             for (int j = UtilityFunctions.MAP_UPPER_LEFT_CORNER.y; j >= UtilityFunctions.MAP_DOWN_RIGHT_CORNER.y; --j)
             {
-                _parent[new Vector2Int(i, j)] = UtilityFunctions.NULL_VECTOR;
-                _distance[new Vector2Int(i, j)] = -1;
+                _parent[new Vector3Int(i, j)] = UtilityFunctions.NULL_VECTOR;
+                _distance[new Vector3Int(i, j)] = -1;
             }
         }
 

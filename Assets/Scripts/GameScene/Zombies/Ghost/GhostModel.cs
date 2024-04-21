@@ -9,7 +9,7 @@ public class GhostModel
         _collisionDetector = new CollisionDetectionModel();
     }
 
-    public Vector3 GetPivotPoint(Vector2 direction, Vector3 position)
+    public Vector3 GetPivotPoint(Vector3 direction, Vector3 position)
     {
         Vector3 newPosition = GetNewPosition(position, direction);
 
@@ -21,9 +21,9 @@ public class GhostModel
         return newPosition;
     }
 
-    private Vector3 GetNewPosition(Vector3 position, Vector2 direction)
+    private Vector3 GetNewPosition(Vector3 position, Vector3 direction)
     {
-        return new Vector3(position.x + direction.x, position.y + direction.y, 0);
+        return position + direction;
     }
 
     private bool IsFreeSpaceFound(Vector3 position)

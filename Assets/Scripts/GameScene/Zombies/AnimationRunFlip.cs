@@ -4,7 +4,7 @@ public class AnimationRunFlip : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
     private MyZombieController _zombieController;
-    private Vector2 _previousDirection;
+    private Vector3 _previousDirection;
 
     private void Start()
     {
@@ -15,7 +15,7 @@ public class AnimationRunFlip : MonoBehaviour
 
     private void Update()
     {
-        Vector2 currentDirection = _zombieController.FacingDirection;
+        Vector3 currentDirection = _zombieController.FacingDirection;
         if (currentDirection != _previousDirection)
         {
             FlipSprite(currentDirection);
@@ -23,13 +23,13 @@ public class AnimationRunFlip : MonoBehaviour
         _previousDirection = currentDirection;
     }
 
-    private void FlipSprite(Vector2 direction)
+    private void FlipSprite(Vector3 direction)
     {
-        if (direction == Vector2.left)
+        if (direction == Vector3.left)
         {
             _spriteRenderer.flipX = true;
         }
-        else if (direction == Vector2.right)
+        else if (direction == Vector3.right)
         {
             _spriteRenderer.flipX = false;
         }

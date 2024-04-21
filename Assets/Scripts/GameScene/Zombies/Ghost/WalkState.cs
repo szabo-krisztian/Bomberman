@@ -40,7 +40,6 @@ public class WalkState : IState
 
     private bool IsTimeToEnterGhostState(Vector3 pivotPoint, Collider2D collider)
     {
-
         bool zombieCanParseThroughWall = UtilityFunctions.IsPositionInMap(UtilityFunctions.GetTilemapPosition(pivotPoint)) && !controller.Model.IsIsolatedPosition(pivotPoint) && !collider.CompareTag("Bomb");
         return zombieCanParseThroughWall;
     }

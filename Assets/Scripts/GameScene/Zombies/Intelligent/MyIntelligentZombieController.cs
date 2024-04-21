@@ -17,18 +17,18 @@ public class MyIntelligentZombieController : MyZombieController
         ChangeDirection(GetDirectionToNearestPath());
     }
 
-    protected Vector2Int GetDirectionToNearestPath()
+    protected Vector3Int GetDirectionToNearestPath()
     {
         Vector3Int zombieTilemapPosition = UtilityFunctions.GetTilemapPosition(transform.position);
-        List<Vector2Int> routeToPlayer = _graphSearch.GetRouteToPlayer(new Vector2Int(zombieTilemapPosition.x, zombieTilemapPosition.y));
+        List<Vector3Int> routeToPlayer = _graphSearch.GetRouteToPlayer(zombieTilemapPosition);
         
         if (routeToPlayer.Count == 0)
         {
             return Model.GetRandomDirection(transform.position);
         }
 
-        Vector2Int firstPosition = routeToPlayer.Last();
-        Vector3Int direction = new Vector3Int(firstPosition.x, firstPosition.y, 0) - UtilityFunctions.GetTilemapPosition(transform.position);
-        return new Vector2Int(direction.x, direction.y);
+        Vector3Int firstPosition = routeToPlayer.Last();
+        Vector3Int direction = firstPosition - UtilityFunctions.GetTilemapPosition(transform.position);
+        return direction;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class MyZombieController : MonoBehaviour
 {
     public MyZombieModel Model { get; private set; }
-    public Vector2 FacingDirection { get; protected set; }
+    public Vector3 FacingDirection { get; protected set; }
 
     private const float SPEED = 2f;
     private const float TICK_INTERVAL_MIN = 2f;
@@ -18,13 +18,13 @@ public class MyZombieController : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         Model = new MyZombieModel();
-        ChangeDirection(Vector2.up);
+        ChangeDirection(Vector3.up);
         StartTicker();
     }
 
     protected virtual void Update()
     {
-        bool zombieReachedCenterOfCell = Vector2.Distance(transform.position, UtilityFunctions.GetCenterPosition(transform.position)) < TURNING_PRECISION;
+        bool zombieReachedCenterOfCell = Vector3.Distance(transform.position, UtilityFunctions.GetCenterPosition(transform.position)) < TURNING_PRECISION;
         if (_isTimeToChangeDirection && zombieReachedCenterOfCell)
         {
             _isTimeToChangeDirection = false;
@@ -38,7 +38,7 @@ public class MyZombieController : MonoBehaviour
         ChangeDirection(Model.GetRandomDirection(transform.position));
     }
 
-    public void ChangeDirection(Vector2 facingDirection)
+    public void ChangeDirection(Vector3 facingDirection)
     {
         transform.position = UtilityFunctions.GetCenterPosition(transform.position);
         FacingDirection = facingDirection;
