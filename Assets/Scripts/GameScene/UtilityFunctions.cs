@@ -3,6 +3,7 @@ using UnityEngine;
 
 public static class UtilityFunctions
 {
+    //test
     public static readonly List<Vector2Int> Directions = new List<Vector2Int>() { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
     public static readonly Vector2Int MAP_UPPER_LEFT_CORNER = new Vector2Int(-7, 7);
     public static readonly Vector2Int MAP_DOWN_RIGHT_CORNER = new Vector2Int(7, -6);
