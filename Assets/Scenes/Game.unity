@@ -212,11 +212,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8229959188537861630, guid: a347782e3fe992849924e55f00b9f7b2, type: 3}
   m_PrefabInstance: {fileID: 8229959188964993065}
   m_PrefabAsset: {fileID: 0}
---- !u!1839735485 &721063386 stripped
-Tilemap:
-  m_CorrespondingSourceObject: {fileID: 8229959188537861619, guid: a347782e3fe992849924e55f00b9f7b2, type: 3}
-  m_PrefabInstance: {fileID: 8229959188964993065}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1801036464
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,11 +271,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tilemapSO: {fileID: 11400000, guid: 2aa898d4ccaa2344f99a0f3f7988c40a, type: 2}
-  _indestructibles: {fileID: 721063386}
-  _wallTile: {fileID: 11400000, guid: 945ffa96a68837449b025a24b0630ec0, type: 2}
-  _boxPrefab: {fileID: 6359629554778958739, guid: 5e2b5332034637240899208e9ef3b28d, type: 3}
-  _playerOne: {fileID: 7857072844460558372, guid: 2047c6d713a545e4b81bc748d8b28abf, type: 3}
-  _playerTwo: {fileID: 7961612692700735325, guid: 663ba2496296a3c4e810a8918ffe7f8f, type: 3}
+  _blockPrefabs:
+  - {fileID: 6359629554778958739, guid: 5e2b5332034637240899208e9ef3b28d, type: 3}
+  - {fileID: 7277517107991239063, guid: fb16070220a6a5e40902b4ec38eb5002, type: 3}
+  _playerPrefabs:
+  - {fileID: 7857072844460558372, guid: 2047c6d713a545e4b81bc748d8b28abf, type: 3}
+  - {fileID: 7961612692700735325, guid: 663ba2496296a3c4e810a8918ffe7f8f, type: 3}
   _zombies:
   - {fileID: 1627788660782209139, guid: 0965512524aff9e43a4fc5d003753475, type: 3}
   - {fileID: 1677594359866495885, guid: 6b5cc61aab3a7b84c91a8adfaa613daf, type: 3}

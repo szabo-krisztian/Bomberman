@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,19 +9,10 @@ public class TilemapInitializer : MonoBehaviour
     private TilemapSO _tilemapSO;
 
     [SerializeField]
-    private Tilemap _indestructibles;   
+    private GameObject[] _blockPrefabs;
 
     [SerializeField]
-    private TileBase _wallTile;
-
-    [SerializeField]
-    private GameObject _boxPrefab;
-
-    [SerializeField]
-    private GameObject _playerOne;
-
-    [SerializeField]
-    private GameObject _playerTwo;
+    private GameObject[] _playerPrefabs;
 
     [SerializeField]
     private GameObject[] _zombies;
@@ -39,23 +31,23 @@ public class TilemapInitializer : MonoBehaviour
     {
         foreach (TileData tileData in _tilemapSO.TilemapData.Tiles)
         {
-            Vector3Int tilePosition = tileData.Position;
+            Vector3 worldPosition = UtilityFunctions.GetCenterPosition(tileData.Position);
+
             if (tileData.TileType == "Brick")
             {
-                Vector3 boxPosition = UtilityFunctions.GetCenterPosition(tileData.Position);
-                Instantiate(_boxPrefab, boxPosition, Quaternion.identity, transform);
+                Instantiate(_blockPrefabs[0], worldPosition, Quaternion.identity, transform);
             }
             else if (tileData.TileType == "Block")
             {
-                _indestructibles.SetTile(tilePosition, _wallTile);
+                Instantiate(_blockPrefabs[1], worldPosition, Quaternion.identity, transform);
             }
         }
     }
 
     private void PlacePlayers()
     {
-        Instantiate(_playerOne, UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerOnePosition), Quaternion.identity);
-        Instantiate(_playerTwo, UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerTwoPosition), Quaternion.identity);
+        Instantiate(_playerPrefabs[0], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerOnePosition), Quaternion.identity);
+        Instantiate(_playerPrefabs[1], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerTwoPosition), Quaternion.identity);
     }
 
     private void PlaceZombies()
@@ -67,12 +59,15 @@ public class TilemapInitializer : MonoBehaviour
         foreach (Vector3Int position in allTilePositions)
         {
             Vector3 worldPosition = UtilityFunctions.GetCenterPosition(position);
+            
             if (IsFreeSpace(worldPosition))
             {
+                
                 freePositions.Enqueue(worldPosition);
             }
         }
 
+        
         foreach (ZombieType zombieType in _tilemapSO.TilemapData.Zombies)
         {
             switch (zombieType.Type)
@@ -91,11 +86,16 @@ public class TilemapInitializer : MonoBehaviour
                     break;
             }
         }
+        
     }
 
     private bool IsFreeSpace(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
-        return !_collisionDetector.IsTagInColliders(colliders, "Box") && !_collisionDetector.IsTagInColliders(colliders, "Wall");
+        foreach (var k in colliders)
+        {
+            //Debug.Log(k.tag);
+        }
+        return (!_collisionDetector.IsTagInColliders(colliders, "Wall") && !_collisionDetector.IsTagInColliders(colliders, "Box"));
     }
 }
