@@ -3,8 +3,6 @@ using UnityEngine;
 public class WalkState : IState
 {
     private GhostModel _model;
-    private const int ENTER_GHOST_STATE_CHANCE = 100;
-    private readonly System.Random random = new System.Random();
 
     public WalkState(MyGhostZombieController controller, string animName) : base(controller, animName)
     {

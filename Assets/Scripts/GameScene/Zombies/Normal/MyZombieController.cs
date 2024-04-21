@@ -7,8 +7,8 @@ public class MyZombieController : MonoBehaviour
     public Vector3 FacingDirection { get; protected set; }
 
     private const float SPEED = 2f;
-    private const float TICK_INTERVAL_MIN = 2f;
-    private const float TICK_INTERVAL_MAX = 5f;
+    private const float TICK_INTERVAL_MIN = 1f;
+    private const float TICK_INTERVAL_MAX = 4f;
     private const float TURNING_PRECISION = .05f;
 
     private Rigidbody2D _rigidBody;
