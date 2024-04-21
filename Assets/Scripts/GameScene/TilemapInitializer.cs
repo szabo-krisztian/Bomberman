@@ -47,8 +47,10 @@ public class TilemapInitializer : MonoBehaviour
 
     private void PlacePlayers()
     {
-        Instantiate(_playerPrefabs[0], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerOnePosition), Quaternion.identity);
-        Instantiate(_playerPrefabs[1], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerTwoPosition), Quaternion.identity);
+        GameObject player1 = Instantiate(_playerPrefabs[0], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerOnePosition), Quaternion.identity);
+        player1.name = "Player1";
+        GameObject player2 = Instantiate(_playerPrefabs[1], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerTwoPosition), Quaternion.identity);
+        player2.name = "Player2";
     }
 
     private void PlaceZombies()

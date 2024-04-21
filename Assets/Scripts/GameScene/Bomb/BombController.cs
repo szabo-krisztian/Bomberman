@@ -4,6 +4,7 @@ using UnityEngine;
 public class BombController : MonoBehaviour
 {
     public GameEvent<int> BombExploded;
+    public GameEvent<Void> BombPlaced;
 
     [SerializeField]
     private CircleCollider2D _bombCollider;
@@ -21,6 +22,7 @@ public class BombController : MonoBehaviour
 
     private void Start()
     {
+        BombPlaced.Raise(new Void());
         _collisionDetector = new CollisionDetectionModel();
         StartCoroutine(IgniteBomb(_detonationTime));
     }

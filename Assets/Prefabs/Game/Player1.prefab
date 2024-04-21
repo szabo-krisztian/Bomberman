@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7857072844460558375}
   - component: {fileID: 7857072844460558373}
   - component: {fileID: 6989388260123715307}
+  - component: {fileID: 5895414370792933819}
   m_Layer: 3
   m_Name: Player1
   m_TagString: Player
@@ -85,6 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a68d8ffef9bc7f45b6d14248b37f132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerDied: {fileID: 11400000, guid: 0b2311da7fcc99a45b1a437a2963b6c3, type: 2}
   _settings: {fileID: 11400000, guid: 1bfcf30c95d8bd841a94a0fb1b0e350e, type: 2}
   _loadedMap: {fileID: 11400000, guid: 2aa898d4ccaa2344f99a0f3f7988c40a, type: 2}
   _bombPrefab: {fileID: 4112955161293066096, guid: 74feee18b25266e40bc0392125fc5e68, type: 3}
@@ -116,6 +118,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5895414370792933819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857072844460558372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942fbcafb19f5b248baae5f2824746b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7857072844775209772
 GameObject:
   m_ObjectHideFlags: 0

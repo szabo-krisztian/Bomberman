@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameEvent<int> PlayerDied;
+
     [SerializeField]
     private PlayerSettingsSO _settings;
 
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private int GetPlayerIndex()
     {
+        Debug.Log(gameObject.name);
         return gameObject.name == "Player1" ? 1 : 2;
     }
 
@@ -97,27 +100,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
-    /// <summary>
-    /// Better death detection than before, but let it be inactive for testing the game
-    /// </summary>
-    /*
-    
-    private void OnTriggerStay2D(Collider2D collision)
+    public void OnExplosionHit()
     {
-        if (collision.gameObject.CompareTag("Zombie"))
-        {
-            Debug.Log("asdf");
-        }
-    }
-
-    private IEnumerator Die()
-    {
-        yield return new WaitForSeconds(.05f);
+        PlayerDied.Raise(_playerIndex);
         Destroy(gameObject);
     }
-    */
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
