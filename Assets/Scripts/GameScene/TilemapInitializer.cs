@@ -15,9 +15,16 @@ public class TilemapInitializer : MonoBehaviour
     [SerializeField]
     private GameObject _boxPrefab;
 
+    [SerializeField]
+    private GameObject _playerOne;
+
+    [SerializeField]
+    private GameObject _playerTwo;
+
     private void Start()
     {
         InitializeTilemap();
+        PlacePlayers();
     }
 
     private void InitializeTilemap()
@@ -35,5 +42,11 @@ public class TilemapInitializer : MonoBehaviour
                 _indestructibles.SetTile(tilePosition, _wallTile);
             }
         }
+    }
+
+    private void PlacePlayers()
+    {
+        _playerOne.transform.position = UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerOnePosition);
+        _playerTwo.transform.position = UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerTwoPosition);
     }
 }
