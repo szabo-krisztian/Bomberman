@@ -32,8 +32,6 @@ public class MyIntelligentZombieModel : MyZombieModel
         return route;
     }
 
-    
-
     private Vector3Int StartPathFinding(Vector3Int StartingPosition)
     {
         Queue<Vector3Int> queue = new Queue<Vector3Int>();

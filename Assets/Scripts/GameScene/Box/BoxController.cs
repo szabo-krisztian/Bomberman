@@ -6,7 +6,7 @@ public class BoxController : MonoBehaviour
     [SerializeField]
     private GameObject[] powerUps;
 
-    private float _breakTime = 1.1f;
+    private float _breakTime = 0.6f;
     private const int _powerUpSpawnChance = 100;
     private readonly System.Random random = new System.Random();
     private const int _numberOfPowerUps = 2;
