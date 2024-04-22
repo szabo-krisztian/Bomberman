@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7616592530883755920}
   - component: {fileID: 7616592530883755923}
   - component: {fileID: 8478071791841862972}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BigBombPowerup
   m_TagString: BigBombPowerup
   m_Icon: {fileID: 0}
@@ -124,3 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ffab3cb31a40043bee6c35a895f784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPickedUp: 0

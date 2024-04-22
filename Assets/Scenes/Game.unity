@@ -1949,6 +1949,7 @@ GameObject:
   - component: {fileID: 1397018086}
   - component: {fileID: 1397018085}
   - component: {fileID: 1397018089}
+  - component: {fileID: 1397018090}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -2053,6 +2054,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPanelRectTransform: {fileID: 382999423}
   _rightPanelRectTransform: {fileID: 1739669695}
+--- !u!114 &1397018090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397018084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e58cb4075bc974d843dc59c5808d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player1BombCounter: {fileID: 1761432774}
+  _player2BombCounter: {fileID: 2064911074}
+  _player1BigBombCounter: {fileID: 1141872233}
+  _player2BigBombCounter: {fileID: 51285019}
 --- !u!1 &1486282465
 GameObject:
   m_ObjectHideFlags: 0
