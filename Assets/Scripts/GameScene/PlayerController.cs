@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
 
     private int GetPlayerIndex()
     {
-        Debug.Log(gameObject.name);
         return gameObject.name == "Player1" ? 1 : 2;
     }
 

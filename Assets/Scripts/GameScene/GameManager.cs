@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDiedHandler(int playerIndex)
     {
-        Debug.Log("player died: " + playerIndex);
+        
     }
 
     public void Update()

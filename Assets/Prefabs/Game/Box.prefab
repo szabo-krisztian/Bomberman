@@ -129,6 +129,7 @@ MonoBehaviour:
   powerUps:
   - {fileID: 7616592530883755922, guid: f128444119ec93c44a2d7b742bd9a3ee, type: 3}
   - {fileID: 7616592530883755922, guid: cfa560a38b9982947904aabe38b350fe, type: 3}
+  _entityGroup: {fileID: 0}
 --- !u!95 &6593519591879101455
 Animator:
   serializedVersion: 5

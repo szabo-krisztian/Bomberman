@@ -19,7 +19,7 @@ public class TilemapInitializer : MonoBehaviour
     private GameObject[] _zombieEggs;
 
     [SerializeField]
-    private Transform _entitiesGroup;
+    private Transform _entityGroup;
 
     private CollisionDetectionModel _collisionDetector;
 
@@ -46,7 +46,7 @@ public class TilemapInitializer : MonoBehaviour
     
     private void KillAllEntities()
     {
-        foreach (Transform child in _entitiesGroup)
+        foreach (Transform child in _entityGroup)
         {
             Destroy(child.gameObject);
         }
@@ -60,20 +60,21 @@ public class TilemapInitializer : MonoBehaviour
 
             if (tileData.TileType == "Brick")
             {
-                Instantiate(_blockPrefabs[0], worldPosition, Quaternion.identity, _entitiesGroup);
+                var gO = Instantiate(_blockPrefabs[0], worldPosition, Quaternion.identity, _entityGroup);
+                gO.GetComponent<BoxController>().SetEntityGroup(_entityGroup);
             }
             else if (tileData.TileType == "Block")
             {
-                Instantiate(_blockPrefabs[1], worldPosition, Quaternion.identity, _entitiesGroup);
+                Instantiate(_blockPrefabs[1], worldPosition, Quaternion.identity, _entityGroup);
             }
         }
     }
 
     private void PlacePlayers()
     {
-        GameObject player1 = Instantiate(_playerPrefabs[0], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerOnePosition), Quaternion.identity, _entitiesGroup);
+        GameObject player1 = Instantiate(_playerPrefabs[0], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerOnePosition), Quaternion.identity, _entityGroup);
         player1.name = "Player1";
-        GameObject player2 = Instantiate(_playerPrefabs[1], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerTwoPosition), Quaternion.identity, _entitiesGroup);
+        GameObject player2 = Instantiate(_playerPrefabs[1], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerTwoPosition), Quaternion.identity, _entityGroup);
         player2.name = "Player2";
     }
 
@@ -120,12 +121,12 @@ public class TilemapInitializer : MonoBehaviour
 
     private void SummonZombieEgg(int zombieIndex, Vector3 position)
     {
-        Instantiate(_zombieEggs[zombieIndex], position, Quaternion.identity, _entitiesGroup);
+        Instantiate(_zombieEggs[zombieIndex], position, Quaternion.identity, _entityGroup);
     }
 
     public void EggCrackedHandler(EggCrackedInfo info)
     {
-        Instantiate(info.Dino, info.Position, Quaternion.identity, _entitiesGroup);
+        Instantiate(info.Dino, info.Position, Quaternion.identity, _entityGroup);
     }
 
     private bool IsFreeSpace(Vector3 position)
