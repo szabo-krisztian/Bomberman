@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 5931943846669959909}
   - component: {fileID: 3112198619556117326}
   - component: {fileID: 7134629708597119214}
-  m_Layer: 7
+  - component: {fileID: 9221083567814619561}
+  m_Layer: 8
   m_Name: IntelligentZombieEgg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,3 +122,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EggCracked: {fileID: 11400000, guid: 8c9113a0893a7ca429eeba01510ce58b, type: 2}
   _dino: {fileID: 4162679677198149153, guid: 0758d378957ef63438d02a14c594e36c, type: 3}
+--- !u!70 &9221083567814619561
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757550646353536084}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.8125, y: 1}
+  m_Direction: 0

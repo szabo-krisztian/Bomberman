@@ -19,13 +19,14 @@ public class PlayerController : MonoBehaviour
     private int _bombsCount;
     private int _bombRadius;
     private int _playerIndex;
+    private const int MAX_BOMB_RADIUS = 8;
 
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _collisionDetector = new CollisionDetectionModel();
         _bombsCount = 1;
-        _bombRadius = 2;
+        _bombRadius = 1;
         _playerIndex = GetPlayerIndex();
         _settings.InitDirectionKeys();
     }
@@ -107,15 +108,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("PlusBombPowerup"))
+        if (collision.CompareTag("PlusBombPowerup") && !IsPowerupPickedUp(collision.gameObject))
         {
             collision.gameObject.SendMessage("OnPickedUp");
             ++_bombsCount;
         }
-        if (collision.CompareTag("BigBombPowerup"))
+        if (collision.CompareTag("BigBombPowerup") && !IsPowerupPickedUp(collision.gameObject))
         {
-            collision.gameObject.SendMessage("OnPickedUp");
-            ++_bombRadius;
+            Debug.Log("picked up");
+            _bombRadius = Mathf.Min(MAX_BOMB_RADIUS, _bombRadius + 1);
         }
+    }
+
+    private bool IsPowerupPickedUp(GameObject powerupGO)
+    {
+        return powerupGO.GetComponent<Powerup>().IsPickedUp;
     }
 }

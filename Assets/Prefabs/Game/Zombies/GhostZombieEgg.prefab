@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 5312011835918536043}
   - component: {fileID: 9170090456731180345}
   - component: {fileID: 2684362304759600512}
-  m_Layer: 7
+  - component: {fileID: 3367880076503619590}
+  m_Layer: 8
   m_Name: GhostZombieEgg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,3 +122,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EggCracked: {fileID: 11400000, guid: 8c9113a0893a7ca429eeba01510ce58b, type: 2}
   _dino: {fileID: 1677594359866495885, guid: 6b5cc61aab3a7b84c91a8adfaa613daf, type: 3}
+--- !u!70 &3367880076503619590
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6702843045749051}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.8125, y: 1}
+  m_Direction: 0
