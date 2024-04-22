@@ -36,7 +36,6 @@ public class PlayerAnimation : MonoBehaviour
         _previousDirection = currentDirection;
     }
 
-
     private void FlipSprite(Vector3 direction)
     {
         if (direction == Vector3.left)
