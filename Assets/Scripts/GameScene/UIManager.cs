@@ -21,6 +21,14 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _player2Wins;
 
+    public void NewGameStartedHandler(Void data)
+    {
+        _player1BigBombCounter.text = "1";
+        _player2BigBombCounter.text = "1";
+        _player1BombCounter.text = "1";
+        _player2BombCounter.text = "1";
+    }
+
     public void BigBombPickedUpHandler(PlayerScore info)
     {
         if (info.PlayerIndex == 1)

@@ -4,9 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameEvent<PlayerScore> PlayerWon;
-
-    [SerializeField]
-    private TilemapInitializer _tilemapInitializer;
+    public GameEvent<Void> NewGameStarted;
 
     private const float BOMB_LIFETIME = 3.5f;
 
@@ -93,7 +91,7 @@ public class GameManager : MonoBehaviour
         _isPlayer2Alive = true;
         
         _bombsLifetimeCountdown = 0f;
-        _tilemapInitializer.InitGame();
+        NewGameStarted.Raise(new Void());
     }
 
     private void GameFinished()

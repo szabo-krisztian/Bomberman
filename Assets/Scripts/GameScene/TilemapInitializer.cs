@@ -23,15 +23,7 @@ public class TilemapInitializer : MonoBehaviour
 
     private CollisionDetectionModel _collisionDetector = new CollisionDetectionModel();
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            InitGame();
-        }
-    }
-
-    public void InitGame()
+    public void NewGameStartedHandler(Void data)
     {
         KillAllEntities();
         InitializeTilemap();
@@ -127,6 +119,6 @@ public class TilemapInitializer : MonoBehaviour
     private bool IsFreeSpace(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
-        return (!_collisionDetector.IsTagInColliders(colliders, "Wall") && !_collisionDetector.IsTagInColliders(colliders, "Box"));
+        return !_collisionDetector.IsTagInColliders(colliders, "Wall") && !_collisionDetector.IsTagInColliders(colliders, "Box") && !_collisionDetector.IsTagInColliders(colliders, "Player");
     }
 }
