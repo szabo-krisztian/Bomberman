@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
     private int _player1Score = 0;
     private int _player2Score = 0;
     private float _bombsLifetimeCountdown;
-    
+    private int _gameNumber = 0;
 
     private void Start()
     {
@@ -68,7 +69,6 @@ public class GameManager : MonoBehaviour
         }
         else if (!_isPlayer1Alive && _isPlayer2Alive)
         {
-            Debug.Log("saf");
             ++_player2Score;
             PlayerWon.Raise(new PlayerScore(_player2Score, 2));
         }
@@ -83,10 +83,34 @@ public class GameManager : MonoBehaviour
 
     private void StartNewGame()
     {
+        if (_gameNumber == 6)
+        {
+            GameFinished();
+        }
+
+        ++_gameNumber;
         _isPlayer1Alive = true;
         _isPlayer2Alive = true;
         
         _bombsLifetimeCountdown = 0f;
-        _tilemapInitializer.RestartGame();
+        _tilemapInitializer.InitGame();
+    }
+
+    private void GameFinished()
+    {
+        if (_player1Score == _player2Score)
+        {
+            Debug.Log("Tie");
+        }
+        else if (_player2Score > _player1Score)
+        {
+            Debug.Log("Player two won");
+        }
+        else
+        {
+            Debug.Log("Player one won");
+        }
+
+        SceneManager.LoadScene("MapSelector");
     }
 }

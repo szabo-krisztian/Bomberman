@@ -27,11 +27,11 @@ public class TilemapInitializer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            RestartGame();
+            InitGame();
         }
     }
 
-    public void RestartGame()
+    public void InitGame()
     {
         KillAllEntities();
         InitializeTilemap();
