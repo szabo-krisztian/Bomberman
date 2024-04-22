@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.CompareTag("BigBombPowerup") && !IsPowerupPickedUp(collision.gameObject))
         {
-            Debug.Log("picked up");
+            collision.gameObject.SendMessage("OnPickedUp");
             _bombRadius = Mathf.Min(MAX_BOMB_RADIUS, _bombRadius + 1);
         }
     }

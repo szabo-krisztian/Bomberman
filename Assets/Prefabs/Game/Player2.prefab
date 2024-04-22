@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7857072844460558372, guid: 2047c6d713a545e4b81bc748d8b28abf, type: 3}
       propertyPath: m_Name
-      value: Player2 Variant
+      value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 7857072844460558372, guid: 2047c6d713a545e4b81bc748d8b28abf, type: 3}
       propertyPath: m_Layer
@@ -67,5 +67,9 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7857072844775209774, guid: 2047c6d713a545e4b81bc748d8b28abf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1486788993, guid: ccf2872b9d8e45e448f51b859e327122, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2047c6d713a545e4b81bc748d8b28abf, type: 3}
