@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
         _bombsCount = 1;
         _bombRadius = 2;
         _playerIndex = GetPlayerIndex();
-        _settings.InitDirectionKeys();
     }
 
     private int GetPlayerIndex()
