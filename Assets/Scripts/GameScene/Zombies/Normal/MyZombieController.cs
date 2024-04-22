@@ -64,4 +64,9 @@ public class MyZombieController : MonoBehaviour
     {
         _rigidBody.MovePosition(transform.position + new Vector3(FacingDirection.x, FacingDirection.y, 0) * Time.fixedDeltaTime * SPEED);
     }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
 }

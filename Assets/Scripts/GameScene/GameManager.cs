@@ -5,7 +5,6 @@ public class GameManager : MonoBehaviour
     private const float BOMB_LIFETIME = 3.5f;
     
     private float _bombsLifetimeCountdown;
-    
 
     private void Start()
     {
