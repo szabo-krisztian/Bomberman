@@ -2841,7 +2841,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7049397109757965291, guid: 29939dbf6ea050f41b185234b2c070e2, type: 3}
   m_PrefabInstance: {fileID: 801781881}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1450759644
+--- !u!114 &1450759642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2850,7 +2850,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1450759641}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 784c3c6a68c3aef40a3dd305d996c2a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 02be296a6c7955143bb19fe783729e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _blockerWindow: {fileID: 908269613}
@@ -2939,7 +2939,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 84.55
+  m_fontSize: 42.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

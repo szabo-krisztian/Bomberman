@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CreateMapPanelBlockerWindow : MonoBehaviour
+public class BlockerWindow : MonoBehaviour
 {
     [SerializeField]
     private GameObject _blockerWindow;
@@ -9,6 +9,7 @@ public class CreateMapPanelBlockerWindow : MonoBehaviour
     {
         _blockerWindow.SetActive(true);
     }
+
     private void OnDisable()
     {
         _blockerWindow.SetActive(false);
