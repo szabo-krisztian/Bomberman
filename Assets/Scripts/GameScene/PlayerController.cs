@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
         bombController.SetRadius(_bombRadius);
         bombController.SetPlayerIndex(_playerIndex);
         --_bombsCount;
+        PlusBombPickedUp.Raise(new PlayerScore(_bombsCount, _playerIndex));
     }
 
     private bool IsPlayerAbleToPlaceBomb()
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour
         if (playerIndex == _playerIndex)
         {
             _bombsCount++;
+            PlusBombPickedUp.Raise(new PlayerScore(_bombsCount, _playerIndex));
         }
     }
 

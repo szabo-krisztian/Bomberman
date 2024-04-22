@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public GameEvent<PlayerScore> PlayerWon;
     public GameEvent<Void> NewGameStarted;
 
-    private const float BOMB_LIFETIME = 3.5f;
+    private const float BOMB_LIFETIME = 4.2f;
 
     private bool _isPlayer1Alive;
     private bool _isPlayer2Alive;

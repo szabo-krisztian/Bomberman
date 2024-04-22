@@ -80,7 +80,7 @@ public class BombController : MonoBehaviour
 
     public void Die()
     {
-        StartCoroutine(IgniteBomb(.05f));
+        StartCoroutine(IgniteBomb(.01f));
     }
 
     private void OnTriggerExit2D(Collider2D other)
