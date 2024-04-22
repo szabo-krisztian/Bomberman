@@ -62,7 +62,7 @@ public class MyZombieController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidBody.MovePosition(transform.position + new Vector3(FacingDirection.x, FacingDirection.y, 0) * Time.fixedDeltaTime * SPEED);
+        _rigidBody.MovePosition(transform.position + FacingDirection * Time.fixedDeltaTime * SPEED);
     }
 
     public void Die()

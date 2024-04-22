@@ -5,6 +5,7 @@ public class MyGhostZombieController : MyZombieController
     public WalkState WalkState { get; private set; }
     public GhostState GhostState { get; private set; }
     public Vector3 PivotPoint { get; private set; }
+    public Vector3 PivotDirection { get; private set; }
 
     private IState _currentState;
     private Animator _animator;
@@ -28,6 +29,7 @@ public class MyGhostZombieController : MyZombieController
     public void SetPivotPoint(Vector3 position)
     {
         PivotPoint = position;
+        PivotDirection = PivotPoint - transform.position;
     }
 
     protected override void OnCollisionStay2D(Collision2D collision)

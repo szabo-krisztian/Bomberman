@@ -16,7 +16,7 @@ public class GhostState : IState
 
     public override void Update()
     {
-        if (Vector3.Distance(controller.PivotPoint, controller.transform.position) < 0.05f)
+        if (!UtilityFunctions.AreVectorsAligned(controller.PivotDirection, controller.PivotPoint - controller.transform.position))
         {
             _colliderBox.isTrigger = false;
             controller.transform.position = UtilityFunctions.GetCenterPosition(controller.transform.position);

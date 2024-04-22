@@ -47,4 +47,9 @@ public static class UtilityFunctions
 
         return positions;
     }
+
+    public static bool AreVectorsAligned(Vector3 vectorA, Vector3 vectorB)
+    {
+        return Vector3.Dot(vectorA.normalized, vectorB.normalized) >= 0.99f;
+    }
 }
