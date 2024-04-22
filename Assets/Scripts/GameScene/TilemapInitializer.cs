@@ -18,14 +18,38 @@ public class TilemapInitializer : MonoBehaviour
     [SerializeField]
     private GameObject[] _zombieEggs;
 
+    [SerializeField]
+    private Transform _entitiesGroup;
+
     private CollisionDetectionModel _collisionDetector;
 
     private void Start()
     {
         _collisionDetector = new CollisionDetectionModel();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            RestartGame();
+        }
+    }
+
+    public void RestartGame()
+    {
+        KillAllEntities();
         InitializeTilemap();
         PlacePlayers();
         PlaceZombies();
+    }
+    
+    private void KillAllEntities()
+    {
+        foreach (Transform child in _entitiesGroup)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     private void InitializeTilemap()
@@ -36,20 +60,20 @@ public class TilemapInitializer : MonoBehaviour
 
             if (tileData.TileType == "Brick")
             {
-                Instantiate(_blockPrefabs[0], worldPosition, Quaternion.identity, transform);
+                Instantiate(_blockPrefabs[0], worldPosition, Quaternion.identity, _entitiesGroup);
             }
             else if (tileData.TileType == "Block")
             {
-                Instantiate(_blockPrefabs[1], worldPosition, Quaternion.identity, transform);
+                Instantiate(_blockPrefabs[1], worldPosition, Quaternion.identity, _entitiesGroup);
             }
         }
     }
 
     private void PlacePlayers()
     {
-        GameObject player1 = Instantiate(_playerPrefabs[0], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerOnePosition), Quaternion.identity);
+        GameObject player1 = Instantiate(_playerPrefabs[0], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerOnePosition), Quaternion.identity, _entitiesGroup);
         player1.name = "Player1";
-        GameObject player2 = Instantiate(_playerPrefabs[1], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerTwoPosition), Quaternion.identity);
+        GameObject player2 = Instantiate(_playerPrefabs[1], UtilityFunctions.GetCenterPosition(_tilemapSO.TilemapData.PlayerTwoPosition), Quaternion.identity, _entitiesGroup);
         player2.name = "Player2";
     }
 
@@ -57,7 +81,7 @@ public class TilemapInitializer : MonoBehaviour
     {
         List<Vector3Int> allTilePositions = UtilityFunctions.GetAllTilePositionsInTilemap();
         allTilePositions.Shuffle();
-        Queue<Vector3> freePositions = new Queue<Vector3>();
+        Stack<Vector3> freePositions = new Stack<Vector3>();
 
         foreach (Vector3Int position in allTilePositions)
         {
@@ -65,7 +89,7 @@ public class TilemapInitializer : MonoBehaviour
 
             if (IsFreeSpace(worldPosition))
             {
-                freePositions.Enqueue(worldPosition);
+                freePositions.Push(worldPosition);
             }
         }
 
@@ -73,39 +97,40 @@ public class TilemapInitializer : MonoBehaviour
         {
             for (int i = 0; i < zombieType.Count; i++)
             {
-                var pos = freePositions.Dequeue();
+                var pos = freePositions.Pop();
 
                 switch (zombieType.Type)
                 {
                     case "Normal":
-                        Instantiate(_zombieEggs[0], pos, Quaternion.identity);
+                        SummonZombieEgg(0, pos);
                         break;
                     case "Ghost":
-                        Instantiate(_zombieEggs[1], pos, Quaternion.identity);
+                        SummonZombieEgg(1, pos);
                         break;
                     case "Intelligent":
-                        Instantiate(_zombieEggs[2], pos, Quaternion.identity);
+                        SummonZombieEgg(2, pos);
                         break;
                     case "VeryIntelligent":
-                        Instantiate(_zombieEggs[3], pos, Quaternion.identity);
+                        SummonZombieEgg(3, pos);
                         break;
                 }
             }
         }
     }
 
+    private void SummonZombieEgg(int zombieIndex, Vector3 position)
+    {
+        Instantiate(_zombieEggs[zombieIndex], position, Quaternion.identity, _entitiesGroup);
+    }
+
     public void EggCrackedHandler(EggCrackedInfo info)
     {
-        Instantiate(info.Dino, info.Position, Quaternion.identity);
+        Instantiate(info.Dino, info.Position, Quaternion.identity, _entitiesGroup);
     }
 
     private bool IsFreeSpace(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
-        foreach (var k in colliders)
-        {
-            //Debug.Log(k.tag);
-        }
         return (!_collisionDetector.IsTagInColliders(colliders, "Wall") && !_collisionDetector.IsTagInColliders(colliders, "Box"));
     }
 }
