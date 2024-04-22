@@ -24,8 +24,16 @@ public class WalkState : IState
     public override void OnCollisionStay2D(Collision2D collision)
     {
         Vector3 pivotPoint = _model.GetPivotPoint(controller.FacingDirection, UtilityFunctions.GetCenterPosition(controller.transform.position));
+        Vector3 position = controller.transform.position;
 
-        if (IsTimeToEnterGhostState(pivotPoint, collision.collider))
+        if (_model.IsZombieStandingInBomb(position))
+        {
+            var randomFreeDirection = controller.Model.GetRandomDirection(position);
+            controller.ChangeDirection(randomFreeDirection);
+            controller.SetPivotPoint(controller.transform.position + randomFreeDirection);
+            controller.SwitchState(controller.GhostState);
+        }
+        else if (IsTimeToEnterGhostState(pivotPoint, collision.collider))
         {
             controller.SetPivotPoint(pivotPoint);
             controller.SwitchState(controller.GhostState);

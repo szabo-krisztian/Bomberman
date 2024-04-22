@@ -31,4 +31,10 @@ public class GhostModel
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
         return !_collisionDetector.IsTagInColliders(colliders, "Box") && !_collisionDetector.IsTagInColliders(colliders, "Wall");
     }
+
+    public bool IsZombieStandingInBomb(Vector3 position)
+    {
+        Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
+        return _collisionDetector.IsTagInColliders(colliders, "Bomb");
+    }
 }
