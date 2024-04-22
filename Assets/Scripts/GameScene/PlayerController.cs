@@ -3,6 +3,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameEvent<int> PlayerDied;
+    public GameEvent<PlayerScore> PlusBombPickedUp;
+    public GameEvent<PlayerScore> BigBombPickedUp;
+
     public Vector3 FacingDirection { get; private set; }
 
     [SerializeField]
@@ -112,11 +115,13 @@ public class PlayerController : MonoBehaviour
         {
             collision.gameObject.SendMessage("OnPickedUp");
             ++_bombsCount;
+            PlusBombPickedUp.Raise(new PlayerScore(_bombsCount, _playerIndex));
         }
         if (collision.CompareTag("BigBombPowerup") && !IsPowerupPickedUp(collision.gameObject))
         {
             collision.gameObject.SendMessage("OnPickedUp");
             _bombRadius = Mathf.Min(MAX_BOMB_RADIUS, _bombRadius + 1);
+            BigBombPickedUp.Raise(new PlayerScore(_bombRadius, _playerIndex));
         }
     }
 

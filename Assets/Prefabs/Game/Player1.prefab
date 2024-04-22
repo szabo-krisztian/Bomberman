@@ -244,6 +244,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerDied: {fileID: 11400000, guid: 0b2311da7fcc99a45b1a437a2963b6c3, type: 2}
+  PlusBombPickedUp: {fileID: 11400000, guid: f28a525af588698478567a46a584934f, type: 2}
+  BigBombPickedUp: {fileID: 11400000, guid: 4b6b45c317abf1648b59bfb7dbef43ed, type: 2}
   _settings: {fileID: 11400000, guid: 1bfcf30c95d8bd841a94a0fb1b0e350e, type: 2}
   _loadedMap: {fileID: 11400000, guid: 2aa898d4ccaa2344f99a0f3f7988c40a, type: 2}
   _bombPrefab: {fileID: 4112955161293066096, guid: 74feee18b25266e40bc0392125fc5e68, type: 3}
