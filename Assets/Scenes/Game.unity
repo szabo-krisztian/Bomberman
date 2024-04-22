@@ -652,6 +652,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc3d2cdedf3c27a4bb82de835aae4034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerWon: {fileID: 11400000, guid: 4f2c05316751f4243a9bc57dea38a2c0, type: 2}
+  _tilemapInitializer: {fileID: 1801036467}
 --- !u!4 &170441871
 Transform:
   m_ObjectHideFlags: 0
@@ -2070,6 +2072,8 @@ MonoBehaviour:
   _player2BombCounter: {fileID: 2064911074}
   _player1BigBombCounter: {fileID: 1141872233}
   _player2BigBombCounter: {fileID: 51285019}
+  _player1Wins: {fileID: 48074258}
+  _player2Wins: {fileID: 615742127}
 --- !u!1 &1486282465
 GameObject:
   m_ObjectHideFlags: 0
@@ -2691,6 +2695,7 @@ GameObject:
   - component: {fileID: 2027602431}
   - component: {fileID: 2027602435}
   - component: {fileID: 2027602434}
+  - component: {fileID: 2027602436}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2795,6 +2800,34 @@ MonoBehaviour:
       - m_Target: {fileID: 1397018090}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: BigBombPickedUpHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2027602436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027602430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 608403311baeeab44ac758db15efe815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 4f2c05316751f4243a9bc57dea38a2c0, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1397018090}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: PlayerWonHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

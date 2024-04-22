@@ -21,12 +21,7 @@ public class TilemapInitializer : MonoBehaviour
     [SerializeField]
     private Transform _entityGroup;
 
-    private CollisionDetectionModel _collisionDetector;
-
-    private void Start()
-    {
-        _collisionDetector = new CollisionDetectionModel();
-    }
+    private CollisionDetectionModel _collisionDetector = new CollisionDetectionModel();
 
     private void Update()
     {

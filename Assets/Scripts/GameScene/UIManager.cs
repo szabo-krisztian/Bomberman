@@ -15,6 +15,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _player2BigBombCounter;
 
+    [SerializeField]
+    private TextMeshProUGUI _player1Wins;
+
+    [SerializeField]
+    private TextMeshProUGUI _player2Wins;
+
     public void BigBombPickedUpHandler(PlayerScore info)
     {
         if (info.PlayerIndex == 1)
@@ -36,6 +42,18 @@ public class UIManager : MonoBehaviour
         else if (info.PlayerIndex == 2)
         {
             _player2BombCounter.text = info.Score.ToString();
+        }
+    }
+
+    public void PlayerWonHandler(PlayerScore info)
+    {
+        if (info.PlayerIndex == 1)
+        {
+            _player1Wins.text = info.Score.ToString();
+        }
+        else if (info.PlayerIndex == 2)
+        {
+            _player2Wins.text = info.Score.ToString();
         }
     }
 }
