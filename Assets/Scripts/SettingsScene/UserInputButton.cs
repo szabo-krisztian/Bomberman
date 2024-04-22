@@ -1,21 +1,11 @@
 using UnityEngine;
 
-public class UserInputButton : MyButtonBase<string>
+public class UserInputButton : MyButtonBase<USER_KEY_CODE>
 {
     [SerializeField]
-    private TMPro.TMP_InputField inputField;
+    private USER_KEY_CODE playerKeyPair;
     protected override void OnEventCall()
     {
-        ButtonClicked.Raise(inputField.text);
+        ButtonClicked.Raise(playerKeyPair);
     }
-}
-
-public enum USER_KEY_CODE
-{
-    PLAYER1_UP,
-    PLAYER1_LEFT,
-    PLAYER1_RIGHT,
-    PLAYER1_DOWN,
-    PLAYER1_BOMB,
-    PLAYER2_UP      
 }

@@ -734,6 +734,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mapToLoad: {fileID: 11400000, guid: 2aa898d4ccaa2344f99a0f3f7988c40a, type: 2}
+  _player1Settings: {fileID: 11400000, guid: 1bfcf30c95d8bd841a94a0fb1b0e350e, type: 2}
+  _player2Settings: {fileID: 11400000, guid: 2d3c731ead6287243893c9ea051839f9, type: 2}
 --- !u!1 &858321380
 GameObject:
   m_ObjectHideFlags: 0
