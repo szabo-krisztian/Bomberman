@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameEvent<int> PlayerDied;
+    public Vector3 FacingDirection { get; private set; }
 
     [SerializeField]
     private PlayerSettingsSO _settings;
@@ -15,7 +16,6 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
     private CollisionDetectionModel _collisionDetector;
-    private Vector2 _facingDirection;
     private int _bombsCount;
     private int _bombRadius;
     private int _playerIndex;
@@ -44,13 +44,13 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateFacingDirection()
     {
-        _facingDirection = Vector2.zero;
+        FacingDirection = Vector2.zero;
 
         foreach (var pair in _settings.DirectionKeys)
         {
             if (Input.GetKey(pair.Key))
             {
-                _facingDirection = pair.Value;
+                FacingDirection = pair.Value;
                 return;
             }
         }
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        _rigidBody.velocity = _facingDirection * _settings.Speed;
+        _rigidBody.velocity = FacingDirection * _settings.Speed;
     }
 
     public void BombExplodedHandler(int playerIndex)
