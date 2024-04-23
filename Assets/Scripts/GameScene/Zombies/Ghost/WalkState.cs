@@ -3,16 +3,15 @@ using UnityEngine;
 public class WalkState : IState
 {
     private GhostModel _model;
+    private const int _ghostingChance = 80;
+    private readonly System.Random _random = new System.Random();
 
     public WalkState(MyGhostZombieController controller, string animName) : base(controller, animName)
     {
         _model = new GhostModel();
     }
 
-    public override void EnterState()
-    {
-        
-    }
+    public override void EnterState() { }
 
     public override void Update() { }
 
@@ -46,7 +45,7 @@ public class WalkState : IState
 
     private bool IsTimeToEnterGhostState(Vector3 pivotPoint, Collider2D collider)
     {
-        bool zombieCanParseThroughWall = UtilityFunctions.IsPositionInMap(UtilityFunctions.GetTilemapPosition(pivotPoint)) && !collider.CompareTag("Bomb");
+        bool zombieCanParseThroughWall = UtilityFunctions.IsPositionInMap(UtilityFunctions.GetTilemapPosition(pivotPoint)) && !collider.CompareTag("Bomb") && _random.Next(0, 100) < _ghostingChance;
         return zombieCanParseThroughWall;
     }
 }

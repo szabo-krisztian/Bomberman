@@ -57,15 +57,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (!_isPlayer1Alive && !_isPlayer2Alive)
-        {
-            ++_player1Score;
-            PlayerWon.Raise(new PlayerScore(_player1Score, 1));
-
-            ++_player2Score;
-            PlayerWon.Raise(new PlayerScore(_player2Score, 2));
-        }
-        else if (!_isPlayer1Alive && _isPlayer2Alive)
+        if (!_isPlayer1Alive && _isPlayer2Alive)
         {
             ++_player2Score;
             PlayerWon.Raise(new PlayerScore(_player2Score, 2));

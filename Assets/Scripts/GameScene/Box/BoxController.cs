@@ -10,8 +10,8 @@ public class BoxController : MonoBehaviour
     private Transform _entityGroup;
 
     private float _breakTime = 0.6f;
-    private const int _powerUpSpawnChance = 100;
-    private readonly System.Random random = new System.Random();
+    private const int _powerUpSpawnChance = 31;
+    private readonly System.Random _random = new System.Random();
     private const int _numberOfPowerUps = 2;
 
     public void Die()
@@ -34,9 +34,9 @@ public class BoxController : MonoBehaviour
 
     private void SpawnPowerUp()
     {
-        if (random.Next(0, 100) < _powerUpSpawnChance)
+        if (_random.Next(0, 100) < _powerUpSpawnChance)
         {
-            Instantiate(powerUps[random.Next(0, _numberOfPowerUps)], transform.position, Quaternion.identity, _entityGroup);
+            Instantiate(powerUps[_random.Next(0, _numberOfPowerUps)], transform.position, Quaternion.identity, _entityGroup);
         }
     }
 }
