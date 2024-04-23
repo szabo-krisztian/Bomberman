@@ -30,13 +30,13 @@ public class UserInputUIManager : MonoBehaviour
                 _popUpWindow.SetActive(false);
             }
         }
+    }
 
-        if (!_popUpWindow.activeSelf && Input.GetKeyDown(KeyCode.Escape))
-        {
-            SerializationModel.SavePlayerSettings(_player1SettingsData, SerializationModel.PLAYER1_SETTINGS_FILENAME);
-            SerializationModel.SavePlayerSettings(_player2SettingsData, SerializationModel.PLAYER2_SETTINGS_FILENAME);
-            SceneManager.LoadScene("MapSelector");
-        }
+    public void BackToMenuHandler(Void data)
+    {
+        SerializationModel.SavePlayerSettings(_player1SettingsData, SerializationModel.PLAYER1_SETTINGS_FILENAME);
+        SerializationModel.SavePlayerSettings(_player2SettingsData, SerializationModel.PLAYER2_SETTINGS_FILENAME);
+        SceneManager.LoadScene("MapSelector");
     }
 
     private void ReadPlayerSettings()
@@ -83,6 +83,9 @@ public class UserInputUIManager : MonoBehaviour
             case USER_KEY_CODE.PLAYER1_RIGHT:
                 _player1SettingsData.Right = newKey;
                 break;
+            case USER_KEY_CODE.PLAYER1_BOMB:
+                _player1SettingsData.Bomb = newKey;
+                break;
             case USER_KEY_CODE.PLAYER2_UP:
                 _player2SettingsData.Up = newKey;
                 break;
@@ -94,6 +97,9 @@ public class UserInputUIManager : MonoBehaviour
                 break;
             case USER_KEY_CODE.PLAYER2_RIGHT:
                 _player2SettingsData.Right = newKey;
+                break;
+            case USER_KEY_CODE.PLAYER2_BOMB:
+                _player2SettingsData.Bomb = newKey;
                 break;
         }
     }
