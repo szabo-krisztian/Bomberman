@@ -12,7 +12,7 @@ public class MyZombieModel
         _collisionDetector = new CollisionDetectionModel();
     }
 
-    protected bool IsPositionFree(Vector3 position)
+    public bool IsPositionFree(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
         return !_collisionDetector.IsTagInColliders(colliders, "Wall") && !_collisionDetector.IsTagInColliders(colliders, "Box") && !_collisionDetector.IsTagInColliders(colliders, "Bomb");

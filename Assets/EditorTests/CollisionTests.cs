@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UIElements;
 
-public class PlayerTestScript
+public class CollisionTests
 {
     private CollisionDetectionModel _collisionDetector;
 
