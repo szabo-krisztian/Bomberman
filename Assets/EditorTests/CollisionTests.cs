@@ -16,7 +16,6 @@ public class CollisionTests
         _collisionDetector = new CollisionDetectionModel();
     }
     
-    
     [Test]
     public void CollisionDetectionModel_GetCollidersInPosition_DetectsPlayer1Collider()
     {
@@ -64,6 +63,7 @@ public class CollisionTests
 
         Assert.AreEqual(_collisionDetector.IsTagInColliders(colliders, "Zombie"), true);
     }
+
     [Test]
     public void CollisionDetectionModel_GetCollidersInPosition_DetectsIntelligentZombieCollider()
     {
@@ -75,6 +75,7 @@ public class CollisionTests
 
         Assert.AreEqual(_collisionDetector.IsTagInColliders(colliders, "Zombie"), true);
     }
+
     [Test]
     public void CollisionDetectionModel_GetCollidersInPosition_DetectsVeryIntelligentZombieCollider()
     {
