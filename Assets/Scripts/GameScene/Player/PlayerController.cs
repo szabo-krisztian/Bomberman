@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -17,20 +18,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject _bombPrefab;
 
+    private int _playerIndex;
     private Rigidbody2D _rigidBody;
     private CollisionDetectionModel _collisionDetector;
     private int _bombsCount;
     private int _bombRadius;
-    private int _playerIndex;
     private const int MAX_BOMB_RADIUS = 8;
 
     private void Start()
     {
+        _playerIndex = GetPlayerIndex();
         _rigidBody = GetComponent<Rigidbody2D>();
         _collisionDetector = new CollisionDetectionModel();
         _bombsCount = 1;
         _bombRadius = 1;
-        _playerIndex = GetPlayerIndex();
+        _settings.InitDirectionKeys(SerializationModel.LoadPlayerSettings(_playerIndex));
     }
 
     private int GetPlayerIndex()

@@ -41,8 +41,8 @@ public class UserInputUIManager : MonoBehaviour
 
     private void ReadPlayerSettings()
     {
-        _player1SettingsData = SerializationModel.LoadPlayerSettings(SerializationModel.PLAYER1_SETTINGS_FILENAME);
-        _player2SettingsData = SerializationModel.LoadPlayerSettings(SerializationModel.PLAYER2_SETTINGS_FILENAME);
+        _player1SettingsData = SerializationModel.LoadPlayerSettings(1);
+        _player2SettingsData = SerializationModel.LoadPlayerSettings(2);
     }
 
     public void NewKeyToReadHandler(USER_KEY_CODE userKeyCode)

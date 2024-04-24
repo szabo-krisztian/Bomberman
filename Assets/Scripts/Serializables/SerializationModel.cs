@@ -111,9 +111,10 @@ public static class SerializationModel
         File.WriteAllText(filePath, json);
     }
 
-    public static PlayerSettingsData LoadPlayerSettings(string player)
+    public static PlayerSettingsData LoadPlayerSettings(int playerIndex)
     {
-        string filePath = GetPlayerSettingsFilePath(player + ".json");
+        string playerName = playerIndex == 1 ? PLAYER1_SETTINGS_FILENAME : PLAYER2_SETTINGS_FILENAME;
+        string filePath = GetPlayerSettingsFilePath(playerName + ".json");
 
         if (!File.Exists(filePath))
         {
