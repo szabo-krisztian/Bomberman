@@ -4,7 +4,7 @@ public class CollisionDetectionModel
 {
     private float _overlapCircleRadius = .25f;
 
-    public Collider2D[] GetCollidersInPosition(Vector2 position)
+    public Collider2D[] GetCollidersInPosition(Vector3 position)
     {
         Collider2D[] overlapColliders = Physics2D.OverlapCircleAll(position, _overlapCircleRadius);
         return overlapColliders;

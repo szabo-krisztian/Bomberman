@@ -1,0 +1,1 @@
+public class PlayerScoreEventListener : GameEventListener<PlayerScore> { }
