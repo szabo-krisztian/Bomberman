@@ -244,8 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13054fedb67c2e74299787a72802208d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSprite: {fileID: -788342147, guid: b956ea1d33574e74abef647867e49464, type: 3}
-  _clickedSprite: {fileID: -1532626052, guid: b956ea1d33574e74abef647867e49464, type: 3}
+  _defaultSprite: {fileID: -445391902, guid: b956ea1d33574e74abef647867e49464, type: 3}
+  _clickedSprite: {fileID: 1028892345, guid: b956ea1d33574e74abef647867e49464, type: 3}
   ButtonClicked: {fileID: 11400000, guid: b5b0409465d353f4a8d9fd653e52ba5b, type: 2}
 --- !u!114 &80770347
 MonoBehaviour:
@@ -568,7 +568,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &221911191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -967,7 +966,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &550985086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1676,7 +1674,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &989147911 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4904412003602676387, guid: 13a19a56d2837a24cad1795da80fe0da, type: 3}
@@ -3184,7 +3181,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1542184855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3350,7 +3346,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1601461714
 GameObject:
   m_ObjectHideFlags: 0
@@ -3405,7 +3400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.23529412}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.050980393}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3527,7 +3522,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1702652312
 GameObject:
   m_ObjectHideFlags: 0
@@ -4722,7 +4716,7 @@ PrefabInstance:
     - target: {fileID: 5898593187334781147, guid: ea7acf91aaa83284b8a9183419632658, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -788342147, guid: b956ea1d33574e74abef647867e49464, type: 3}
+      objectReference: {fileID: -445391902, guid: b956ea1d33574e74abef647867e49464, type: 3}
     - target: {fileID: 7212721492685021449, guid: ea7acf91aaa83284b8a9183419632658, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
