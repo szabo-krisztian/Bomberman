@@ -166,7 +166,7 @@ public class MapEditorManager : MonoBehaviour
     private Vector2 GetPlayerSize()
     {
         float playerWidth = Screen.height / 15;
-        float playerHeightWithOffset = Screen.height / 8;
+        float playerHeightWithOffset = Screen.height / 10;
         return new Vector2(playerWidth, playerHeightWithOffset);
     }
 

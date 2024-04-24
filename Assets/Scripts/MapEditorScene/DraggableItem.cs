@@ -40,8 +40,8 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
             if (currentScreenSize != _lastScreenSize && _isInTilemap)
             {
-                float heightOffset = Screen.height / 30;
-                _rectTransform.offsetMin = new Vector2(0, 0);
+                float heightOffset = Screen.height / 15 - Screen.height / 20;
+                _rectTransform.offsetMin = new Vector2(0, Screen.height / 15 / 4);
                 _rectTransform.offsetMax = new Vector2(0, heightOffset);
             }
 
@@ -61,7 +61,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.SetAsLastSibling();
 
         // 15 represents the map size, 12.5 is also the map size with an offset, so the button's height it bigger than it's width
-        _rectTransform.sizeDelta = new Vector2(Screen.height / 15 - Screen.width, Screen.height / 12.5f - Screen.height);
+        _rectTransform.sizeDelta = new Vector2(Screen.height / 15 - Screen.width, Screen.height / 15f - Screen.height);
     }
 
     public void OnDrag(PointerEventData eventData)
