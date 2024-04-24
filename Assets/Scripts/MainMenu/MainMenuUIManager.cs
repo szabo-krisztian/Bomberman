@@ -15,6 +15,10 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void ExitButtonHitHandler(Void data)
     {
-        Debug.Log("Quit");
+    #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+    #else
+            Application.Quit();
+    #endif
     }
 }
