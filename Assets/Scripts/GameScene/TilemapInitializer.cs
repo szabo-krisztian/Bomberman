@@ -85,6 +85,11 @@ public class TilemapInitializer : MonoBehaviour
         {
             for (int i = 0; i < zombieType.Count; i++)
             {
+                if (freePositions.Count == 0)
+                {
+                    break;
+                }
+
                 var pos = freePositions.Pop();
 
                 switch (zombieType.Type)
