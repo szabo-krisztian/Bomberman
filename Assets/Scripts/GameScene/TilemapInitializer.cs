@@ -121,4 +121,15 @@ public class TilemapInitializer : MonoBehaviour
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
         return !_collisionDetector.IsTagInColliders(colliders, "Wall") && !_collisionDetector.IsTagInColliders(colliders, "Box") && !_collisionDetector.IsTagInColliders(colliders, "Player");
     }
+
+    public void FreezeGame(Void data)
+    {
+        foreach (Transform child in _entityGroup)
+        {
+            if (child.gameObject.tag != "Wall" && child.gameObject.tag != "Box")
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
 }
