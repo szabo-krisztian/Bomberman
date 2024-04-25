@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     public GameEvent<Void> EndOfGame;
 
     [SerializeField]
+    private MapRoundNumberSO _mapRounds;
+
+    [SerializeField]
     private GameObject _player1VictoryUI;
 
     [SerializeField]
@@ -83,7 +86,7 @@ public class GameManager : MonoBehaviour
 
     private void StartNewGame()
     {
-        if (_gameNumber == 2)
+        if (_gameNumber == _mapRounds.value)
         {
             GameFinished();
         }
@@ -103,7 +106,6 @@ public class GameManager : MonoBehaviour
         _isGameEnded = true;
         EndOfGame.Raise(new Void());
         
-        Debug.Log("asf");
         if (_player1Score == _player2Score)
         {
             _drawUI.SetActive(true);

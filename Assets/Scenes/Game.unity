@@ -655,6 +655,7 @@ MonoBehaviour:
   PlayerWon: {fileID: 11400000, guid: 4f2c05316751f4243a9bc57dea38a2c0, type: 2}
   NewGameStarted: {fileID: 11400000, guid: 72ce4adc8d5285e4dbd3b17b6a97a47e, type: 2}
   EndOfGame: {fileID: 11400000, guid: e78177f1c9f5fbf4fb93d2d0fa9f4527, type: 2}
+  _mapRounds: {fileID: 11400000, guid: 7dc52495c5e167849a9c66a5f5483c95, type: 2}
   _player1VictoryUI: {fileID: 1278422312}
   _player2VictoryUI: {fileID: 444458782}
   _drawUI: {fileID: 1104145615}
@@ -1008,7 +1009,6 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1082,23 +1082,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650c02d81a1fb4e4a88e58138b7e8fd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 519420031}
-  zoomInSize: 5
-  zoomOutSize: 3.5
-  zoomDuration: 0.5
-  initialSize: 0
 --- !u!1 &531104654
 GameObject:
   m_ObjectHideFlags: 0

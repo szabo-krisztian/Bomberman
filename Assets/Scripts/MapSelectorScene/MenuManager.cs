@@ -13,6 +13,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private PlayerSettingsSO _player2Settings;
 
+    [SerializeField]
+    private GameObject _mapRoundSelectorPopUpWindow;
+
     public void OpenUIPanelHandler(GameObject uiPanel)
     {
         uiPanel.SetActive(true);
@@ -37,6 +40,6 @@ public class MenuManager : MonoBehaviour
     public void PlayMapButtonHitHandler(string mapName)
     {
         _mapToLoad.TilemapData = SerializationModel.LoadMap(mapName);
-        LoadScene.Raise("Game");
+        _mapRoundSelectorPopUpWindow.SetActive(true);
     }
 }
