@@ -38,7 +38,7 @@ public class UserInputUIManager : MonoBehaviour
     {
         SerializationModel.SavePlayerSettings(_player1SettingsData, SerializationModel.PLAYER1_SETTINGS_FILENAME);
         SerializationModel.SavePlayerSettings(_player2SettingsData, SerializationModel.PLAYER2_SETTINGS_FILENAME);
-        LoadScene.Raise("MainMenu");
+        LoadScene.Raise("MainMenu");    
     }
 
     private void ReadPlayerSettings()

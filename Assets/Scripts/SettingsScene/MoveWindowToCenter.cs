@@ -1,10 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class MoveWindowToCenter : MonoBehaviour
 {
     [SerializeField]
     private RectTransform _windowRect;
+
+    [SerializeField]
+    private Vector2 _originalPosRatio;
+
+    [SerializeField]
+    private Vector2 _targetPosRatio;
 
     private float _moveSpeed = 5f;
     private Vector3 _targetPosition;
@@ -53,8 +60,8 @@ public class MoveWindowToCenter : MonoBehaviour
 
     private void SetPositions()
     {
-        _originalPos = new Vector3(Screen.width / 2f, Screen.height + Screen.height / 4f, 0f);
+        _originalPos = new Vector3(Screen.width / 2f + Screen.width * _originalPosRatio.x, Screen.height / 2f + Screen.height * _originalPosRatio.y, 0f);
         _windowRect.position = _originalPos;
-        _targetPosition = new Vector3(Screen.width / 2f, Screen.height / 2f + Screen.height / 3.5f, 0f);
+        _targetPosition = new Vector3(Screen.width / 2f + Screen.width * _targetPosRatio.x, Screen.height / 2f + Screen.height * _targetPosRatio.y, 0f);
     }
 }
