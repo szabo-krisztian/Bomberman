@@ -199,6 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb546625877a4c419a5c29d881eca61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ExitUIPanel: {fileID: 11400000, guid: 82df276347740034c9e056979a88ec36, type: 2}
+  _mapCreationPanel: {fileID: 607711081}
   _mapPanelPrefab: {fileID: 7324034399033827611, guid: c72ff054b84f63645bc96caf0970b8b8, type: 3}
   _defaultMapPanelPrefab: {fileID: 7324034399033827611, guid: 23c470e03a50f88418feecf4e341ca92, type: 3}
 --- !u!1 &110615208

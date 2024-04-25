@@ -5,6 +5,12 @@ using UnityEngine;
 public class ScrollViewManager : MonoBehaviour
 {
     [SerializeField]
+    private GameEvent<GameObject> ExitUIPanel;
+
+    [SerializeField]
+    private GameObject _mapCreationPanel;
+
+    [SerializeField]
     private GameObject _mapPanelPrefab;
 
     [SerializeField]
@@ -66,6 +72,7 @@ public class ScrollViewManager : MonoBehaviour
         mapPanel.GetComponentInChildren<TMPro.TMP_Text>().text = mapName;
 
         ResizeContentRect(Screen.height / 4);
+        ExitUIPanel.Raise(_mapCreationPanel);
     }
 
     private void ResizeContentRect(float rectSize)
