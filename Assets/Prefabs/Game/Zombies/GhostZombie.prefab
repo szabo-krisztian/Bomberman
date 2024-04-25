@@ -298,7 +298,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1677594360063189449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,3 +310,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e36e44d107fae34d80de4294fc7260b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _runAnim: GhostZombieRun_Normal
+  _idleAnim: GhostIdle

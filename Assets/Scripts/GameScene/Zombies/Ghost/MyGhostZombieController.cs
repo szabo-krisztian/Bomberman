@@ -26,6 +26,11 @@ public class MyGhostZombieController : MyZombieController
         _currentState.EnterState();
     }
 
+    public void SetAnim(string animName)
+    {
+        _animator.Play(animName);
+    }
+
     public void SetPivotPoint(Vector3 position)
     {
         PivotPoint = position;

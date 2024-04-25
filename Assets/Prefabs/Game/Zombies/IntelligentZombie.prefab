@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1627788660782209139, guid: 0965512524aff9e43a4fc5d003753475, type: 3}
       propertyPath: m_Name
-      value: IntelligentZombie Variant
+      value: IntelligentZombie
       objectReference: {fileID: 0}
     - target: {fileID: 1627788660782209143, guid: 0965512524aff9e43a4fc5d003753475, type: 3}
       propertyPath: m_RootOrder
@@ -59,6 +59,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1759448120, guid: e0c7cfd81c15917448b4c08d4642e0a0, type: 3}
+    - target: {fileID: 1627788660837214775, guid: 0965512524aff9e43a4fc5d003753475, type: 3}
+      propertyPath: _runAnim
+      value: IntelligentZombieRun
+      objectReference: {fileID: 0}
+    - target: {fileID: 1627788660837214775, guid: 0965512524aff9e43a4fc5d003753475, type: 3}
+      propertyPath: _idleAnim
+      value: IntelligentIdle
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 248769943, guid: 0965512524aff9e43a4fc5d003753475, type: 3}
     - {fileID: 597106502, guid: 0965512524aff9e43a4fc5d003753475, type: 3}
@@ -105,4 +113,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
