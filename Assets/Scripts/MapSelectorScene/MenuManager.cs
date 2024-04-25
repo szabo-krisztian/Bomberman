@@ -1,8 +1,9 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    public GameEvent<string> LoadScene;
+
     [SerializeField]
     private TilemapSO _mapToLoad;
 
@@ -25,17 +26,17 @@ public class MenuManager : MonoBehaviour
     public void EditMapButtonHitHandler(string mapName)
     {
         _mapToLoad.TilemapData = SerializationModel.LoadMap(mapName);
-        SceneManager.LoadScene("MapEditor");
+        LoadScene.Raise("MapEditor");
     }
 
     public void BackToMenuHandler(Void data)
     {
-        SceneManager.LoadScene("MainMenu");
+        LoadScene.Raise("MainMenu");
     }
 
     public void PlayMapButtonHitHandler(string mapName)
     {
         _mapToLoad.TilemapData = SerializationModel.LoadMap(mapName);
-        SceneManager.LoadScene("Game");
+        LoadScene.Raise("Game");
     }
 }

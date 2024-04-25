@@ -1,15 +1,12 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PlayerWonPopUpMovement : MonoBehaviour
 {
-    [SerializeField]
-    private RectTransform _windowRect;
+    public GameEvent<string> LoadScene;
 
     [SerializeField]
-    private Image _darkScreen;
+    private RectTransform _windowRect;
 
     private float _moveSpeed = 5f;
     private Vector3 _targetPosition;
@@ -34,15 +31,12 @@ public class PlayerWonPopUpMovement : MonoBehaviour
     private IEnumerator BackToMenu()
     {
         yield return new WaitForSeconds(TIME_ACTIVE);
-        SceneManager.LoadScene("MapSelector");
+        LoadScene.Raise("MapSelector");
     }
 
     void Update()
     {
         _windowRect.position = Vector3.Lerp(_windowRect.position, _targetPosition, _moveSpeed * Time.deltaTime);
-        Color tempColor = _darkScreen.color;
-        tempColor.a = Mathf.MoveTowards(tempColor.a, 255, Time.fixedDeltaTime);
-        _darkScreen.color = tempColor;
     }
 
     private IEnumerator ResizeAutomaticallyIfScreenSizeChanged()

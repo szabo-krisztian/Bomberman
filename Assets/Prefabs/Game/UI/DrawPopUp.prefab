@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ee179c04d8dd04aa39e545e89b1441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadScene: {fileID: 11400000, guid: ae930ff37ce839d4e85680e2966e43e8, type: 2}
   _windowRect: {fileID: 3467952266701706696}
 --- !u!1 &1705430883885228255
 GameObject:

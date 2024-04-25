@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class UserInputUIManager : MonoBehaviour
 {
+    public GameEvent<string> LoadScene;
+
     [SerializeField]
     private GameObject _popUpWindow;
 
@@ -36,7 +38,7 @@ public class UserInputUIManager : MonoBehaviour
     {
         SerializationModel.SavePlayerSettings(_player1SettingsData, SerializationModel.PLAYER1_SETTINGS_FILENAME);
         SerializationModel.SavePlayerSettings(_player2SettingsData, SerializationModel.PLAYER2_SETTINGS_FILENAME);
-        SceneManager.LoadScene("MainMenu");
+        LoadScene.Raise("MainMenu");
     }
 
     private void ReadPlayerSettings()

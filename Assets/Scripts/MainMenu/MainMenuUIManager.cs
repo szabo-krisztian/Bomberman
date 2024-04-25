@@ -1,16 +1,17 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenuUIManager : MonoBehaviour
 {
+    public GameEvent<string> LoadScene;
+
     public void StartButtonHitHandler(Void data)
     {
-        SceneManager.LoadScene("MapSelector");
+        LoadScene.Raise("MapSelector");
     }
 
     public void SettingsButtonHitHandler(Void data)
     {
-        SceneManager.LoadScene("Settings");
+        LoadScene.Raise("Settings");
     }
 
     public void ExitButtonHitHandler(Void data)
