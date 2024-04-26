@@ -38,11 +38,11 @@ public class PlayerAnimation : MonoBehaviour
 
     private void FlipSprite(Vector3 direction)
     {
-        if (direction == Vector3.left)
+        if (direction == Vector3.left || direction == Vector3.left + Vector3.up || direction == Vector3.left + Vector3.down)
         {
             _spriteRenderer.flipX = true;
         }
-        else if (direction == Vector3.right)
+        else if (direction == Vector3.right || direction == Vector3.right + Vector3.up || direction == Vector3.right + Vector3.down)
         {
             _spriteRenderer.flipX = false;
         }

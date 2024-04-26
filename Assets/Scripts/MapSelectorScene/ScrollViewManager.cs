@@ -22,7 +22,6 @@ public class ScrollViewManager : MonoBehaviour
     private void Start()
     {
         SerializationModel.InitTilemapDirectory();
-        SerializationModel.InitPlayerSettingsDirectory();
 
         _rectTransform = GetComponent<RectTransform>();
         previousScreenHeight = Screen.height;

@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -48,14 +47,13 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateFacingDirection()
     {
-        FacingDirection = Vector2.zero;
+        FacingDirection = Vector3.zero;
 
         foreach (var pair in _settings.DirectionKeys)
         {
             if (Input.GetKey(pair.Key))
             {
-                FacingDirection = pair.Value;
-                return;
+                FacingDirection += pair.Value;
             }
         }
     }
@@ -94,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        _rigidBody.velocity = FacingDirection * _settings.Speed;
+        _rigidBody.velocity = FacingDirection.normalized * _settings.Speed;
     }
 
     public void BombExplodedHandler(int playerIndex)

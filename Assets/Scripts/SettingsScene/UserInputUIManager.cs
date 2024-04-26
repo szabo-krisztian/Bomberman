@@ -15,6 +15,7 @@ public class UserInputUIManager : MonoBehaviour
 
     private void Start()
     {
+        SerializationModel.InitPlayerSettingsDirectory();
         ReadPlayerSettings();
     }
 
