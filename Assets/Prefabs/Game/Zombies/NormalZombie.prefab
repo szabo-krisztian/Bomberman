@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfae38b458e3de418a7e5372d8f1455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diePArti: {fileID: 1983380797244389344, guid: c64264e33a0425341b7f1ad286fa82dd, type: 3}
 --- !u!1 &1627788660837214771 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1677594360063189453, guid: 6b5cc61aab3a7b84c91a8adfaa613daf, type: 3}
