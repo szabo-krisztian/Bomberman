@@ -32,7 +32,6 @@ public class MoveWindowToCenter : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(_targetPosition);
         _windowRect.position = Vector3.Lerp(_windowRect.position, _targetPosition, _moveSpeed * Time.deltaTime);
     }
 

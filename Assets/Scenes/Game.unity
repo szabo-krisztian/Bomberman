@@ -3224,6 +3224,9 @@ MonoBehaviour:
   _blockPrefabs:
   - {fileID: 6359629554778958739, guid: 5e2b5332034637240899208e9ef3b28d, type: 3}
   - {fileID: 7277517107991239063, guid: fb16070220a6a5e40902b4ec38eb5002, type: 3}
+  _dustParticles:
+  - {fileID: 2096748876328715684, guid: a8c6e0dd0292fbe49a1361d29d0d59f9, type: 3}
+  - {fileID: 2096748876328715684, guid: ec6c138b364488446b13890377ce7fd6, type: 3}
   _playerPrefabs:
   - {fileID: 7857072844460558372, guid: 2047c6d713a545e4b81bc748d8b28abf, type: 3}
   - {fileID: 7961612692700735325, guid: 663ba2496296a3c4e810a8918ffe7f8f, type: 3}
