@@ -115,8 +115,8 @@ public class TilemapInitializer : MonoBehaviour
                         SummonZombieEgg(3, pos);
                         break;
                 }
+                yield return new WaitForSeconds(.5f);
             }
-            yield return new WaitForSeconds(.5f);
         }
     }
 
