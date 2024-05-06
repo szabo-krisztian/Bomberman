@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class CollisionDetectionModel
 {
     private float _overlapCircleRadius = .25f;
