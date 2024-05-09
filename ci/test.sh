@@ -20,10 +20,6 @@ ${UNITY_EXECUTABLE:-xvfb-run --auto-servernum --server-args='-screen 0 640x480x2
   -coverageOptions "generateAdditionalMetrics;generateHtmlReport;generateHtmlReportHistory;generateBadgeReport;pathFilters:+$UNITY_DIR/Assets/Scripts/**/*Model*.cs,+$UNITY_DIR/Assets/Scripts/**/*Controller*.cs" \
   -debugCodeOptimization
 
-echo "Uniquetextbefore ls command"
-ls -al $UNITY_DIR/Assets/Scripts/
-echo "Uniquetextafter ls command"
-
 UNITY_EXIT_CODE=$?
 
 if [ $UNITY_EXIT_CODE -eq 0 ]; then
