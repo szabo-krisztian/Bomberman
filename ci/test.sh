@@ -17,10 +17,12 @@ ${UNITY_EXECUTABLE:-xvfb-run --auto-servernum --server-args='-screen 0 640x480x2
   -nographics \
   -enableCodeCoverage \
   -coverageResultsPath $UNITY_DIR/$TEST_PLATFORM-coverage \
-  -coverageOptions "generateAdditionalMetrics;generateHtmlReport;generateHtmlReportHistory;generateBadgeReport;pathFilters:+$UNITY_DIR/Assets/Scripts/*.cs" \
+  -coverageOptions "generateAdditionalMetrics;generateHtmlReport;generateHtmlReportHistory;generateBadgeReport;pathFilters:+$UNITY_DIR/Assets/Scripts/" \
   -debugCodeOptimization
 
-ls $UNITY_DIR/Assets/Scripts/
+echo "Uniquetextbefore ls command"
+ls -al $UNITY_DIR/Assets/Scripts/
+echo "Uniquetextafter ls command"
 
 UNITY_EXIT_CODE=$?
 
