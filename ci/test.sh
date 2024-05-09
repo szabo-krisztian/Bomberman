@@ -17,7 +17,7 @@ ${UNITY_EXECUTABLE:-xvfb-run --auto-servernum --server-args='-screen 0 640x480x2
   -nographics \
   -enableCodeCoverage \
   -coverageResultsPath $UNITY_DIR/$TEST_PLATFORM-coverage \
-  -coverageOptions "generateAdditionalMetrics;generateHtmlReport;generateHtmlReportHistory;generateBadgeReport;pathFilters:+$UNITY_DIR/Assets/Scripts" \
+  -coverageOptions "generateAdditionalMetrics;generateHtmlReport;generateHtmlReportHistory;generateBadgeReport;pathFilters:+$UNITY_DIR/Assets/Scripts/SOScripts/*" \
   -debugCodeOptimization
 
 echo "Uniquetextbefore ls command"
