@@ -74,7 +74,7 @@ public class MyIntelligentZombieModel : MyZombieModel
         queue.Enqueue(neighbour);
     }
 
-    private bool IsPlayerStandingOnPosition(Vector3 position)
+    public bool IsPlayerStandingOnPosition(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
         return _collisionDetector.IsTagInColliders(colliders, "Player");
