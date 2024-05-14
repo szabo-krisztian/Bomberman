@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
     private int _bombRadius;
     private const int MAX_BOMB_RADIUS = 8;
 
+    /// <summary>
+    /// All player attributes are set.
+    /// </summary>
     private void Start()
     {
         _playerIndex = GetPlayerIndex();
@@ -39,12 +42,18 @@ public class PlayerController : MonoBehaviour
         return gameObject.name == "Player1" ? 1 : 2;
     }
 
+    /// <summary>
+    /// This method deals with the inputs each frame. Players can move and place bombs.
+    /// </summary>
     private void Update()
     {
         UpdateFacingDirection();
         CheckIfPlayerPlacedBomb();
     }
 
+    /// <summary>
+    /// We loop through our PlayerSettings directory to check if there are any keys that have been pressed.
+    /// </summary>
     private void UpdateFacingDirection()
     {
         FacingDirection = Vector3.zero;
@@ -69,6 +78,10 @@ public class PlayerController : MonoBehaviour
         PlaceBomb(bombPosition);
     }
 
+    /// <summary>
+    /// We instantiate a Bomb GameObject and set its values. After the instantiation the PlusBombPickedUp event is raised.
+    /// </summary>
+    /// <param name="position"></param>
     private void PlaceBomb(Vector2 position)
     {
         GameObject bomb = Instantiate(_bombPrefab, position, Quaternion.identity);
@@ -79,12 +92,19 @@ public class PlayerController : MonoBehaviour
         PlusBombPickedUp.Raise(new PlayerScore(_bombsCount, _playerIndex));
     }
 
+    /// <summary>
+    /// Players cannot place multiple bombs on the same tile.
+    /// </summary>
+    /// <returns>boolean</returns>
     private bool IsPlayerAbleToPlaceBomb()
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(UtilityFunctions.GetCenterPosition(_rigidBody.position));
         return !_collisionDetector.IsTagInColliders(colliders, "Bomb") && _bombsCount > 0;
     }
 
+    /// <summary>
+    /// Built-in Unity method that calls every frame. Optimal for physics simulations.
+    /// </summary>
     private void FixedUpdate()
     {
         MovePlayer();
@@ -95,6 +115,10 @@ public class PlayerController : MonoBehaviour
         _rigidBody.velocity = FacingDirection.normalized * _settings.Speed;
     }
 
+    /// <summary>
+    /// When one of the bombs have exploded, the player gets back his ammunition.
+    /// </summary>
+    /// <param name="playerIndex"></param>
     public void BombExplodedHandler(int playerIndex)
     {
         if (playerIndex == _playerIndex)
@@ -104,12 +128,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calls when the player collides with zombies or explosions.
+    /// </summary>
     public void Die()
     {
         PlayerDied.Raise(_playerIndex);
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Built-in Unity method. We use it for picking up powerups. If the player enters a collider of a GameObject this method calls.
+    /// </summary>
+    /// <param name="collision">We have to check if the Collider GameObject is on a Powerup GameObject or not.</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("PlusBombPowerup") && !IsPowerupPickedUp(collision.gameObject))

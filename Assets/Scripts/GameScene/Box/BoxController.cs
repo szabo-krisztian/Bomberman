@@ -14,16 +14,27 @@ public class BoxController : MonoBehaviour
     private readonly System.Random _random = new System.Random();
     private const int _numberOfPowerUps = 2;
 
+    /// <summary>
+    /// Event handler methods that calls when a bomb explodes nearby.
+    /// </summary>
     public void Die()
     {
         StartCoroutine(Break());
     }
 
+    /// <summary>
+    /// We put all entities in this Transform group for convenience. However Boxes are instantiated runtime, this is the setter method.
+    /// </summary>
+    /// <param name="entityGroup">Transform component of the EntityGroup.</param>
     public void SetEntityGroup(Transform entityGroup)
     {
         _entityGroup = entityGroup;
     }
 
+    /// <summary>
+    /// Coroutine for the break behaviour.
+    /// </summary>
+    /// <returns>Coroutine specific type.</returns>
     private IEnumerator Break()
     {
         GetComponent<Animator>().enabled = true;
@@ -32,6 +43,10 @@ public class BoxController : MonoBehaviour
         Destroy(gameObject);
     }
 
+
+    /// <summary>
+    /// Spawns a Powerup GameObject randomly.
+    /// </summary>
     private void SpawnPowerUp()
     {
         if (_random.Next(0, 100) < _powerUpSpawnChance)

@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Polymorphic parent class for all listeners in the game. 
+/// </summary>
+/// <typeparam name="T">Type of data passed in the OnEventRaised method.</typeparam>
 public abstract class GameEventListener<T> : MonoBehaviour
 {
     public GameEvent<T> Event;

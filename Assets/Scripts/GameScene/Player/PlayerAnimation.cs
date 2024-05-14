@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// This script servers no purpose for the gameplay.
+/// </summary>
 public class PlayerAnimation : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
@@ -21,6 +24,9 @@ public class PlayerAnimation : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+    /// <summary>
+    /// Flips the sprite of a player corresponding to its facing direction.
+    /// </summary>
     private void Update()
     {
         Vector3 currentDirection = _zombieController.FacingDirection;
