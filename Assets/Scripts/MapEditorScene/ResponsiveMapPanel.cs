@@ -12,7 +12,10 @@ public class ResponsiveMapPanel : MonoBehaviour
     private RectTransform _rectTrans;
 
     private const int SIZE_OF_MAP = 15;
-
+    
+    /// <summary>
+    /// We start a Coroutine that is going to change the UI elements size according to the actual screen size.
+    /// </summary>
     private void Start()
     {
         _lastScreenSize = GetScreenSize();
@@ -26,6 +29,9 @@ public class ResponsiveMapPanel : MonoBehaviour
         StartCoroutine(ResizeAutomaticallyIfScreenSizeChanged());
     }
 
+    /// <summary>
+    /// When the screen size changes we modify the anchors of our panel.
+    /// </summary>
     private void SetMapAnchors()
     {
         float panelSize = (Screen.width - Screen.height) / 2;
@@ -33,12 +39,18 @@ public class ResponsiveMapPanel : MonoBehaviour
         _rectTrans.anchorMax = new Vector2((panelSize + Screen.height) / Screen.width, 1);
     }
 
+    /// <summary>
+    /// When the screen size changes we modify the size of a square in the GridLayoutGroup UI element.
+    /// </summary>
     private void SetGridSize(Vector2 screenSize)
     {
         float squareSize = screenSize.y / 15;
         _gridLayoutGroup.cellSize = new Vector2(squareSize, squareSize);
     }
 
+    /// <summary>
+    /// We instantiate the grid cells in the GridLayoutGroup UI element.
+    /// </summary>
     private void PopulateGridSquares()
     {
         for (int i = 0; i < SIZE_OF_MAP * SIZE_OF_MAP; ++i)
@@ -47,6 +59,10 @@ public class ResponsiveMapPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Coroutine that modifies the size of our UI element.
+    /// </summary>
+    /// <returns>Coroutine specific type.</returns>
     private IEnumerator ResizeAutomaticallyIfScreenSizeChanged()
     {
         Vector2 currentScreenSize;

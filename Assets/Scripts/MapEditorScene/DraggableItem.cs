@@ -17,6 +17,9 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private bool _isInTilemap;
     private Vector2 _lastScreenSize;
 
+    /// <summary>
+    /// Built-in Unity method. We set the basic fields of our DraggableUI element and start a Coroutine that is going to be responsible for the responsivity of the UI.
+    /// </summary>
     private void Start()
     {
         _image = GetComponent<Image>();
@@ -31,6 +34,10 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         StartCoroutine(ResizeAutomaticallyIfScreenSizeChanged());
     }
 
+    /// <summary>
+    /// Coroutine that modifies the size of our UI element.
+    /// </summary>
+    /// <returns>Coroutine specific type.</returns>
     private IEnumerator ResizeAutomaticallyIfScreenSizeChanged()
     {
         Vector2 currentScreenSize;
@@ -50,6 +57,10 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
     }
 
+    /// <summary>
+    /// Built-in Unity event handler that calls if the UI is being placed.
+    /// </summary>
+    /// <param name="eventData">Unity's event parameter.</param>
     public void OnBeginDrag(PointerEventData eventData)
     {
         OnPlayerBeingPlaced();
@@ -64,11 +75,19 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _rectTransform.sizeDelta = new Vector2(Screen.height / 15 - Screen.width, Screen.height / 15f - Screen.height);
     }
 
+    /// <summary>
+    /// Built-in Unity event handler that calls if the UI is being placed each frame.
+    /// </summary>
+    /// <param name="eventData">Unity's event parameter.</param>
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = Input.mousePosition;
     }
 
+    /// <summary>
+    /// Built-in Unity event handler that calls if the UI element has been placed.
+    /// </summary>
+    /// <param name="eventData">Unity's event parameter.</param>
     public void OnEndDrag(PointerEventData eventData)
     {
         _image.raycastTarget = true;
@@ -77,11 +96,18 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         OnPlayerHasBeenPlaced(buttonWorldPosition);
     }
 
+    /// <summary>
+    /// Helper method raising the event PlayerBeingPlaced.
+    /// </summary>
     private void OnPlayerBeingPlaced()
     {
         PlayerBeingPlaced.Raise(new Void());
     }
 
+    /// <summary>
+    /// Helper method raising the event PlayerHasBeenPlaced with the corresponding pieces of data.
+    /// </summary>
+    /// <param name="buttonTilemapPosition">Player's position.</param>
     private void OnPlayerHasBeenPlaced(Vector3 buttonTilemapPosition)
     {
         _isInTilemap = true;
@@ -89,6 +115,10 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         PlayerHasBeenPlaced.Raise(playerInfo);
     }
 
+    /// <summary>
+    /// Event handler method that calls if the user has placed the player on the wrong position.
+    /// </summary>
+    /// <param name="playerIndex">Index of a player.</param>
     public void InvalidPlayerPositionHandler(int playerIndex)
     {
         if (playerIndex == _playerIndex)

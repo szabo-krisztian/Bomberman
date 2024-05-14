@@ -19,6 +19,9 @@ public class ScrollViewManager : MonoBehaviour
     private RectTransform _rectTransform;
     private float previousScreenHeight;
 
+    /// <summary>
+    /// Built-in Unity method. We initialize the map UI windows in the scroll view.
+    /// </summary>
     private void Start()
     {
         SerializationModel.InitTilemapDirectory();
@@ -32,6 +35,9 @@ public class ScrollViewManager : MonoBehaviour
         StartCoroutine(ResizeAutomaticallyIfScreenSizeChanged());
     }
 
+    /// <summary>
+    /// We first create the default maps in the scrollview.
+    /// </summary>
     private void InitializeDefaultMapPanels()
     {
         GameObject mapPanel1 = Instantiate(_defaultMapPanelPrefab, transform);
@@ -51,6 +57,9 @@ public class ScrollViewManager : MonoBehaviour
         ResizeContentRect(Screen.height / 4);
     }
 
+    /// <summary>
+    /// Helper method that reads from the saved data and instantiates UI windows.
+    /// </summary>
     private void InitializeMapPanels()
     {
         List<string> savedMapNames = SerializationModel.GetMapNames();
@@ -64,6 +73,10 @@ public class ScrollViewManager : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Instantiates the window and sets its title, size.
+    /// </summary>
+    /// <param name="mapName"></param>
     private void CreateMapPanel(string mapName)
     {
         GameObject mapPanel = Instantiate(_mapPanelPrefab, transform);
@@ -80,6 +93,10 @@ public class ScrollViewManager : MonoBehaviour
         _rectTransform.sizeDelta = biggerContentSize;
     }
 
+    /// <summary>
+    /// Coroutine that is responsible for the responsivity of the UI.
+    /// </summary>
+    /// <returns>Coroutine specific type.</returns>
     private IEnumerator ResizeAutomaticallyIfScreenSizeChanged()
     {
         while (true)

@@ -11,6 +11,9 @@ public class ResponsivePanel : MonoBehaviour
 
     private Vector2 _lastScreenSize;
 
+    /// <summary>
+    /// We start a Coroutine that is going to change the UI elements size according to the actual screen size.
+    /// </summary>
     private void Start()
     {
         _lastScreenSize.x = Screen.width;
@@ -19,6 +22,10 @@ public class ResponsivePanel : MonoBehaviour
         StartCoroutine(CheckScreenSizeChange());
     }
 
+    /// <summary>
+    /// Coroutine that modifies the size of our UI element.
+    /// </summary>
+    /// <returns>Coroutine specific type.</returns>
     private IEnumerator CheckScreenSizeChange()
     {
         while (true)
@@ -34,6 +41,9 @@ public class ResponsivePanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Helper method that modifies the size of our screen.
+    /// </summary>
     private void OnScreenSizeChanged()
     {
         float panelWidth = ((Screen.width - Screen.height) / 2);

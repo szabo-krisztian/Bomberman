@@ -8,6 +8,9 @@ public class ResponsiveSlider : MonoBehaviour
 
     private float prevHeight;
 
+    /// <summary>
+    /// We start a Coroutine that is going to change the UI elements size according to the actual screen size.
+    /// </summary>
     private void Start()
     {
         prevHeight = _handleRectTransform.rect.height;
@@ -15,6 +18,10 @@ public class ResponsiveSlider : MonoBehaviour
         StartCoroutine(ResizeAutomaticallyIfScreenSizeChanged());
     }
 
+    /// <summary>
+    /// Coroutine that modifies the size of our UI element.
+    /// </summary>
+    /// <returns>Coroutine specific type.</returns>
     private IEnumerator ResizeAutomaticallyIfScreenSizeChanged()
     {
         while (true)

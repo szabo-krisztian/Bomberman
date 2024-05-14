@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Script responsible for better-looking animation.
+/// </summary>
 public class Dirt : MonoBehaviour
 {
     private void Start()
