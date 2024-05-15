@@ -26,6 +26,7 @@ public class CollisionTests
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(Vector3.zero);
 
         Assert.AreEqual(_collisionDetector.IsTagInColliders(colliders, "Player"), true);
+        Object.DestroyImmediate(instantiatedPrefab);
     }
 
     [Test]
@@ -38,6 +39,7 @@ public class CollisionTests
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(Vector3.zero);
 
         Assert.AreEqual(_collisionDetector.IsTagInColliders(colliders, "Player"), true);
+        Object.DestroyImmediate(instantiatedPrefab);
     }
 
     [Test]
@@ -50,6 +52,7 @@ public class CollisionTests
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(Vector3.zero);
 
         Assert.AreEqual(_collisionDetector.IsTagInColliders(colliders, "Zombie"), true);
+        Object.DestroyImmediate(instantiatedPrefab);
     }
 
     [Test]
@@ -62,6 +65,7 @@ public class CollisionTests
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(Vector3.zero);
 
         Assert.AreEqual(_collisionDetector.IsTagInColliders(colliders, "Zombie"), true);
+        Object.DestroyImmediate(instantiatedPrefab);
     }
 
     [Test]
@@ -74,6 +78,7 @@ public class CollisionTests
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(Vector3.zero);
 
         Assert.AreEqual(_collisionDetector.IsTagInColliders(colliders, "Zombie"), true);
+        Object.DestroyImmediate(instantiatedPrefab);
     }
 
     [Test]
@@ -86,5 +91,6 @@ public class CollisionTests
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(Vector3.zero);
 
         Assert.AreEqual(_collisionDetector.IsTagInColliders(colliders, "Zombie"), true);
+        Object.DestroyImmediate(instantiatedPrefab);
     }
 }

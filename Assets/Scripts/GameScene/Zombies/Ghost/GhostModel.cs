@@ -17,7 +17,7 @@ public class GhostModel
         {
             newPosition = GetNewPosition(newPosition, direction);
         }
-
+        
         return newPosition;
     }
 
