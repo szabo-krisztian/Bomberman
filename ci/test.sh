@@ -17,7 +17,7 @@ ${UNITY_EXECUTABLE:-xvfb-run --auto-servernum --server-args='-screen 0 640x480x2
   -nographics \
   -enableCodeCoverage \
   -coverageResultsPath $UNITY_DIR/$TEST_PLATFORM-coverage \
-  -coverageOptions "generateAdditionalMetrics;generateHtmlReport;generateHtmlReportHistory;generateBadgeReport;pathFilters:+$UNITY_DIR/Assets/Scripts/**/*Model*.cs" \
+  -coverageOptions "generateAdditionalMetrics;generateHtmlReport;generateHtmlReportHistory;generateBadgeReport;pathFilters:+$UNITY_DIR/Assets/Scripts/**/*Model*.cs,-$UNITY_DIR\Assets\Scripts\Serializables\SerializationModel.cs" \
   -debugCodeOptimization
 
 UNITY_EXIT_CODE=$?
