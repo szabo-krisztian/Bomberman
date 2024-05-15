@@ -1,10 +1,20 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    public GameEvent<string> LoadScene;
+
     [SerializeField]
     private TilemapSO _mapToLoad;
+
+    [SerializeField]
+    private PlayerSettingsSO _player1Settings;
+
+    [SerializeField]
+    private PlayerSettingsSO _player2Settings;
+
+    [SerializeField]
+    private GameObject _mapRoundSelectorPopUpWindow;
 
     public void OpenUIPanelHandler(GameObject uiPanel)
     {
@@ -19,12 +29,17 @@ public class MenuManager : MonoBehaviour
     public void EditMapButtonHitHandler(string mapName)
     {
         _mapToLoad.TilemapData = SerializationModel.LoadMap(mapName);
-        SceneManager.LoadScene("MapEditor");
+        LoadScene.Raise("MapEditor");
+    }
+
+    public void BackToMenuHandler(Void data)
+    {
+        LoadScene.Raise("MainMenu");
     }
 
     public void PlayMapButtonHitHandler(string mapName)
     {
         _mapToLoad.TilemapData = SerializationModel.LoadMap(mapName);
-        SceneManager.LoadScene("Game");
+        _mapRoundSelectorPopUpWindow.SetActive(true);
     }
 }

@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/SOInstances/MainMenuEvents.meta
+guid: 0ea37c1826763e149a977622e0086745
+========
+guid: fb27c9edc01ec5c4e9e3fc8b4a0bad66
+>>>>>>>> master:Assets/Scripts/GameScene/Bomb.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

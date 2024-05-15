@@ -1,10 +1,22 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameEvent<PlayerScore> PlayerWon;
     public GameEvent<Void> NewGameStarted;
+    public GameEvent<Void> EndOfGame;
+
+    [SerializeField]
+    private MapRoundNumberSO _mapRounds;
+
+    [SerializeField]
+    private GameObject _player1VictoryUI;
+
+    [SerializeField]
+    private GameObject _player2VictoryUI;
+
+    [SerializeField]
+    private GameObject _drawUI;
 
     private const float BOMB_LIFETIME = 4.2f;
 
@@ -14,6 +26,7 @@ public class GameManager : MonoBehaviour
     private int _player2Score = 0;
     private float _bombsLifetimeCountdown;
     private int _gameNumber = 0;
+    private bool _isGameEnded = false;
 
     private void Start()
     {
@@ -44,7 +57,7 @@ public class GameManager : MonoBehaviour
             _bombsLifetimeCountdown -= Time.deltaTime;
         }
 
-        if (_bombsLifetimeCountdown <= 0)
+        if (_bombsLifetimeCountdown <= 0 && !_isGameEnded)
         {
             CheckEndOfGame();
         }
@@ -73,34 +86,37 @@ public class GameManager : MonoBehaviour
 
     private void StartNewGame()
     {
-        if (_gameNumber == 6)
+        if (_gameNumber == _mapRounds.value)
         {
             GameFinished();
         }
+        else
+        {
+            ++_gameNumber;
+            _isPlayer1Alive = true;
+            _isPlayer2Alive = true;
 
-        ++_gameNumber;
-        _isPlayer1Alive = true;
-        _isPlayer2Alive = true;
-        
-        _bombsLifetimeCountdown = 0f;
-        NewGameStarted.Raise(new Void());
+            _bombsLifetimeCountdown = 0f;
+            NewGameStarted.Raise(new Void());
+        }
     }
 
     private void GameFinished()
     {
+        _isGameEnded = true;
+        EndOfGame.Raise(new Void());
+        
         if (_player1Score == _player2Score)
         {
-            Debug.Log("Tie");
+            _drawUI.SetActive(true);
         }
         else if (_player2Score > _player1Score)
         {
-            Debug.Log("Player two won");
+            _player2VictoryUI.SetActive(true);
         }
         else
         {
-            Debug.Log("Player one won");
+            _player1VictoryUI.SetActive(true);
         }
-
-        SceneManager.LoadScene("MapSelector");
     }
 }

@@ -5,6 +5,12 @@ using UnityEngine;
 public class ScrollViewManager : MonoBehaviour
 {
     [SerializeField]
+    private GameEvent<GameObject> ExitUIPanel;
+
+    [SerializeField]
+    private GameObject _mapCreationPanel;
+
+    [SerializeField]
     private GameObject _mapPanelPrefab;
 
     [SerializeField]
@@ -13,13 +19,9 @@ public class ScrollViewManager : MonoBehaviour
     private RectTransform _rectTransform;
     private float previousScreenHeight;
 
-    private const string DEF1_MAP_NAME = "__def1__";
-    private const string DEF2_MAP_NAME = "__def2__";
-    private const string DEF3_MAP_NAME = "__def3__";
-
     private void Start()
     {
-        SerializationModel.InitTilemapDirectory(DEF1_MAP_NAME, DEF2_MAP_NAME, DEF3_MAP_NAME);
+        SerializationModel.InitTilemapDirectory();
 
         _rectTransform = GetComponent<RectTransform>();
         previousScreenHeight = Screen.height;
@@ -33,18 +35,18 @@ public class ScrollViewManager : MonoBehaviour
     private void InitializeDefaultMapPanels()
     {
         GameObject mapPanel1 = Instantiate(_defaultMapPanelPrefab, transform);
-        mapPanel1.name = DEF1_MAP_NAME;
+        mapPanel1.name = SerializationModel.DEF1_MAP_NAME;
         mapPanel1.GetComponentInChildren<TMPro.TMP_Text>().text = "def1";
         ResizeContentRect(Screen.height / 4);
 
         
         GameObject mapPanel2 = Instantiate(_defaultMapPanelPrefab, transform);
-        mapPanel2.name = DEF2_MAP_NAME;
+        mapPanel2.name = SerializationModel.DEF2_MAP_NAME;
         mapPanel2.GetComponentInChildren<TMPro.TMP_Text>().text = "def2";
         ResizeContentRect(Screen.height / 4);
 
         GameObject mapPanel3 = Instantiate(_defaultMapPanelPrefab, transform);
-        mapPanel3.name = DEF3_MAP_NAME;
+        mapPanel3.name = SerializationModel.DEF3_MAP_NAME;
         mapPanel3.GetComponentInChildren<TMPro.TMP_Text>().text = "def3";
         ResizeContentRect(Screen.height / 4);
     }
@@ -54,7 +56,7 @@ public class ScrollViewManager : MonoBehaviour
         List<string> savedMapNames = SerializationModel.GetMapNames();
         foreach (string mapName in savedMapNames)
         {
-            bool isNotDefaultMap = mapName != DEF1_MAP_NAME && mapName != DEF2_MAP_NAME && mapName != DEF3_MAP_NAME;
+            bool isNotDefaultMap = mapName != SerializationModel.DEF1_MAP_NAME && mapName != SerializationModel.DEF2_MAP_NAME && mapName != SerializationModel.DEF3_MAP_NAME;
             if (isNotDefaultMap)
             {
                 CreateMapPanel(mapName);
@@ -69,6 +71,7 @@ public class ScrollViewManager : MonoBehaviour
         mapPanel.GetComponentInChildren<TMPro.TMP_Text>().text = mapName;
 
         ResizeContentRect(Screen.height / 4);
+        ExitUIPanel.Raise(_mapCreationPanel);
     }
 
     private void ResizeContentRect(float rectSize)

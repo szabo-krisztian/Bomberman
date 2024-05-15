@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class MapEditorManager : MonoBehaviour
 {
+    public GameEvent<string> LoadScene;
     public GameEvent<int> InvalidPlayerPosition;
 
     [SerializeField]
@@ -166,7 +166,7 @@ public class MapEditorManager : MonoBehaviour
     private Vector2 GetPlayerSize()
     {
         float playerWidth = Screen.height / 15;
-        float playerHeightWithOffset = Screen.height / 8;
+        float playerHeightWithOffset = Screen.height / 10;
         return new Vector2(playerWidth, playerHeightWithOffset);
     }
 
@@ -253,6 +253,7 @@ public class MapEditorManager : MonoBehaviour
         {
             TilemapData tilemapData = ConvertTilemapToData();
             SerializationModel.SaveMap(tilemapData);
+            LoadScene.Raise("MapSelector");
         }
     }
 
@@ -291,12 +292,12 @@ public class MapEditorManager : MonoBehaviour
     public void DeleteButtonHitHandler(Void data)
     {
         SerializationModel.DeleteMap(_loadedMap.TilemapData.MapName);
-        SceneManager.LoadScene("MapSelector");
+        LoadScene.Raise("MapSelector");
     }
 
     public void SceneExitButtonHitHandler(Void data)
     {
-        SceneManager.LoadScene("MapSelector");
+        LoadScene.Raise("MapSelector");
     }
 
     public void WallButtonHit()

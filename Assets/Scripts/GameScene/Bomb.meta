@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/SOInstances/MainMenuEvents.meta
+guid: d7e6b5f341820ef48896f8ecf6a4d0ea
+========
 guid: fb27c9edc01ec5c4e9e3fc8b4a0bad66
+>>>>>>>> master:Assets/Scripts/GameScene/Bomb.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

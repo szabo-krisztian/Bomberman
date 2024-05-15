@@ -13,7 +13,13 @@ public class WalkState : IState
 
     public override void EnterState() { }
 
-    public override void Update() { }
+    public override void Update()
+    {
+        if (controller.FacingDirection != Vector3.zero)
+        {
+            controller.SetAnim(ANIM_NAME);
+        }
+    }
 
     public override void RandomTickChangeDirection()
     {

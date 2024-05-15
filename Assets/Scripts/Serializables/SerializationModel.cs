@@ -4,16 +4,25 @@ using UnityEngine;
 
 public static class SerializationModel
 {
-    public static void InitTilemapDirectory(string map1Name, string map2Name, string map3Name)
+    public static readonly string PLAYER1_SETTINGS_FILENAME = "__player1__";
+    public static readonly string PLAYER2_SETTINGS_FILENAME = "__player2__";
+    public static readonly string PLAYER_DIRECTORY_NAME = "PlayerSettings";
+
+    public static readonly string DEF1_MAP_NAME = "__def1__";
+    public static readonly string DEF2_MAP_NAME = "__def2__";
+    public static readonly string DEF3_MAP_NAME = "__def3__";
+    public static readonly string MAP_DIRECTORY_NAME = "Tilemaps";
+
+    public static void InitTilemapDirectory()
     {
-        string directoryPath = Path.Combine(Application.persistentDataPath, "Tilemaps");
+        string directoryPath = Path.Combine(Application.persistentDataPath, MAP_DIRECTORY_NAME);
         if (!Directory.Exists(directoryPath))
         {
             Directory.CreateDirectory(directoryPath);
 
-            CopyDefaultMap(map1Name);
-            CopyDefaultMap(map2Name);
-            CopyDefaultMap(map3Name);
+            CopyDefaultMap(DEF1_MAP_NAME);
+            CopyDefaultMap(DEF2_MAP_NAME);
+            CopyDefaultMap(DEF3_MAP_NAME);
         }
     }
 
@@ -24,21 +33,21 @@ public static class SerializationModel
         SaveMap(JsonUtility.FromJson<TilemapData>(json));
     }
 
-    private static string GetFilePath(string fileName)
-    {
-        return Path.Combine(Application.persistentDataPath, "Tilemaps", fileName);
-    }
-
     public static void SaveMap(TilemapData tilemapData)
     {
-        string filePath = GetFilePath(tilemapData.MapName + ".json");
+        string filePath = GetTilemapsFilePath(tilemapData.MapName + ".json");
         string json = JsonUtility.ToJson(tilemapData);
         File.WriteAllText(filePath, json);
     }
 
+    private static string GetTilemapsFilePath(string fileName)
+    {
+        return Path.Combine(Application.persistentDataPath, "Tilemaps", fileName);
+    }
+
     public static TilemapData LoadMap(string fileName)
     {
-        string filePath = GetFilePath(fileName + ".json");
+        string filePath = GetTilemapsFilePath(fileName + ".json");
 
         if (!File.Exists(filePath))
         {
@@ -52,7 +61,7 @@ public static class SerializationModel
 
     public static void DeleteMap(string fileName)
     {
-        string filePath = GetFilePath(fileName + ".json");
+        string filePath = GetTilemapsFilePath(fileName + ".json");
         File.Delete(filePath);
     }
 
@@ -67,7 +76,53 @@ public static class SerializationModel
             string fileName = Path.GetFileNameWithoutExtension(file);
             mapNames.Add(fileName);
         }
-        
+
         return mapNames;
+    }
+
+    public static void InitPlayerSettingsDirectory()
+    {
+        string directoryPath = Path.Combine(Application.persistentDataPath, PLAYER_DIRECTORY_NAME);
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+
+            CopyDefaultPlayerSettings(PLAYER1_SETTINGS_FILENAME);
+            CopyDefaultPlayerSettings(PLAYER2_SETTINGS_FILENAME);
+        }
+    }
+
+    private static void CopyDefaultPlayerSettings(string fileName)
+    {
+        string filePath = Path.Combine(Application.streamingAssetsPath, fileName + ".json");
+        string json = File.ReadAllText(filePath);
+        SavePlayerSettings(JsonUtility.FromJson<PlayerSettingsData>(json), fileName);
+    }  
+
+    private static string GetPlayerSettingsFilePath(string player)
+    {
+        return Path.Combine(Application.persistentDataPath, "PlayerSettings", player);
+    }
+
+    public static void SavePlayerSettings(PlayerSettingsData data, string player)
+    {
+        string filePath = GetPlayerSettingsFilePath(player + ".json");
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(filePath, json);
+    }
+
+    public static PlayerSettingsData LoadPlayerSettings(int playerIndex)
+    {
+        string playerName = playerIndex == 1 ? PLAYER1_SETTINGS_FILENAME : PLAYER2_SETTINGS_FILENAME;
+        string filePath = GetPlayerSettingsFilePath(playerName + ".json");
+
+        if (!File.Exists(filePath))
+        {
+            Debug.LogWarning("File does not exist: " + filePath);
+            return null;
+        }
+
+        string json = File.ReadAllText(filePath);
+        return JsonUtility.FromJson<PlayerSettingsData>(json);
     }
 }

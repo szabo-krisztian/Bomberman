@@ -17,7 +17,7 @@ public class GridSquare : MonoBehaviour, IDropHandler
     {
         var droppedRectTrans = dropped.GetComponent<RectTransform>();
         float heightOffset = Screen.height / 15 - Screen.height / 20;
-        droppedRectTrans.offsetMin = new Vector2(0, 0);
+        droppedRectTrans.offsetMin = new Vector2(0, Screen.height / 15 / 4);
         droppedRectTrans.offsetMax = new Vector2(0, heightOffset);
     }
 
