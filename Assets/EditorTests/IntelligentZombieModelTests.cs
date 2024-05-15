@@ -36,4 +36,21 @@ public class IntelligentZombieModelTests
         Assert.IsFalse(_intelligentZombieModel.IsPlayerStandingOnPosition(new Vector3(5.44f, -3.14f, 0.0f)));
         Object.DestroyImmediate(instantiatedPrefab);
     }
+
+    [Test]
+    public void MyIntelligentZombieModel_GetRouteToPlayer_ReturnsTheCorrectPath()
+    {
+        Vector3 playerPosition = new Vector3(1.5f, 1.5f, 0f);
+        Vector3 zombiePosition = playerPosition + 2 * Vector3.right;
+
+        GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Game/Players/Player1.prefab");
+        prefab.transform.position = playerPosition;
+        GameObject instantiatedPrefab = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+       
+        List<Vector3Int> route = _intelligentZombieModel.GetRouteToPlayer(UtilityFunctions.GetTilemapPosition(zombiePosition));
+
+        Assert.AreEqual(route, new List<Vector3Int> { new Vector3Int(1,1,0), new Vector3Int(2,1,0)});
+        
+        Object.DestroyImmediate(instantiatedPrefab);
+    }
 }
