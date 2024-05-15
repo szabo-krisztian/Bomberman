@@ -3,6 +3,10 @@ using UnityEngine.EventSystems;
 
 public class GridSquare : MonoBehaviour, IDropHandler
 {
+    /// <summary>
+    /// When the player's drag UI element has been placed this method calls. It changes the size attributes of the player UI element.
+    /// </summary>
+    /// <param name="eventData">Unity's event parameter.</param>
     public void OnDrop(PointerEventData eventData)
     {
         GameObject draggedUIElement = eventData.pointerDrag;
@@ -13,6 +17,10 @@ public class GridSquare : MonoBehaviour, IDropHandler
         }
     }
 
+    /// <summary>
+    /// Helper method for changing the size of our draggable UI element.
+    /// </summary>
+    /// <param name="dropped">Unity's event parameter.</param>
     private void SetSize(GameObject dropped)
     {
         var droppedRectTrans = dropped.GetComponent<RectTransform>();
@@ -21,6 +29,10 @@ public class GridSquare : MonoBehaviour, IDropHandler
         droppedRectTrans.offsetMax = new Vector2(0, heightOffset);
     }
 
+    /// <summary>
+    /// Helper method for changing the position of our draggable UI element.
+    /// </summary>
+    /// <param name="dropped">Unity's event parameter.</param>
     private void SetPosition(GameObject dropped)
     {
         dropped.transform.SetParent(transform);

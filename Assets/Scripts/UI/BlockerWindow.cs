@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Blocker window. User cannot click on UI elements only in our pop-up window.
+/// </summary>
 public class BlockerWindow : MonoBehaviour
 {
     [SerializeField]

@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Script responsible for the slider logic when we select the number of zombies in the edit mode.
+/// </summary>
 public class ZombieSlider : MonoBehaviour
 {
     public GameEvent<ZombieType> ZombieTypeSet;
@@ -8,6 +11,9 @@ public class ZombieSlider : MonoBehaviour
     [SerializeField]
     private Slider _slider;
 
+    /// <summary>
+    /// We are raising the event with the corresponding zombie number data.
+    /// </summary>
     public void SliderChangedHandler()
     {
         int intValue = Mathf.RoundToInt(_slider.value);

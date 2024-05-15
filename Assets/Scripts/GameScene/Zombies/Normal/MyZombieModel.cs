@@ -12,12 +12,22 @@ public class MyZombieModel
         _collisionDetector = new CollisionDetectionModel();
     }
 
+    /// <summary>
+    /// Method responsible for checking if there is obstacle on the given tile.
+    /// </summary>
+    /// <param name="position">World position of the tile.</param>
+    /// <returns>boolean</returns>
     public bool IsPositionFree(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
         return !_collisionDetector.IsTagInColliders(colliders, "Wall") && !_collisionDetector.IsTagInColliders(colliders, "Box") && !_collisionDetector.IsTagInColliders(colliders, "Bomb");
     }
 
+    /// <summary>
+    /// Returns all world positions of the free neigbour tiles.
+    /// </summary>
+    /// <param name="position">World position of our zombie.</param>
+    /// <returns>List of world positions.</returns>
     public List<Vector3Int> GetFreeNeighbourPositions(Vector3Int position)
     {
         List<Vector3Int> freeNeighbours = new List<Vector3Int>();
@@ -34,6 +44,11 @@ public class MyZombieModel
         return freeNeighbours;
     }
 
+    /// <summary>
+    /// This is the same as the method above but we return directions not positions.
+    /// </summary>
+    /// <param name="position">World position of our zombie.</param>
+    /// <returns>List of world positions.</returns>
     public List<Vector3Int> GetFreeNeighbourDirections(Vector3Int position)
     {
         List<Vector3Int> freeDirections = new List<Vector3Int>();
@@ -58,6 +73,11 @@ public class MyZombieModel
         return randomDirection;
     }
 
+    /// <summary>
+    /// Helper method for checking isolated positions. It helps a lot when we place the zombies in the beginning.
+    /// </summary>
+    /// <param name="position">World position of a tile.</param>
+    /// <returns>boolean</returns>
     public bool IsIsolatedPosition(Vector3 position)
     {
         Vector3Int tilemapPosition = UtilityFunctions.GetTilemapPosition(position);

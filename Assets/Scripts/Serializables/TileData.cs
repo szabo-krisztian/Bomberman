@@ -1,5 +1,9 @@
 using UnityEngine;
 
+
+/// <summary>
+/// Serializable data for storing tiles
+/// </summary>
 [System.Serializable]
 public class TileData
 {

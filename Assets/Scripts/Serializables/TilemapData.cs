@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Serializable data for storing tilemap
+/// </summary>
 [System.Serializable]
 public class TilemapData
 {

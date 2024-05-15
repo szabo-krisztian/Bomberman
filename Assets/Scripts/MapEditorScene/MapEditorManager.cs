@@ -40,6 +40,9 @@ public class MapEditorManager : MonoBehaviour
 
     private Dictionary<string, int> _zombies;
 
+    /// <summary>
+    /// Built-in Unity method. We initiliaze our Tilemap, set the starting attributes for UI elements.
+    /// </summary>
     private void Start()
     {
         Tilemap[] tilemaps = GetComponentsInChildren<Tilemap>();
@@ -59,6 +62,10 @@ public class MapEditorManager : MonoBehaviour
         InitializeTilemap();
     }
 
+    /// <summary>
+    /// Helper method querying the bounds of our Tilemap.
+    /// </summary>
+    /// <returns></returns>
     private BoundsInt GetTilemapBounds()
     {
         BoundsInt tilemapBounds = _backgroundTilemap.cellBounds;
@@ -71,6 +78,10 @@ public class MapEditorManager : MonoBehaviour
         return tilemapBounds;
     }
 
+    /// <summary>
+    /// Helper method for setting players outside the map. Helpful when the user drags a player UI elemnt outside the map.
+    /// </summary>
+    /// <param name="playerIndex">Corresponding index of a player.</param>
     private void SetPlayerOutsideMap(int playerIndex)
     {
         if (playerIndex == 1)
@@ -83,6 +94,9 @@ public class MapEditorManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Helper method that sets the basic values of the zombie sliders.
+    /// </summary>
     private void InitZombies()
     {
         _zombies = new Dictionary<string, int>();
@@ -92,6 +106,10 @@ public class MapEditorManager : MonoBehaviour
         _zombies["VeryIntelligent"] = 0;
     }
 
+
+    /// <summary>
+    /// Helper method for populating the tilemap with the bricks and walls.
+    /// </summary>
     private void InitializeTilemap()
     {
         foreach (TileData tileData in _loadedMap.TilemapData.Tiles)
@@ -108,6 +126,9 @@ public class MapEditorManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Built-in Unity method that calls each frame. We handle the user mouse inputs. 
+    /// </summary>
     private void Update()
     {
         ClearPreviousPrefab();
@@ -134,11 +155,21 @@ public class MapEditorManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// We check if the player can place tiles at the moment. This returns false if the user clicks outside the map for example.
+    /// </summary>
+    /// <param name="position">World position of a tile that we got from the user click.</param>
+    /// <returns>boolean</returns>
     private bool IsUserAbleToPlaceTiles(Vector3Int position)
     {
         return !_isPlayerBeingPlaced && !_isMenuPanelOpen && _tilemapBounds.Contains(position) && !ArePlayersOnPosition(position) && !IsInPlayersOffset(Input.mousePosition);
     }
 
+    /// <summary>
+    /// Helper method that returns true if player stands on a given position.
+    /// </summary>
+    /// <param name="position">World position of a tile.</param>
+    /// <returns>boolean</returns>
     private bool ArePlayersOnPosition(Vector3Int position)
     {
         bool isPlayerOneOnPosition = position == _playerOnePosition;
@@ -146,6 +177,11 @@ public class MapEditorManager : MonoBehaviour
         return isPlayerOneOnPosition || isPlayerTwoOnPosition;
     }
 
+    /// <summary>
+    /// User cannot place blocks if their cursor is positioned in the offset of either players' head.
+    /// </summary>
+    /// <param name="mousePosition">Screen position of the cursor.</param>
+    /// <returns>boolean</returns>
     private bool IsInPlayersOffset(Vector2 mousePosition)
     {
         Vector2 playerTwoDownLeftCorner = Camera.main.WorldToScreenPoint(_playerTwoPosition);
@@ -155,6 +191,9 @@ public class MapEditorManager : MonoBehaviour
         return IsPositionInOffset(mousePosition, playerOneDownLeftCorner, playerSize) || IsPositionInOffset(mousePosition, playerTwoDownLeftCorner, playerSize);
     }
 
+    /// <summary>
+    /// Helper method for clearing the blank square prefab. This is just a design idea.
+    /// </summary>
     private void ClearPreviousPrefab()
     {
         if (_currentPrefab != null)
@@ -163,6 +202,10 @@ public class MapEditorManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Helper method querying the size of the player.
+    /// </summary>
+    /// <returns>Float vector</returns>
     private Vector2 GetPlayerSize()
     {
         float playerWidth = Screen.height / 15;
@@ -170,23 +213,42 @@ public class MapEditorManager : MonoBehaviour
         return new Vector2(playerWidth, playerHeightWithOffset);
     }
 
+    /// <summary>
+    /// Checks if the given position overlaps the offset of either players' head.
+    /// </summary>
+    /// <param name="position">World cursor position.</param>
+    /// <param name="downLeft">Down left coordinate of the player's UI element.</param>
+    /// <param name="size">Size of the player's UI element.</param>
+    /// <returns>boolean</returns>
     private bool IsPositionInOffset(Vector2 position, Vector2 downLeft, Vector2 size)
     {
         Vector2 upRight = downLeft + size;
         return position.x <= upRight.x && position.x >= downLeft.x && position.y >= downLeft.y && position.y <= upRight.y;
     }
 
+    /// <summary>
+    /// Get the world position of the cursor.
+    /// </summary>
+    /// <returns>World cursor position.</returns>
     private Vector3Int GetCursorInTilemapPosition()
     {
         Vector3 cursorWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return _backgroundTilemap.WorldToCell(cursorWorldPosition);
     }
 
+    /// <summary>
+    /// Event handler method that calls if either player is being placed.
+    /// </summary>
+    /// <param name="data">Event parameter.</param>
     public void PlayerBeingPlacedHandler(Void data)
     {
         _isPlayerBeingPlaced = true;
     }
 
+    /// <summary>
+    /// Event handler method that calls if either player has been placed.
+    /// </summary>
+    /// <param name="playerInfo">Custom event parameter containing the index and position of the player.</param>
     public void PlayerHasBeenPlacedHandler(PlayerInfo playerInfo)
     {
         _isPlayerBeingPlaced = false;
@@ -203,6 +265,12 @@ public class MapEditorManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns true if the user cannot place the player on a given position.
+    /// </summary>
+    /// <param name="playerIndex">Index of a player.</param>
+    /// <param name="position">World positition of the player.</param>
+    /// <returns>boolean</returns>
     private bool IsPlayerPositionBlocked(int playerIndex, Vector3Int position)
     {
         bool doPlayerPositionsMatch = (playerIndex == 1 && position == _playerTwoPosition) || (playerIndex == 2 && position == _playerOnePosition);
@@ -213,11 +281,20 @@ public class MapEditorManager : MonoBehaviour
         return !_tilemapBounds.Contains(position) || _obstacleTilemap.HasTile(position);
     }
 
+    /// <summary>
+    /// Event handler method that calls if a player's placement is invalid.
+    /// </summary>
+    /// <param name="playerIndex">Index of our player.</param>
     private void OnInvalidPlayerPosition(int playerIndex)
     {
         InvalidPlayerPosition.Raise(playerIndex);
     }
 
+    /// <summary>
+    /// Helper method for setting the players on a given position.
+    /// </summary>
+    /// <param name="playerIndex">Index of a player.</param>
+    /// <param name="position">New world position.</param>
     private void UpdatePlayerPosition(int playerIndex, Vector3Int position)
     {   
         if (playerIndex == 1)
@@ -230,23 +307,39 @@ public class MapEditorManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Event handler method that calls if the user has set the count of a zombie.
+    /// </summary>
+    /// <param name="zombieType">Custom event parameter that contains the type and count of a zombie.</param>
     public void ZombieTypeSetHandler(ZombieType zombieType)
     {
         _zombies[zombieType.Type] = zombieType.Count;
     }
 
+    /// <summary>
+    /// Helper method that opens a given uiPanel, pop-up window.
+    /// </summary>
+    /// <param name="uiPanel">UI panel, pop-up window.</param>
     public void OpenUIPanel(GameObject uiPanel)
     {
         _isMenuPanelOpen = true;
         uiPanel.SetActive(true);
     }
 
+    /// <summary>
+    /// Helper method that closes a given uiPanel, pop-up window.
+    /// </summary>
+    /// <param name="uiPanel">UI panel, pop-up window.</param>
     public void ExitUIPanel(GameObject uiPanel)
     {
         _isMenuPanelOpen = false;
         uiPanel.SetActive(false);
     }
 
+    /// <summary>
+    /// Event handler method that calls if the save button has been pressed.
+    /// </summary>
+    /// <param name="data">Event parameter.</param>
     public void SaveButtonHitHandler(Void data)
     {   
         if (ArePlayersPlaced())
@@ -257,11 +350,19 @@ public class MapEditorManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns true if both players are in the tilemap.
+    /// </summary>
+    /// <returns>boolean</returns>
     private bool ArePlayersPlaced()
     {
         return _playerOnePosition != _loadedMap.TilemapData.NULL_POSITION && _playerTwoPosition != _loadedMap.TilemapData.NULL_POSITION;
     }
 
+    /// <summary>
+    /// Helper method that prepares the saving.
+    /// </summary>
+    /// <returns>The serializable data we want to save.</returns>
     private TilemapData ConvertTilemapToData()
     {
         TilemapData tilemapData = new TilemapData();
@@ -289,23 +390,37 @@ public class MapEditorManager : MonoBehaviour
         return tilemapData;
     }
 
+    /// <summary>
+    /// Event handler method that calls if the delete button has been pressed. We delete the map and exit the scene.
+    /// </summary>
+    /// <param name="data">Event parameter.</param>
     public void DeleteButtonHitHandler(Void data)
     {
         SerializationModel.DeleteMap(_loadedMap.TilemapData.MapName);
         LoadScene.Raise("MapSelector");
     }
 
+    /// <summary>
+    /// Event handler method that calls if the user has pressed the exit button. We exit the scene and go back to the menu.
+    /// </summary>
+    /// <param name="data">Event parameter.</param>
     public void SceneExitButtonHitHandler(Void data)
     {
         LoadScene.Raise("MapSelector");
     }
 
+    /// <summary>
+    /// Event handler method that sets current block type to wall.
+    /// </summary>
     public void WallButtonHit()
     {
         _activeTile = _wallTile;
         _activePrefab = _wallPrefab;
     }
 
+    /// <summary>
+    /// Event handler method that sets current block type to brick.
+    /// </summary>
     public void BrickButtonHit()
     {
         _activeTile = _boxTile;

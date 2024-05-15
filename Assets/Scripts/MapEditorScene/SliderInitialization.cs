@@ -18,6 +18,9 @@ public class SliderInitialization : MonoBehaviour
     [SerializeField]
     private TilemapSO _loadedMap;
 
+    /// <summary>
+    /// We set the attributes of our sliders with the help of saved data.
+    /// </summary>
     private void Start()
     {
         foreach (ZombieType zombie in _loadedMap.TilemapData.Zombies)
@@ -26,6 +29,11 @@ public class SliderInitialization : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Helper method for setting up sliders.
+    /// </summary>
+    /// <param name="zombieType">Type of a zombie.</param>
+    /// <param name="count">Count of a zombie.</param>
     private void SetZombieCount(string zombieType, int count)
     {
         switch (zombieType)

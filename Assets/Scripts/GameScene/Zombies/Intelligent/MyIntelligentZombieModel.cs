@@ -13,6 +13,11 @@ public class MyIntelligentZombieModel : MyZombieModel
         _distance = new Dictionary<Vector3Int, int>();
     }
 
+    /// <summary>
+    /// We use a graph search and collision detection to determine the path to the nearest player. If we are unable to do it, we return an empty list.
+    /// </summary>
+    /// <param name="StartingPosition">World position of the intelligent zombie.</param>
+    /// <returns>The whole path containing tiles.</returns>
     public List<Vector3Int> GetRouteToPlayer(Vector3Int StartingPosition)
     {
         List<Vector3Int> route = new List<Vector3Int>();
@@ -32,6 +37,11 @@ public class MyIntelligentZombieModel : MyZombieModel
         return route;
     }
 
+    /// <summary>
+    /// We use a queue to check all the corresponding neighbours.
+    /// </summary>
+    /// <param name="StartingPosition"></param>
+    /// <returns>Player's position or null vector.</returns>
     private Vector3Int StartPathFinding(Vector3Int StartingPosition)
     {
         Queue<Vector3Int> queue = new Queue<Vector3Int>();
@@ -47,6 +57,11 @@ public class MyIntelligentZombieModel : MyZombieModel
         return playerFound;
     }
 
+    /// <summary>
+    /// We use the dictionaries the determine if we have already visited a certain position or not. Then we extend all the neighbours and analyze the tilemap.
+    /// </summary>
+    /// <param name="queue">Queue containing the neighbours.</param>
+    /// <param name="playerFound">Boolean reference so we can shut down the calculation.</param>
     private void ExtendNeighbours(Queue<Vector3Int> queue, ref Vector3Int playerFound)
     {
         Vector3Int current = queue.Dequeue();
@@ -67,6 +82,12 @@ public class MyIntelligentZombieModel : MyZombieModel
         }
     }
 
+    /// <summary>
+    /// Helper method for extending neighbours.
+    /// </summary>
+    /// <param name="neighbour">World position of the neighbour tile.</param>
+    /// <param name="current">World position of the current tile.</param>
+    /// <param name="queue">Queue containing neighbours.</param>
     private void ExtendNeighbour(Vector3Int neighbour, Vector3Int current, Queue<Vector3Int> queue)
     {
         _distance[neighbour] = _distance[current] + 1;
@@ -74,12 +95,22 @@ public class MyIntelligentZombieModel : MyZombieModel
         queue.Enqueue(neighbour);
     }
 
+    /// <summary>
+    /// Helper method that determines if we have found the player or not.
+    /// </summary>
+    /// <param name="position">World position of a tile.</param>
+    /// <returns>boolean</returns>
     private bool IsPlayerStandingOnPosition(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
         return _collisionDetector.IsTagInColliders(colliders, "Player");
     }
 
+    /// <summary>
+    /// Helper method for initializing the dictionaries.
+    /// </summary>
+    /// <param name="StartingPosition">World position of our zombie.</param>
+    /// <param name="queue">Queue for the neighbours.</param>
     private void InitStartingValues(Vector3Int StartingPosition, Queue<Vector3Int> queue)
     {
         List<Vector3Int> allTilePositions = UtilityFunctions.GetAllTilePositionsInTilemap();

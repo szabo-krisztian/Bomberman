@@ -28,6 +28,9 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
 
     private const int MAP_SIZE = 15;
 
+    /// <summary>
+    /// Built-in Unity method. We create a UI gridmap replica from a saved map.
+    /// </summary>
     private void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
@@ -45,6 +48,9 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
         _gridLayoutGroup.cellSize = new Vector2(squareSize, squareSize);
     }
 
+    /// <summary>
+    /// Each grid in the gridmap UI will represent a tile in our saved map.
+    /// </summary>
     private void PopulateGridSquares()
     {
         for (int i = 0; i < MAP_SIZE; i++)
@@ -68,6 +74,9 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// We clean the gridman UI element.
+    /// </summary>
     private void CleanMap()
     {
         for (int i = 0; i < MAP_SIZE; i++)
@@ -86,6 +95,10 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Coroutine that is responsible for the responsivity of the UI.
+    /// </summary>
+    /// <returns>Coroutine specific type.</returns>
     private IEnumerator ResizeAutomaticallyIfScreenSizeChanged()
     {
         float currentRectSize;
@@ -104,6 +117,12 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Helper method that sets the sprite of one grid in the UI element.
+    /// </summary>
+    /// <param name="row">Row index.</param>
+    /// <param name="column">Column index.</param>
+    /// <param name="tileType">Type of a tile.</param>
     public void RePrintCell(int row, int column, string tileType)
     {
         int index = row * MAP_SIZE + column;
@@ -126,6 +145,10 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Event handler that calls if the user has pressed the '?' button. We paint the tilemap.
+    /// </summary>
+    /// <param name="mapName">Name of the saved map.</param>
     public void MapToInsightHandler(string mapName)
     {
         if (showcaseCoroutine != null)
@@ -136,6 +159,11 @@ public class ResponsiveSmallMapPanel : MonoBehaviour
         showcaseCoroutine = StartCoroutine(ShowcaseMap(mapName));
     }
 
+    /// <summary>
+    /// Coroutine that is responsible for creating the 'random mess' effect during the map painting.
+    /// </summary>
+    /// <param name="mapName">Name of the saved map.</param>
+    /// <returns>Coroutine specific type.</returns>
     public IEnumerator ShowcaseMap(string mapName)
     {
         CleanMap();

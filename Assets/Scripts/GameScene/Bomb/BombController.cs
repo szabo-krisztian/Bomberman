@@ -20,6 +20,9 @@ public class BombController : MonoBehaviour
     private float _detonationTime = 3f;
     private CollisionDetectionModel _collisionDetector;
 
+    /// <summary>
+    /// When a bomb GameObject is instantiated it immediately starts counting down and then explodes.
+    /// </summary>
     private void Start()
     {
         BombPlaced.Raise(new Void());
@@ -27,6 +30,11 @@ public class BombController : MonoBehaviour
         StartCoroutine(IgniteBomb(_detonationTime));
     }
 
+    /// <summary>
+    /// Coroutine that explodes the bomb after the given delay.
+    /// </summary>
+    /// <param name="detonationTime">Delay in seconds.</param>
+    /// <returns>Coroutine specific type.</returns>
     private IEnumerator IgniteBomb(float detonationTime)
     {
         yield return new WaitForSeconds(detonationTime);
@@ -35,6 +43,9 @@ public class BombController : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// The bombs summons explosion GameObjects to all directions recursively.
+    /// </summary>
     private void StartExplosions()
     {
         Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
@@ -45,6 +56,9 @@ public class BombController : MonoBehaviour
         SummonParticles();
     }
 
+    /// <summary>
+    /// It is just a design factor.
+    /// </summary>
     private void SummonParticles()
     {
         GameObject particles = Instantiate(_bombParticlePrefab, transform.position, Quaternion.identity);
@@ -56,6 +70,12 @@ public class BombController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Recursive method that implements the logic of explosions.
+    /// </summary>
+    /// <param name="position">World position of the current explosion.</param>
+    /// <param name="direction">Facing direction of the bomb's branch.</param>
+    /// <param name="length">Current length of the branch.</param>
     private void ExplodeInStraightLine(Vector2 position, Vector2 direction, int length)
     {
         if (length == 0)
@@ -73,16 +93,28 @@ public class BombController : MonoBehaviour
         ExplodeInStraightLine(position + direction, direction, length - 1);
     }
 
+    /// <summary>
+    /// Returns true if there is an object in the colliders array that is considered obstacle for the bomb.
+    /// </summary>
+    /// <param name="colliders">Collider component of the objects on a certain world position.</param>
+    /// <returns>boolean</returns>
     private bool CheckColliders(Collider2D[] colliders)
     {
         return _collisionDetector.IsTagInColliders(colliders, "Box") || _collisionDetector.IsTagInColliders(colliders, "Wall");
     }
 
+    /// <summary>
+    /// Destroy the bomb after explosion.
+    /// </summary>
     public void Die()
     {
         StartCoroutine(IgniteBomb(.01f));
     }
 
+    /// <summary>
+    /// Built-in Unity method that is called when a GameObject leaves the collider of the bomb.
+    /// </summary>
+    /// <param name="other">Collider component of the GameObject that left our collider.</param>
     private void OnTriggerExit2D(Collider2D other)
     {
         bool isPlayerExitedBomb = other.CompareTag("Player");
