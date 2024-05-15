@@ -100,7 +100,7 @@ public class MyIntelligentZombieModel : MyZombieModel
     /// </summary>
     /// <param name="position">World position of a tile.</param>
     /// <returns>boolean</returns>
-    private bool IsPlayerStandingOnPosition(Vector3 position)
+    public bool IsPlayerStandingOnPosition(Vector3 position)
     {
         Collider2D[] colliders = _collisionDetector.GetCollidersInPosition(position);
         return _collisionDetector.IsTagInColliders(colliders, "Player");
