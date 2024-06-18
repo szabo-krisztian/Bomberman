@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a68d8ffef9bc7f45b6d14248b37f132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asd: {fileID: 11400000, guid: ac86fc54d42b3954fb7fc7e0e3eff905, type: 2}
   PlayerDied: {fileID: 11400000, guid: 0b2311da7fcc99a45b1a437a2963b6c3, type: 2}
   PlusBombPickedUp: {fileID: 11400000, guid: f28a525af588698478567a46a584934f, type: 2}
   BigBombPickedUp: {fileID: 11400000, guid: 4b6b45c317abf1648b59bfb7dbef43ed, type: 2}

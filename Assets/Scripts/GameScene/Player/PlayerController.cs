@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameEvent<Void> asd;
     public GameEvent<int> PlayerDied;
     public GameEvent<PlayerScore> PlusBombPickedUp;
     public GameEvent<PlayerScore> BigBombPickedUp;
