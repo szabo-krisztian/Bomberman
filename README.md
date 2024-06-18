@@ -73,3 +73,12 @@ There are 4 types of monsters acting as obstacle factors, each represented as di
 2. **Wall Phasing:** Can pass through walls.
 3. **Shortest Path Finder (Collision):** Uses a graph-search algorithm to find the shortest path to a player when colliding with a wall.
 4. **Advanced Path Finder:** Uses a graph-search algorithm to find the shortest path to a player when colliding with a wall and randomly changes directions.
+
+## Assets
+We do not own the sprites used in this game. They were sourced from royalty-free websites.
+
+
+## GitLab
+This repository was fully version controlled in a GitLab group repository, and I have moved it to my GitHub account. You can find the link to our GitLab repository below. Please note that it is currently private because of the university, but this may change in the future:
+
+[GitLab Repository](https://szofttech.inf.elte.hu/szofttech-ab-2024/group-10/oriaspalacsinta?fbclid=IwZXh0bgNhZW0CMTAAAR0uwc72hO7rxuHkfBbgGTa80Ko5xyKTNl1htSOyQI3xyk7cSd9i3trgfgo_aem_OvYaxoXma3ZL6ZtejedDzg)
