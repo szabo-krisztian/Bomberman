@@ -18,6 +18,10 @@ This project is a modern take on the classic Bomberman game, developed using Uni
 
 ## Images
 
+<div align="center">
+  <img src="https://github.com/szabo-krisztian/Bomberman/raw/master/images/bomberman.gif" alt="Bomberman">
+</div>
+
 ![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/menu.png?raw=true)
 
 
