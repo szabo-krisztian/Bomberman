@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="https://github.com/szabo-krisztian/Bomberman/raw/master/images/bomberman.gif" alt="Bomberman">
+</div>
+
 # Bomberman
 
 ## About the Project
@@ -18,32 +22,13 @@ This project is a modern take on the classic Bomberman game, developed using Uni
 
 ## Images
 
-<div align="center">
-  <img src="https://github.com/szabo-krisztian/Bomberman/raw/master/images/bomberman.gif" alt="Bomberman">
-</div>
-
-![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/menu.png?raw=true)
-
-
 ![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/settings.png?raw=true)
 
 
 ![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/maps.png?raw=true)
 
 
-![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/map-creation.png?raw=true)
-
-
 ![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/map-editor.png?raw=true)
-
-
-![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/start-game.png?raw=true)
-
-
-![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/map-loader.png?raw=true)
-
-
-![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/gameplay1.png?raw=true)
 
 
 ![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/gameplay3.png?raw=true)
@@ -52,13 +37,7 @@ This project is a modern take on the classic Bomberman game, developed using Uni
 ![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/gameplay4.png?raw=true)
 
 
-![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/gameplay5.png?raw=true)
-
-
 ![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/gameplay6.png?raw=true)
-
-
-![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/gameplay7.png?raw=true)
 
 
 ![image](https://github.com/szabo-krisztian/Bomberman/blob/master/images/gameplay8.png?raw=true)
